@@ -1,27 +1,24 @@
 package Genome;
 
 import java.util.ArrayList;
-import globalGenomes.*;
 
-public class Genome {
+import Evolution.Constants;
+
+public class NN {
 
     public ArrayList<synapse> synapses;
     public ArrayList<node> nodes;
-    public final globalInnovations globalInnovations;
-    public final globalNodes globalNodes;
 
-    public Genome(globalInnovations globalInnovations, globalNodes globalNodes){
-        this.globalInnovations = globalInnovations;
-        this.globalNodes = globalNodes;
+    public NN(){
         this.synapses = new ArrayList<synapse>();
         this.nodes = new ArrayList<node>();
-        for(int i = 0; i < Evolution.Evolution.inputNum+ Evolution.Evolution.outputNum; i++)nodes.add(globalNodes.get(i));
+        for(int i = 0; i < Constants.inputNum+ Constants.outputNum; i++)nodes.add(Constants.globalNodes.get(i));
     }
 
-    public double compare(Genome other){
+    public double compare(NN other){
         if(this.synapses.isEmpty()&&other.synapses.isEmpty())return 0;
-        Genome maxInnoNet = this;
-        Genome minInnoNet = other;
+        NN maxInnoNet = this;
+        NN minInnoNet = other;
         int maxInnoNum = maxInnoNet.synapses.isEmpty() ? 0 : maxInnoNet.synapses.get(maxInnoNet.synapses.size()-1).innovationID;
         int minInnoNum = minInnoNet.synapses.isEmpty() ? 0 : minInnoNet.synapses.get(minInnoNet.synapses.size()-1).innovationID;
         if(maxInnoNum<minInnoNum){
@@ -66,16 +63,16 @@ public class Genome {
         double N = Math.max(maxInnoNet.synapses.size(),minInnoNet.synapses.size());
         if(N < 20) N = 1;
 
-        return Evolution.Evolution.weightedDisjoints * disjoint / N + Evolution.Evolution.weightedExcess * excess / N + Evolution.Evolution.weightedWeights * weight_diff;
+        return Constants.weightedDisjoints * disjoint / N + Constants.weightedExcess * excess / N + Constants.weightedWeights * weight_diff;
     }
 
-    public static Genome crossover(Genome first,Genome second,double firstScore,double secondScore){
-        Genome genome = new Genome(first.globalInnovations,first.globalNodes);
+    public static NN crossover(NN first, NN second, double firstScore, double secondScore){
+        NN NN = new NN();
 
         int index1 = 0,index2 = 0;
         boolean equalScore = firstScore==secondScore;
         if(firstScore<secondScore){
-            Genome temp = first;
+            NN temp = first;
             first = second;
             second = temp;
         }
@@ -90,45 +87,45 @@ public class Genome {
 
             if(firstInnovationID == secondInnovationID){
                 if(Math.random() > 0.5){
-                    genome.synapses.add(gene1.clone());
+                    NN.synapses.add(gene1.clone());
                 }else{
-                    genome.synapses.add(gene2.clone());
+                    NN.synapses.add(gene2.clone());
                 }
                 index1++;
                 index2++;
             }else if(firstInnovationID > secondInnovationID){
-                if(equalScore)genome.synapses.add(gene2.clone());
+                if(equalScore) NN.synapses.add(gene2.clone());
                 //disjoint gene of b
                 index2++;
             }else{
                 //disjoint gene of a
-                genome.synapses.add(gene1.clone());
+                NN.synapses.add(gene1.clone());
                 index1++;
             }
         }
 
         while(index1 < first.synapses.size()){
             synapse gene1 = first.synapses.get(index1);
-            genome.addSynapse(gene1.clone());
+            NN.addSynapse(gene1.clone());
             index1++;
         }
         if(equalScore){
             while(index2 < second.synapses.size()){
                 synapse gene2 = second.synapses.get(index2);
-                genome.addSynapse(gene2.clone());
+                NN.addSynapse(gene2.clone());
                 index2++;
             }
         }
 
-        for(synapse s : genome.synapses){
-            s.from = genome.addNode(s.from.clone());
-            s.to = genome.addNode(s.to.clone());
+        for(synapse s : NN.synapses){
+            s.from = NN.addNode(s.from.clone());
+            s.to = NN.addNode(s.to.clone());
         }
 
 //        if(genome.nodes.size() < first.inputNum+first.outputNum){
 //            System.out.println(first.nodes+"\n"+first.synapses+"\n\n"+second.nodes+"\n"+second.synapses);
 //        }
-        return genome;
+        return NN;
     }
 
     public void addSynapse(synapse s){
@@ -172,11 +169,11 @@ public class Genome {
     }
 
     public void mutate(){
-        if(Math.random() < Evolution.Evolution.mutationSynapseProbability) mutateSynapse();
-        if(Math.random() < Evolution.Evolution.mutationNodeProbability) mutateNode();
-        if(Math.random() < Evolution.Evolution.mutationWeightShiftProbability) shiftWeights(Evolution.Evolution.mutationWeightShiftStrength);
-        if(Math.random() < Evolution.Evolution.mutationWeightRandomProbability) randomWeights(Evolution.Evolution.mutationWeightRandomStrength);
-        if(Math.random() < Evolution.Evolution.mutationBiasShiftProbability) shiftBias(Evolution.Evolution.mutationBiasShiftStrength);
+        if(Math.random() < Constants.mutationSynapseProbability) mutateSynapse();
+        if(Math.random() < Constants.mutationNodeProbability) mutateNode();
+        if(Math.random() < Constants.mutationWeightShiftProbability) shiftWeights(Constants.mutationWeightShiftStrength);
+        if(Math.random() < Constants.mutationWeightRandomProbability) randomWeights(Constants.mutationWeightRandomStrength);
+        if(Math.random() < Constants.mutationBiasShiftProbability) shiftBias(Constants.mutationBiasShiftStrength);
     }
 
     public void shiftWeights(double mutationStrength){
@@ -209,8 +206,8 @@ public class Genome {
                 //failed to add
                 continue;
             }
-            int innovationID = globalInnovations.get(from,to);
-            synapse newSynapse = new synapse(from, to,(Math.random()*2-1)* Evolution.Evolution.mutationWeightRandomStrength,true,innovationID);
+            int innovationID = Constants.globalInnovations.get(from,to);
+            synapse newSynapse = new synapse(from, to,(Math.random()*2-1)* Constants.mutationWeightRandomStrength,true,innovationID);
             addSynapse(newSynapse);
             return;
         }
@@ -222,10 +219,10 @@ public class Genome {
             synapse s = synapses.get((int)(Math.random()*synapses.size()));
             if(!s.enabled)continue;
             s.enabled=false;
-            node newNode = globalInnovations.getSplitNode(s);
+            node newNode = Constants.globalInnovations.getSplitNode(s);
             addNode(newNode);
-            addSynapse(new synapse(newNode,s.to,s.weight,true,globalInnovations.get(newNode,s.to)));
-            addSynapse(new synapse(s.from, newNode,globalInnovations.get(s.from,newNode)));
+            addSynapse(new synapse(newNode,s.to,s.weight,true,Constants.globalInnovations.get(newNode,s.to)));
+            addSynapse(new synapse(s.from, newNode,Constants.globalInnovations.get(s.from,newNode)));
             return;
         }
     }

@@ -1,7 +1,7 @@
 package Render;
 
 import Evolution.*;
-import Genome.Genome;
+import Genome.NN;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,19 +12,19 @@ import java.util.Arrays;
 public class Frame extends JFrame {
 
     private Panel panel;
-    private Genome genome;
-    private NN nn;
+    private NN NN;
+    private Agent agent;
 
-    public Frame(NN nn) {
+    public Frame(Agent agent) {
         this();
-        this.nn=nn;
-        setGenome(nn.genome);
+        this.agent = agent;
+        setGenome(agent.NN);
         this.repaint();
     }
 
-    public void setGenome(Genome genome){
-        panel.setGenome(genome);
-        this.genome = genome;
+    public void setGenome(NN NN){
+        panel.setGenome(NN);
+        this.NN = NN;
     }
 
     public Frame() throws HeadlessException {
@@ -59,7 +59,7 @@ public class Frame extends JFrame {
         buttonB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                genome.randomWeights(Evolution.mutationWeightRandomStrength);
+                NN.randomWeights(Constants.mutationWeightRandomStrength);
                 repaint();
             }
         });
@@ -69,7 +69,7 @@ public class Frame extends JFrame {
         buttonZ.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                genome.shiftWeights(Evolution.mutationWeightShiftStrength);
+                NN.shiftWeights(Constants.mutationWeightShiftStrength);
                 repaint();
             }
         });
@@ -79,7 +79,7 @@ public class Frame extends JFrame {
         buttonC.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                genome.mutateSynapse();
+                NN.mutateSynapse();
                 repaint();
             }
         });
@@ -89,7 +89,7 @@ public class Frame extends JFrame {
         buttonD.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                genome.mutateNode();
+                NN.mutateNode();
                 repaint();
             }
         });
@@ -111,7 +111,7 @@ public class Frame extends JFrame {
         buttonF.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                genome.mutate();
+                NN.mutate();
                 repaint();
             }
         });
@@ -121,12 +121,12 @@ public class Frame extends JFrame {
         buttonG.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double[] input = new double[Evolution.inputNum];
+                double[] input = new double[Constants.inputNum];
                 for(int i=0;i<input.length;i++)input[i]=Math.random() * 20 - 10;
                 System.out.print("Input: ");
                 for(Double d : input)System.out.print(d+" ");
                 System.out.println();
-                System.out.println("Output: "+Arrays.toString(nn.calculateWeightedOutput(input)));
+                System.out.println("Output: "+Arrays.toString(agent.calculateWeightedOutput(input)));
                 repaint();
             }
         });

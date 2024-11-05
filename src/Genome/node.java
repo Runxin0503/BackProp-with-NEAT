@@ -49,6 +49,11 @@ public class node {
     }
 
     @Override
+    public int hashCode(){
+        return innovationID;
+    }
+
+    @Override
     public String toString(){
         return "(" + (isOutput() ? "^" : (isInput() ? "v" : bias)) + ")";
     }

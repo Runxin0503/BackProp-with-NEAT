@@ -43,6 +43,11 @@ public class synapse{
         return new synapse(from,to,weight,enabled,innovationID);
     }
 
+    @Override
+    public int hashCode(){
+        return innovationID;
+    }
+
     public String toString(){//(int)(weight*100)*1.0/100
         return (int)(weight*100)*1.0/100 + ":" + (enabled ? "("+from.innovationID+" -> "+to.innovationID+")" : "()");
     }

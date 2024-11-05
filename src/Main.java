@@ -2,11 +2,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class main {
+public class Main {
     public static void main(String[] args) throws Exception {
         double[][] holy = new double[70000][784];
         int[] moly = new int[70000];
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("C:\\Users\\User\\OneDrive\\Desktop\\Python Files\\In progress\\neural network fun\\backprop Neural Network\\lib\\MNIST DATA.csv"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("C:\\Users\\User\\OneDrive\\Desktop\\Java Stuff\\neural network fun\\Backprop Neural Network SGD\\lib\\MNIST DATA.csv"))) {
             String line;
             int count=0;
             while ((line = bufferedReader.readLine()) != null) {

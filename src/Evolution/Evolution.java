@@ -1,65 +1,22 @@
 package Evolution;
 
-import Genome.Genome;
-import globalGenomes.globalInnovations;
-import globalGenomes.globalNodes;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Evolution {
-    private final globalInnovations globalInnovations;
-    private final globalNodes globalNodes;
-    private final ArrayList<Species> Speciation;
-    public final ArrayList<NN> NeuralNets;
+    private final ArrayList<Species> Speciation = new ArrayList<>();
+    public final ArrayList<Agent> NeuralNets = new ArrayList<>();
     private final int numSimulated;
-    private final double perctCull;
-    public static int inputNum,outputNum,maxStagDropoff;
-    public static String hiddenAF,outputAF;
-    public static double compatibilityThreshold,weightedExcess,weightedDisjoints,weightedWeights;
-    public static double mutationSynapseProbability,mutationNodeProbability,mutationWeightShiftProbability,mutationWeightRandomProbability,mutationBiasShiftProbability,mutationWeightShiftStrength,mutationWeightRandomStrength,mutationBiasShiftStrength;
     private Random rand;
 
-    public static void main(String args[]){
-        Evolution evo = new Evolution(1000);
-    }
     public Evolution(int numSimulated){
-        //config
-        inputNum=4;
-        outputNum=1;
-
-        hiddenAF="sigmoid";
-        outputAF="none";
-
-        weightedExcess = 1;
-        weightedDisjoints = 1;
-        weightedWeights = 1;
-        compatibilityThreshold = 4;
-        maxStagDropoff = 20;
-
-        mutationSynapseProbability=0.01;//*3
-        mutationNodeProbability=0.1;//*2
-
-        mutationWeightShiftProbability=0.02;//*3
-        mutationWeightRandomProbability=0.02;//*3
-        mutationBiasShiftProbability=0.02;//*3
-
-        mutationWeightShiftStrength=1;//2
-        mutationWeightRandomStrength=2;
-        mutationBiasShiftStrength=0.3;
-
-        this.perctCull = 0.2;
-        this.NeuralNets = new ArrayList<NN>();
-        this.Speciation = new ArrayList<Species>();
         this.numSimulated = numSimulated;
-        this.globalNodes = new globalNodes(inputNum,outputNum);
-        this.globalInnovations = new globalInnovations(globalNodes);
 
-        NN first = new NN(new Genome(globalInnovations,globalNodes));
+        Agent first = new Agent();
         NeuralNets.add(first);
         Speciation.add(new Species(first));
         for(int i=1;i<numSimulated;i++){
-            NN temp = new NN(new Genome(globalInnovations,globalNodes));
+            Agent temp = new Agent();
             Speciation.get(0).add(temp);
             NeuralNets.add(temp);
         }
@@ -72,21 +29,21 @@ public class Evolution {
             s.reset();
         }
 
-        for(NN nn : NeuralNets){
+        for(Agent agent : NeuralNets){
             boolean found = false;
             for(Species s : Speciation){
-                if(s.add(nn)){
+                if(s.add(agent)){
                     found=true;
                     break;
                 }
             }
-            if(!found)Speciation.add(new Species(nn));
+            if(!found)Speciation.add(new Species(agent));
         }
 
         //update stagnant count, then cull
         for(Species s : Speciation){
             s.updateStag();
-            s.cull(perctCull);
+            s.cull(Constants.perctCull);
         }
 
         //remove extinct
@@ -103,20 +60,20 @@ public class Evolution {
         //repopulate Genomes & reproduce
         double populationScore = 0;
         for(Species s : Speciation)populationScore += s.speciesScore;
-        for(NN nn : NeuralNets){
-            if(nn.genome==null){
-                pickSpecies(populationScore).populateGenome(nn);
+        for(Agent agent : NeuralNets){
+            if(agent.NN ==null){
+                pickSpecies(populationScore).populateGenome(agent);
             }
         }
 
         //mutate
-        for(NN nn : NeuralNets){
-            nn.genome.mutate();
+        for(Agent agent : NeuralNets){
+            agent.NN.mutate();
         }
 
         //reset
-        for(NN nn:NeuralNets){
-            nn.reset();
+        for(Agent agent :NeuralNets){
+            agent.reset();
         }
         System.out.println("Species ("+Speciation.size()+")");
     }

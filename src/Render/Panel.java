@@ -7,13 +7,13 @@ import java.awt.*;
 
 public class Panel extends JPanel {
 
-    private Genome genome;
+    private NN NN;
 
     public Panel() {
     }
 
-    public void setGenome(Genome genome) {
-        this.genome = genome;
+    public void setGenome(NN NN) {
+        this.NN = NN;
     }
 
     @Override
@@ -22,15 +22,15 @@ public class Panel extends JPanel {
         g.setColor(Color.black);
         g.fillRect(0,0,10000,10000);
         double maxBias=1,maxWeight=1;
-        for(node n : genome.nodes)if(n.bias>maxBias)maxBias=n.bias;
-        for(synapse s : genome.synapses)if(s.weight>maxWeight)maxWeight=s.weight;
+        for(node n : NN.nodes)if(n.bias>maxBias)maxBias=n.bias;
+        for(synapse s : NN.synapses)if(s.weight>maxWeight)maxWeight=s.weight;
 
-        for(synapse s:genome.synapses){
+        for(synapse s: NN.synapses){
             paintConnection(s, (Graphics2D) g,maxWeight);
         }
 
 
-        for(node n:genome.nodes) {
+        for(node n: NN.nodes) {
             paintNode(n, (Graphics2D) g,maxBias);
         }
 
