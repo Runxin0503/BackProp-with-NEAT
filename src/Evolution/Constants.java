@@ -1,6 +1,7 @@
 package Evolution;
 
-import Genome.ActivationFunction;
+import Genome.hidden;
+import Genome.output;
 import globalGenomes.globalInnovations;
 import globalGenomes.globalNodes;
 
@@ -10,8 +11,8 @@ public class Constants {
     public static final globalNodes globalNodes= new globalNodes(inputNum, outputNum);
     public static final globalInnovations globalInnovations = new globalInnovations(globalNodes);
 
-    public static final ActivationFunction.hidden hiddenAF = ActivationFunction.hidden.sigmoid;
-    public static final ActivationFunction.output outputAF = ActivationFunction.output.none;
+    public static final hidden hiddenAF = hidden.sigmoid;
+    public static final output outputAF = output.none;
 
     public static final boolean batchNormalizeLayer = false;
 

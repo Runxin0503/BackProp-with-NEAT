@@ -2,13 +2,13 @@ package Genome;
 
 public class node {
     public double bias;
-    public String type;
+    public nodeType type;
     public double latestInputSum;
     public double latestOutput;
     public int innovationID;
     public double x,y;
 
-    public node(String type, int innovationID,double x,double y){
+    public node(nodeType type, int innovationID,double x,double y){
         this.bias=0;
         this.type = type;
         this.innovationID = innovationID;
@@ -16,7 +16,7 @@ public class node {
         this.y=y;
     }
 
-    private node(double bias,String type,int innovationID,double x,double y){
+    private node(double bias,nodeType type,int innovationID,double x,double y){
         this.bias = bias;
         this.type = type;
         this.innovationID = innovationID;
@@ -31,15 +31,15 @@ public class node {
     }
 
     public boolean isOutput(){
-        return this.type.equals("output");
+        return this.type.equals(nodeType.output);
     }
 
     public boolean isInput(){
-        return this.type.equals("input");
+        return this.type.equals(nodeType.input);
     }
 
     public boolean isHidden(){
-        return this.type.equals("hidden");
+        return this.type.equals(nodeType.hidden);
     }
 
 

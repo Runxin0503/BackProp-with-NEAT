@@ -5,20 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Evolution/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Genome/ActivationFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Evolution/Genome/Gene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Evolution/Genome/Innovation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Evolution/Genome/edge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Evolution/Genome/node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Evolution/NN.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Genome/hidden.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Genome/nodeType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Genome/output.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Evolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Species.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Species.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Genome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/NN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/ActivationFunction.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/synapse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/synapse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Render/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Render/Frame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Render/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Render/Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/globalGenomes/globalNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/globalGenomes/globalNodes.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +27,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -52,7 +52,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2lwdaLtaHxvKAJX65XfbsgxwS9i" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -64,6 +66,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/OneDrive/Desktop/Java Stuff/COLLEGE 2112 HONORS/Discussion 10&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -91,7 +94,18 @@
       <updated>1726095135547</updated>
       <workItem from="1726095136603" duration="1255000" />
       <workItem from="1726104952865" duration="1573000" />
-      <workItem from="1730840205612" duration="6720000" />
+      <workItem from="1730840205612" duration="7372000" />
+      <workItem from="1731295957976" duration="3838000" />
+      <workItem from="1731332309349" duration="5476000" />
+      <workItem from="1731361996318" duration="16902000" />
+      <workItem from="1731424272764" duration="3000" />
+      <workItem from="1731426240214" duration="982000" />
+      <workItem from="1731430566174" duration="1077000" />
+      <workItem from="1731433806825" duration="5420000" />
+      <workItem from="1731444875732" duration="15000" />
+      <workItem from="1731444912169" duration="4154000" />
+      <workItem from="1731462612616" duration="264000" />
+      <workItem from="1731462902075" duration="4646000" />
     </task>
     <servers />
   </component>
