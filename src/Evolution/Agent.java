@@ -9,8 +9,6 @@ public class Agent {
     public Agent(){
         this.score=-1;
         this.NN = Innovation.getDefaultNode();
-
-        //initializes the nodes array with a set of input and a set of output
     }
 
     /** Resets the score of this Agent */
