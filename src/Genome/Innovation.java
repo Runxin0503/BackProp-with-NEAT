@@ -1,4 +1,4 @@
-package Evolution.Genome;
+package Genome;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -101,6 +101,11 @@ public class Innovation {
             }
         }
         throw new RuntimeException("no nodes found");
+    }
+
+    public static NN getDefaultNode() {
+        //TODO write Default Node
+        return null;
     }
 
     /** A Memory efficient object wrapper for two ints */

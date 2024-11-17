@@ -1,4 +1,4 @@
-package Evolution.Genome;
+package Genome;
 
 public abstract class Gene {
 

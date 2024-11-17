@@ -1,7 +1,6 @@
-package Evolution.Genome;
+package Genome;
 
 import Evolution.Constants;
-import Evolution.NN;
 
 import java.util.List;
 

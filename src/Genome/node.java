@@ -1,4 +1,4 @@
-package Evolution.Genome;
+package Genome;
 
 import Evolution.Constants;
 import Genome.hidden;

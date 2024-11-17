@@ -1,9 +1,7 @@
-package Evolution;
+package Genome;
 
-import Evolution.Genome.Innovation;
-import Evolution.Genome.node;
-import Evolution.Genome.edge;
-import Genome.nodeType;
+
+import Evolution.Constants;
 
 import java.util.*;
 
