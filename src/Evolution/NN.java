@@ -12,17 +12,17 @@ public class NN {
 
     /**
      * Stores a list of edges.
-     * Cannot ever decrease in size or have any genome removed
-     * Class Invariant: Sorted in InnovationID order
+     * <br>Cannot ever decrease in size or have any genome removed
+     * <br>Class Invariant: Sorted in InnovationID order
      */
-    private ArrayList<edge> genome;
+    private final ArrayList<edge> genome;
 
     /**
      * Stores a list of nodes.
-     * Cannot ever decrease in size or have any nodes removed.
-     * Class Invariant: Sorted in Topological order
+     * <br>Cannot ever decrease in size or have any nodes removed.
+     * <br>Class Invariant: Sorted in Topological order
      */
-    private ArrayList<node> nodes;
+    private final ArrayList<node> nodes;
 
     public NN(ArrayList<node> nodes,ArrayList<edge> genome) {
         this.genome = genome;
@@ -190,7 +190,7 @@ public class NN {
     /** Chooses a random synapse (if there is one) to shift its weight by a random amount */
     public void shiftWeights(){
         if(genome.isEmpty())return;
-        for(int i=0;i<100;i++){
+        for(int count = 0; count <100; count++){
             edge e = genome.get((int)(Math.random()*genome.size()));
 
             if(e.shiftWeights()) return;
@@ -200,7 +200,7 @@ public class NN {
     /** Chooses a random synapse (if there is one) to randomly set its weight */
     public void randomWeights(){
         if(genome.isEmpty())return;
-        for(int i=0;i<100;i++){
+        for(int count = 0; count <100; count++){
             edge e = genome.get((int)(Math.random()*genome.size()));
 
             if(e.randomWeights()) return;
@@ -209,7 +209,7 @@ public class NN {
 
     /** Chooses a random node to shift its bias by a random amount */
     public void shiftBias(){
-        for(int i=0;i<100;i++){
+        for(int count = 0; count <100; count++){
             node n = nodes.get((int)(Math.random()*nodes.size()));
             if(n.getType().equals(nodeType.output)) continue;
 
@@ -219,7 +219,7 @@ public class NN {
 
     /** Chooses two random nodes that aren't directly connected and create a synapse between them */
     public void mutateSynapse(){
-        for(int i=0;i<100;i++){
+        for(int count = 0; count <100; count++){
             int i1 = (int)(Math.random()*nodes.size()), i2 = (int)(Math.random()*nodes.size());
 
             if(i1==i2 || (i1 > i2 && isLooping(i1,i2)) || i2 < Constants.inputNum || i1 >= nodes.size()-Constants.outputNum) continue;
@@ -232,9 +232,23 @@ public class NN {
             n1.addOutgoingEdgeIndex(edgeIndex);
             n2.addIncomingEdgeIndex(edgeIndex);
 
-            //TODO topologically sort graph again
             // if i1 > i2, move and insert i1 at i2's position and push i2 back
             // if i1 < i2 no sorting required
+            if(i1>i2){
+                //moves i1 node to i2's index and shifts every node in [i2,i1) to the right
+                nodes.add(i2,nodes.remove(i1));
+
+                for(edge e : genome){
+                    //shifts node index to the right if its within [i2,i1)
+                    //sets node index to i2 if it equals i1
+                    int prevIndex = e.getPreviousIndex(), nextIndex = e.getNextIndex();
+                    if(prevIndex==i1) e.setPreviousIndex(i2);
+                    else if(prevIndex < i1 && prevIndex >= i2) e.setPreviousIndex(prevIndex+1);
+                    if(nextIndex==i1) e.setNextIndex(i2);
+                    else if(nextIndex < i1 && nextIndex >= i2) e.setNextIndex(prevIndex+1);
+                }
+            }
+
             return;
         }
     }
@@ -246,7 +260,7 @@ public class NN {
      */
     public void mutateNode(){
         if(genome.isEmpty())return;
-        for(int i=0;i<100;i++){
+        for(int count = 0; count <100; count++){
             //any edge in the genome is valid for node splitting
             edge edge = genome.get((int)(Math.random()*genome.size()));
             if(edge.isDisabled()) continue;
@@ -266,8 +280,22 @@ public class NN {
             genome.add(edge1);
             genome.add(edge2);
 
-            //TODO topologically sort graph again
             // insert the brand new node right after prevNode index, push every other node back and re-index
+            edge1.setPreviousIndex(edge.getPreviousIndex());
+            edge2.setNextIndex(edge.getNextIndex());
+
+            int newNodeIndex = edge.getPreviousIndex()+1;
+
+            //increase every edge's nodeIndex by one if their index is after the new node index
+            for(edge e : genome){
+                if(e.getPreviousIndex() >= newNodeIndex) e.setPreviousIndex(e.getPreviousIndex()+1);
+                if(e.getNextIndex() >= newNodeIndex) e.setNextIndex(e.getNextIndex()+1);
+            }
+            nodes.add(newNodeIndex,newNode);
+
+            edge1.setNextIndex(newNodeIndex);
+            edge2.setPreviousIndex(newNodeIndex);
+
             return;
         }
     }
