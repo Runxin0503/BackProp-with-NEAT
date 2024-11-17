@@ -40,7 +40,7 @@ public class Innovation {
 
         // Step 1:
         for(int i=0;i<genome.size();i++){
-            node u = getNodeByInnovationID(genome.get(i).getPreviousID(),dominantNodes,submissiveNodes), v = getNodeByInnovationID(genome.get(i).getNextID(),dominantNodes,submissiveNodes);
+            node u = getNodeByInnovationID(genome.get(i).getPreviousIID(),dominantNodes,submissiveNodes), v = getNodeByInnovationID(genome.get(i).getNextIID(),dominantNodes,submissiveNodes);
 
             //puts u and v inside map. sets u and v to appropriate object
             if(!innovationIDtoNodes.containsKey(u.innovationID)) innovationIDtoNodes.put(u.innovationID,u.clone());
@@ -67,7 +67,7 @@ public class Innovation {
 
             // For each neighbor, reduce the indegree and add to queue if it becomes 0
             for (int edgeIndex : n.getOutgoingEdgeIndices()) {
-                node nextNode = innovationIDtoNodes.get(genome.get(edgeIndex).getNextID());
+                node nextNode = innovationIDtoNodes.get(genome.get(edgeIndex).getNextIID());
                 int val = indegree.get(nextNode.innovationID).incrementAndGet();
                 if (val == nextNode.getIncomingEdgeIndices().length) {
                     queue.add(nextNode);
@@ -79,8 +79,8 @@ public class Innovation {
         for(int i=0;i<topologicalOrder.size();i++) innovationIDtoLocalIndex.put(topologicalOrder.get(i).innovationID,i);
 
         for(edge e : genome){
-            e.setPreviousID(innovationIDtoLocalIndex.get(e.getPreviousID()));
-            e.setNextID(innovationIDtoLocalIndex.get(e.getNextID()));
+            e.setPreviousIndex(innovationIDtoLocalIndex.get(e.getPreviousIID()));
+            e.setNextIndex(innovationIDtoLocalIndex.get(e.getNextIID()));
         }
 
         return topologicalOrder;

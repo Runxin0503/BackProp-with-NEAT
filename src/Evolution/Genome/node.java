@@ -20,8 +20,8 @@ public class node extends Gene {
      *      - can be any hiddenAF enums if its hidden, outputAF are reserved to used in Constants file
      * - bias
      * - boolean activated: true if this node's output is > 0, false otherwise
-     * - int array of outgoing connections
-     * - int array of incoming connections
+     * - int array of outgoing connections (index of edges)
+     * - int array of incoming connections (index of edges)
      */
 
     private final nodeType type;
@@ -31,8 +31,15 @@ public class node extends Gene {
     private final List<Integer> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
+    public node(nodeType type,int innovationID, hidden AF){
+        this.type = type;
+        this.innovationID = innovationID;
+        this.AF = AF;
+        this.bias = 0;
+        this.activated = false;
+    }
 
-    public node(nodeType type, int innovationID, hidden AF, double bias){
+    private node(nodeType type, int innovationID, hidden AF, double bias){
         this.type = type;
         this.innovationID = innovationID;
         this.AF = AF;

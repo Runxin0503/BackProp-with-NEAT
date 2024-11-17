@@ -1,6 +1,7 @@
 package Evolution.Genome;
 
 import Evolution.Constants;
+import Evolution.NN;
 
 import java.util.List;
 
@@ -24,19 +25,28 @@ public class edge extends Gene {
      */
     private boolean enabled;
 
+    /** The local indices of the previous and next node */
+    private int previousIndex, nextIndex;
+
+    /** The absolute Innovation ID of the previous and next node */
+    private int previousIID,nextIID;
+
     /**
-     * The previous and next nodes' 'ID'. Two definitions
-     * <br> Refers to the index of the node in topological order
-     * <br> Refers to the InnovationID of the nodes explicitly during crossover
+     * Used during {@link NN#mutateNode} and {@link NN#mutateSynapse} function to create new edges
      */
-    private int previousID,nextID;
+    public edge(int innovationID,int previousInnovationID,int nextInnovationID) {
+        this.innovationID = innovationID;
+        this.weight = 1;
+        this.previousIID = previousInnovationID;
+        this.nextIID = nextInnovationID;
+        this.enabled = true;
+    }
 
-
-    public edge(int innovationID, double weight, boolean enabled, int previousInnovationID, int nextInnovationID) {
+    private edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID) {
         this.innovationID = innovationID;
         this.weight = weight;
-        this.previousID = previousInnovationID;
-        this.nextID = nextInnovationID;
+        this.previousIID = previousIID;
+        this.nextIID = nextIID;
         this.enabled = enabled;
     }
 
@@ -48,15 +58,20 @@ public class edge extends Gene {
         return !enabled;
     }
 
-    /** Returns the ID (local node index or Innovation ID) of the previous node */
-    public int getPreviousID(){return previousID;}
+    /** Returns the local node index of the previous node */
+    public int getPreviousIndex(){return previousIndex;}
     /** Returns the ID (local node index or Innovation ID) of the next node */
-    public int getNextID(){return nextID;}
+    public int getNextIndex(){return nextIndex;}
 
-    /** Used during Neural Network crossover to re-bind node ID from global InnovationID to local Index */
-    public void setPreviousID(int previousID){this.previousID = previousID;}
-    /** Used during Neural Network crossover to re-bind node ID from global InnovationID to local Index */
-    public void setNextID(int nextID){this.nextID = nextID;}
+    /** Returns the Innovation ID of the previous node */
+    public int getPreviousIID(){return previousIID;}
+    /** Returns the Innovation ID of the next node */
+    public int getNextIID(){return nextIndex;}
+
+    /** Sets the local node index of the previous node */
+    public void setPreviousIndex(int previousIndex){this.previousIndex = previousIndex;}
+    /** Sets the local node index of the next node */
+    public void setNextIndex(int nextIndex){this.nextIndex = nextIndex;}
 
     /** Applies the weight of this edge to the given {@code input} */
     public double calculateOutput(double input){
@@ -84,8 +99,16 @@ public class edge extends Gene {
         return true;
     }
 
+    /**
+     * Disables this synapse from the calculation process
+     * <br> Returns false if it was already disabled, true otherwise
+     */
+    public void disable(){
+        enabled = false;
+    }
+
     public edge clone(List<node> nodes) {
-        return new edge(innovationID, weight,enabled,nodes.get(previousID).innovationID,nodes.get(nextID).innovationID);
+        return new edge(innovationID, weight,enabled,nodes.get(previousIndex).innovationID,nodes.get(nextIndex).innovationID);
     }
 
     @Override

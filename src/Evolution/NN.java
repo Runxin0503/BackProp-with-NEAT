@@ -5,10 +5,7 @@ import Evolution.Genome.node;
 import Evolution.Genome.edge;
 import Genome.nodeType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /** Neural Network that uses topological sort to minimize computational time and increase memory efficiency */
 public class NN {
@@ -45,7 +42,7 @@ public class NN {
             for(int j : nodes.get(i).getOutgoingEdgeIndices()){
                 edge e = genome.get(j);
                 if(e.isDisabled()) continue;
-                int targetIndex = e.getNextID();
+                int targetIndex = e.getNextIndex();
                 calculator[targetIndex] += e.calculateOutput(calculator[i]);
             }
         }
@@ -192,6 +189,7 @@ public class NN {
 
     /** Chooses a random synapse (if there is one) to shift its weight by a random amount */
     public void shiftWeights(){
+        if(genome.isEmpty())return;
         for(int i=0;i<100;i++){
             edge e = genome.get((int)(Math.random()*genome.size()));
 
@@ -201,6 +199,7 @@ public class NN {
 
     /** Chooses a random synapse (if there is one) to randomly set its weight */
     public void randomWeights(){
+        if(genome.isEmpty())return;
         for(int i=0;i<100;i++){
             edge e = genome.get((int)(Math.random()*genome.size()));
 
@@ -223,15 +222,19 @@ public class NN {
         for(int i=0;i<100;i++){
             int i1 = (int)(Math.random()*nodes.size()), i2 = (int)(Math.random()*nodes.size());
 
-            if(i1==i2 || (i1 > i2 && isLooping(i1,i2)) || i1 < Constants.inputNum || i2 >= nodes.size()-Constants.outputNum) continue;
+            if(i1==i2 || (i1 > i2 && isLooping(i1,i2)) || i2 < Constants.inputNum || i1 >= nodes.size()-Constants.outputNum) continue;
 
             node n1 = nodes.get(i1), n2 = nodes.get(i2);
             int edgeIID = Innovation.getEdgeInnovationID(n1.getInnovationID(),n2.getInnovationID());
 
             int edgeIndex = genome.size();
-            genome.add(new edge(edgeIID,1,true,i1,i2));
+            genome.add(new edge(edgeIID,n1.getInnovationID(),n2.getInnovationID()));
             n1.addOutgoingEdgeIndex(edgeIndex);
             n2.addIncomingEdgeIndex(edgeIndex);
+
+            //TODO topologically sort graph again
+            // if i1 > i2, move and insert i1 at i2's position and push i2 back
+            // if i1 < i2 no sorting required
             return;
         }
     }
@@ -242,16 +245,49 @@ public class NN {
      * The previous synapse will be removed. Two new synapses will be created connecting the 3 nodes
      */
     public void mutateNode(){
+        if(genome.isEmpty())return;
         for(int i=0;i<100;i++){
-            //TODO check if chosen edge is valid
+            //any edge in the genome is valid for node splitting
+            edge edge = genome.get((int)(Math.random()*genome.size()));
+            if(edge.isDisabled()) continue;
 
-            //TODO split synapse in two, add node
+            edge.disable();
+
+            node newNode = new node(nodeType.hidden,edge.getInnovationID(),Constants.hiddenAF);
+
+            node prevNode = nodes.get(edge.getPreviousIndex()),nextNode = nodes.get(edge.getNextIndex());
+            int prevIID = prevNode.getInnovationID(), midIID = newNode.getInnovationID(), nextIID = nextNode.getInnovationID();
+            edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID,midIID),prevIID,midIID);
+            edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID,nextIID),midIID,nextIID);
+
+            //add indices to nodes
+            prevNode.addOutgoingEdgeIndex(genome.size());
+            nextNode.addIncomingEdgeIndex(genome.size()+1);
+            genome.add(edge1);
+            genome.add(edge2);
+
+            //TODO topologically sort graph again
+            // insert the brand new node right after prevNode index, push every other node back and re-index
+            return;
         }
     }
 
     /** Returns whether introducing an edge from {@code rootNodeIndex} to {@code newEdgeNodeIndex} will introduce a cycle */
     private boolean isLooping(int rootNodeIndex,int newEdgeNodeIndex){
-        //TODO implement
+        HashSet<Integer> visitedNodes = new HashSet<>();
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(newEdgeNodeIndex);
+        visitedNodes.add(newEdgeNodeIndex);
+        while(!queue.isEmpty()){
+            int nodeIndex = queue.remove();
+            for(int edgeIndex : nodes.get(nodeIndex).getOutgoingEdgeIndices()){
+                int nextNode = genome.get(edgeIndex).getNextIndex();
+                if(nextNode==rootNodeIndex) return true;
+                if(!visitedNodes.contains(nextNode)) queue.add(nextNode);
+            }
+            visitedNodes.add(nodeIndex);
+        }
+
         return false;
     }
 
