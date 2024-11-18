@@ -4,18 +4,20 @@ import Genome.*;
 
 public class Agent implements WeightedRandom{
     /**
-     *
+     * The genome of this Agent
+     * <br> Can be null if this Agent's genome is currently being repurposed by a better-performing genome
      */
     private NN genome;
 
     /**
-     *
+     * The score of this Agent
+     * <br> Evaluates the performance of this Agent and its genome
      */
     private double score;
 
     public Agent(){
         this.score=0;
-        this.genome = Innovation.getDefaultNode();
+        this.genome = NN.getDefaultNode();
     }
 
     /** Resets the score of this Agent */
@@ -31,7 +33,7 @@ public class Agent implements WeightedRandom{
 
     /**
      * Removes the genome of this Agent.
-     * @returns whether this Agent had a genome to begin with or not.
+     * @return whether this Agent had a genome to begin with or not.
      */
     public boolean removeGenome() {
         if(!hasGenome()) return false;

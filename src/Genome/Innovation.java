@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * A Static class containing mappings between node and synapses using their InnovationIDs
  */
-public class Innovation {
+class Innovation {
 
     /*
      * Must contain:
@@ -23,7 +23,8 @@ public class Innovation {
         intPairs pair = new intPairs(node1IID, node2IID);
         Integer edgeIID = nodePairsToEdge.get(pair);
         if(edgeIID != null) return edgeIID;
-        else nodePairsToEdge.put(pair,nodePairsToEdge.size());
+
+        nodePairsToEdge.put(pair,nodePairsToEdge.size());
         return nodePairsToEdge.size()-1;
     }
 
@@ -101,11 +102,6 @@ public class Innovation {
             }
         }
         throw new RuntimeException("no nodes found");
-    }
-
-    public static NN getDefaultNode() {
-        //TODO write Default Node
-        return null;
     }
 
     /** A Memory efficient object wrapper for two ints */

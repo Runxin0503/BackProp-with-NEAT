@@ -1,6 +1,5 @@
-package Genome;
+package Genome.enums;
 
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 /** Activation Function enum used to store evaluators functions */

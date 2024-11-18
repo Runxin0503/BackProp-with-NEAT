@@ -2,6 +2,7 @@ package Genome;
 
 
 import Evolution.Constants;
+import Genome.enums.nodeType;
 
 import java.util.*;
 
@@ -13,18 +14,34 @@ public class NN {
      * <br>Cannot ever decrease in size or have any genome removed
      * <br>Class Invariant: Sorted in InnovationID order
      */
-    private final ArrayList<edge> genome;
+    final ArrayList<edge> genome;
 
     /**
      * Stores a list of nodes.
      * <br>Cannot ever decrease in size or have any nodes removed.
      * <br>Class Invariant: Sorted in Topological order
      */
-    private final ArrayList<node> nodes;
+    final ArrayList<node> nodes;
 
-    public NN(ArrayList<node> nodes,ArrayList<edge> genome) {
+    private NN(ArrayList<node> nodes){
+        this.nodes = nodes;
+        this.genome = new ArrayList<>();
+    }
+
+    private NN(ArrayList<node> nodes,ArrayList<edge> genome) {
         this.genome = genome;
         this.nodes = nodes;
+    }
+
+    public static NN getDefaultNode() {
+        ArrayList<node> nodes = new ArrayList<>();
+
+        for(int i = -Constants.inputNum - Constants.outputNum-1; i<-Constants.outputNum;i++)
+            nodes.add(new node(nodeType.input,i,Constants.hiddenAF));
+        for(int i = -Constants.outputNum-1; i<0;i++)
+            nodes.add(new node(nodeType.output,i,Constants.hiddenAF));
+
+        return new NN(nodes);
     }
 
     /** Calculates the weighted output of the values using the Neural Network currently in this Agent */
@@ -177,172 +194,11 @@ public class NN {
     /** Randomly mutates this Neural Network */
     public void mutate(){
         if(!genome.isEmpty()) {
-            if (Math.random() < Constants.mutationWeightShiftProbability) shiftWeights();
-            if (Math.random() < Constants.mutationWeightRandomProbability) randomWeights();
-            if (Math.random() < Constants.mutationNodeProbability) mutateNode();
+            if (Math.random() < Constants.mutationWeightShiftProbability) Mutation.shiftWeights(this);
+            if (Math.random() < Constants.mutationWeightRandomProbability) Mutation.randomWeights(this);
+            if (Math.random() < Constants.mutationNodeProbability) Mutation.mutateNode(this);
         }
-        if(Math.random() < Constants.mutationBiasShiftProbability) shiftBias();
-        if(Math.random() < Constants.mutationSynapseProbability) mutateSynapse();
+        if(Math.random() < Constants.mutationBiasShiftProbability) Mutation.shiftBias(this);
+        if(Math.random() < Constants.mutationSynapseProbability) Mutation.mutateSynapse(this);
     }
-
-    /** Chooses a random synapse (if there is one) to shift its weight by a random amount */
-    public void shiftWeights(){
-        if(genome.isEmpty())return;
-        for(int count = 0; count <100; count++){
-            edge e = genome.get((int)(Math.random()*genome.size()));
-
-            if(e.shiftWeights()) return;
-        }
-    }
-
-    /** Chooses a random synapse (if there is one) to randomly set its weight */
-    public void randomWeights(){
-        if(genome.isEmpty())return;
-        for(int count = 0; count <100; count++){
-            edge e = genome.get((int)(Math.random()*genome.size()));
-
-            if(e.randomWeights()) return;
-        }
-    }
-
-    /** Chooses a random node to shift its bias by a random amount */
-    public void shiftBias(){
-        for(int count = 0; count <100; count++){
-            node n = nodes.get((int)(Math.random()*nodes.size()));
-            if(n.getType().equals(nodeType.output)) continue;
-
-            if(n.shiftBias()) return;
-        }
-    }
-
-    /** Chooses two random nodes that aren't directly connected and create a synapse between them */
-    public void mutateSynapse(){
-        for(int count = 0; count <100; count++){
-            int i1 = (int)(Math.random()*nodes.size()), i2 = (int)(Math.random()*nodes.size());
-
-            if(i1==i2 || (i1 > i2 && isLooping(i1,i2)) || i2 < Constants.inputNum || i1 >= nodes.size()-Constants.outputNum) continue;
-
-            node n1 = nodes.get(i1), n2 = nodes.get(i2);
-            int edgeIID = Innovation.getEdgeInnovationID(n1.getInnovationID(),n2.getInnovationID());
-
-            int edgeIndex = genome.size();
-            genome.add(new edge(edgeIID,n1.getInnovationID(),n2.getInnovationID()));
-            n1.addOutgoingEdgeIndex(edgeIndex);
-            n2.addIncomingEdgeIndex(edgeIndex);
-
-            // if i1 > i2, move and insert i1 at i2's position and push i2 back
-            // if i1 < i2 no sorting required
-            if(i1>i2){
-                //moves i1 node to i2's index and shifts every node in [i2,i1) to the right
-                nodes.add(i2,nodes.remove(i1));
-
-                for(edge e : genome){
-                    //shifts node index to the right if its within [i2,i1)
-                    //sets node index to i2 if it equals i1
-                    int prevIndex = e.getPreviousIndex(), nextIndex = e.getNextIndex();
-                    if(prevIndex==i1) e.setPreviousIndex(i2);
-                    else if(prevIndex < i1 && prevIndex >= i2) e.setPreviousIndex(prevIndex+1);
-                    if(nextIndex==i1) e.setNextIndex(i2);
-                    else if(nextIndex < i1 && nextIndex >= i2) e.setNextIndex(prevIndex+1);
-                }
-            }
-
-            return;
-        }
-    }
-
-    /**
-     * Chooses a random synapse (if there is one) and insert a new Node directly in the middle<br>
-     * The two previously connected nodes will now connect through this new node.<br>
-     * The previous synapse will be removed. Two new synapses will be created connecting the 3 nodes
-     */
-    public void mutateNode(){
-        if(genome.isEmpty())return;
-        for(int count = 0; count <100; count++){
-            //any edge in the genome is valid for node splitting
-            edge edge = genome.get((int)(Math.random()*genome.size()));
-            if(edge.isDisabled()) continue;
-
-            edge.disable();
-
-            node newNode = new node(nodeType.hidden,edge.getInnovationID(),Constants.hiddenAF);
-
-            node prevNode = nodes.get(edge.getPreviousIndex()),nextNode = nodes.get(edge.getNextIndex());
-            int prevIID = prevNode.getInnovationID(), midIID = newNode.getInnovationID(), nextIID = nextNode.getInnovationID();
-            edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID,midIID),prevIID,midIID);
-            edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID,nextIID),midIID,nextIID);
-
-            //add indices to nodes
-            prevNode.addOutgoingEdgeIndex(genome.size());
-            nextNode.addIncomingEdgeIndex(genome.size()+1);
-            genome.add(edge1);
-            genome.add(edge2);
-
-            // insert the brand new node right after prevNode index, push every other node back and re-index
-            edge1.setPreviousIndex(edge.getPreviousIndex());
-            edge2.setNextIndex(edge.getNextIndex());
-
-            int newNodeIndex = edge.getPreviousIndex()+1;
-
-            //increase every edge's nodeIndex by one if their index is after the new node index
-            for(edge e : genome){
-                if(e.getPreviousIndex() >= newNodeIndex) e.setPreviousIndex(e.getPreviousIndex()+1);
-                if(e.getNextIndex() >= newNodeIndex) e.setNextIndex(e.getNextIndex()+1);
-            }
-            nodes.add(newNodeIndex,newNode);
-
-            edge1.setNextIndex(newNodeIndex);
-            edge2.setPreviousIndex(newNodeIndex);
-
-            return;
-        }
-    }
-
-    /** Returns whether introducing an edge from {@code rootNodeIndex} to {@code newEdgeNodeIndex} will introduce a cycle */
-    private boolean isLooping(int rootNodeIndex,int newEdgeNodeIndex){
-        HashSet<Integer> visitedNodes = new HashSet<>();
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(newEdgeNodeIndex);
-        visitedNodes.add(newEdgeNodeIndex);
-        while(!queue.isEmpty()){
-            int nodeIndex = queue.remove();
-            for(int edgeIndex : nodes.get(nodeIndex).getOutgoingEdgeIndices()){
-                int nextNode = genome.get(edgeIndex).getNextIndex();
-                if(nextNode==rootNodeIndex) return true;
-                if(!visitedNodes.contains(nextNode)) queue.add(nextNode);
-            }
-            visitedNodes.add(nodeIndex);
-        }
-
-        return false;
-    }
-
-    //public void mutateSynapse(){
-    //        for(int i=0;i<100;i++){
-    //            node from=nodes.get((int)(Math.random() * nodes.size()));
-    //            node to=nodes.get((int)(Math.random() * nodes.size()));
-    //            if (from.equals(to) || from.isOutput() || to.isInput() || isLooping(from, to) || synapses.contains(new synapse(from,to))){
-    //                //failed to add
-    //                continue;
-    //            }
-    //            int innovationID = globalInnovations.get(from,to);
-    //            synapse newSynapse = new synapse(from, to,(Math.random()*2-1)* Evolution.Evolution.mutationWeightRandomStrength,true,innovationID);
-    //            addSynapse(newSynapse);
-    //            return;
-    //        }
-    //    }
-    //
-    //    public void mutateNode(){
-    //        if(synapses.isEmpty())return;
-    //        for(int i=0;i<100;i++){
-    //            synapse s = synapses.get((int)(Math.random()*synapses.size()));
-    //            if(!s.enabled)continue;
-    //            s.enabled=false;
-    //            node newNode = globalInnovations.getSplitNode(s);
-    //            addNode(newNode);
-    //            addSynapse(new synapse(newNode,s.to,s.weight,true,globalInnovations.get(newNode,s.to)));
-    //            addSynapse(new synapse(s.from, newNode,globalInnovations.get(s.from,newNode)));
-    //            return;
-    //        }
-    //    }
 }

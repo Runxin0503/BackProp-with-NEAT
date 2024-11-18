@@ -1,14 +1,14 @@
 package Genome;
 
 import Evolution.Constants;
-import Genome.hidden;
-import Genome.nodeType;
+import Genome.enums.hidden;
+import Genome.enums.nodeType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /** The Genome representation of a node */
-public class node extends Gene {
+class node extends Gene {
     /*
      * must contain:
      * - nodeType enum: (input,hidden,output)

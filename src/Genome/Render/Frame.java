@@ -1,4 +1,4 @@
-package Render;
+package Genome.Render;
 
 import Evolution.*;
 import Genome.NN;

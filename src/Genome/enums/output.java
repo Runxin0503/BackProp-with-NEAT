@@ -1,4 +1,4 @@
-package Genome;
+package Genome.enums;
 
 import java.util.function.Consumer;
 

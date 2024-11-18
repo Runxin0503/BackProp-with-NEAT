@@ -1,6 +1,6 @@
 package Genome;
 
-public abstract class Gene {
+abstract class Gene {
 
     /** Identifies the unique ID this gene has.
      * <br>Used for matching nodes against synapses and vice versa.

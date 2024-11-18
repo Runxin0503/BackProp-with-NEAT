@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
+      <change afterPath="$PROJECT_DIR$/src/Genome/Mutation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Species.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Species.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/WeightedRandom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/WeightedRandom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Gene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Innovation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/NN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/hidden.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/hidden.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/nodeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/nodeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/output.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/output.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Render/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Frame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Render/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Panel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +73,15 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\Genome" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
       <module name="SGD BackProp with NEAT" />
@@ -107,7 +123,10 @@
       <workItem from="1731883015879" duration="74000" />
       <workItem from="1731883091423" duration="59000" />
       <workItem from="1731883152469" duration="9324000" />
-      <workItem from="1731938667873" duration="656000" />
+      <workItem from="1731938667873" duration="756000" />
+      <workItem from="1731948640708" duration="3000" />
+      <workItem from="1731949149775" duration="988000" />
+      <workItem from="1731960675862" duration="1757000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

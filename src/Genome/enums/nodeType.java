@@ -1,4 +1,4 @@
-package Genome;
+package Genome.enums;
 
 public enum nodeType {
     input,

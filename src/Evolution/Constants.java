@@ -1,7 +1,7 @@
 package Evolution;
 
-import Genome.hidden;
-import Genome.output;
+import Genome.enums.hidden;
+import Genome.enums.output;
 import globalGenomes.globalInnovations;
 import globalGenomes.globalNodes;
 
