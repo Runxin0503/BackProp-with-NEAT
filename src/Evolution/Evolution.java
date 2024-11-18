@@ -1,92 +1,87 @@
 package Evolution;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class Evolution {
-    private final ArrayList<Species> Speciation = new ArrayList<>();
-    public final ArrayList<Agent> NeuralNets = new ArrayList<>();
-    private final int numSimulated;
-    private Random rand;
+public class Evolution implements Iterator<Agent> {
+    private final ArrayList<Species> species = new ArrayList<>();
+    private final Agent[] agents;
+    private int index = 0;
 
     public Evolution(int numSimulated){
-        this.numSimulated = numSimulated;
 
         Agent first = new Agent();
-        NeuralNets.add(first);
-        Speciation.add(new Species(first));
+        agents = new Agent[numSimulated];
+        agents[0] = first;
+        species.add(new Species(first));
         for(int i=1;i<numSimulated;i++){
             Agent temp = new Agent();
-            Speciation.get(0).add(temp);
-            NeuralNets.add(temp);
+            species.getFirst().add(temp);
+            agents[i] = temp;
         }
     }
 
     public void nextGen(){
-//        System.out.println(Speciation.get(0).NeuralNets.get(0));
         //Species Separation
-        for(Species s : Speciation){
+        for(Species s : species){
             s.reset();
         }
 
-        for(Agent agent : NeuralNets){
+        //assign all agents to a species
+        for(Agent agent : agents){
             boolean found = false;
-            for(Species s : Speciation){
+            for(Species s : species){
                 if(s.add(agent)){
                     found=true;
                     break;
                 }
             }
-            if(!found)Speciation.add(new Species(agent));
+            if(!found) species.add(new Species(agent));
         }
 
         //update stagnant count, then cull
-        for(Species s : Speciation){
+        for(Species s : species){
             s.updateStag();
-            s.cull(Constants.perctCull);
+            s.cull();
         }
 
-        //remove extinct
-        for(int i=Speciation.size()-1;i>=0;i--){
-            Species s = Speciation.get(i);
-            if(s.NeuralNets.isEmpty()){
-                s.extinct();
-                Speciation.remove(i);
-            }
+        //remove empty species
+        for(int i = species.size()-1; i>=0; i--){
+            Species s = species.get(i);
+            if(s.isEmpty()) species.remove(i);
+
         }
 
-        for(Species s : Speciation) s.calculateScore();
+        //calculates population score
+        for(Species s : species) s.calculateScore();
 
         //repopulate Genomes & reproduce
-        double populationScore = 0;
-        for(Species s : Speciation)populationScore += s.speciesScore;
-        for(Agent agent : NeuralNets){
-            if(agent.NN ==null){
-                pickSpecies(populationScore).populateGenome(agent);
+        for(Agent agent : agents){
+            if(!agent.hasGenome()){
+                WeightedRandom.getRandom(species).populateGenome(agent);
             }
         }
 
         //mutate
-        for(Agent agent : NeuralNets){
-            agent.NN.mutate();
+        for(Agent agent : agents){
+            agent.mutate();
         }
 
         //reset
-        for(Agent agent :NeuralNets){
+        for(Agent agent : agents){
             agent.reset();
         }
-        System.out.println("Species ("+Speciation.size()+")");
     }
 
-    private Species pickSpecies(double populationScore){
-        if(populationScore==0)return Speciation.get((int)(Math.random() * Speciation.size()));
-        double random = Math.random() * populationScore;
-        for(Species s : Speciation){
-            random -= s.speciesScore;
-            if(random<=0){
-                return s;
-            }
-        }
-        return Speciation.get((int)(Math.random() * Speciation.size()));
+    @Override
+    public boolean hasNext() {
+        return index < agents.length;
+    }
+
+    @Override
+    public Agent next() {
+        if(hasNext()) return agents[index++];
+        throw new NoSuchElementException();
     }
 }

@@ -18,7 +18,7 @@ public class Frame extends JFrame {
     public Frame(Agent agent) {
         this();
         this.agent = agent;
-        setGenome(agent.NN);
+        setGenome(agent.genome);
         this.repaint();
     }
 

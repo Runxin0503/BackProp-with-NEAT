@@ -1,31 +1,48 @@
 package Evolution;
 
-import Genome.NN;
-
 import java.util.ArrayList;
 
-public class Species {
+/**
+ * Used in a part of the NEAT algorithm to determine if a genome is successful or not based on its species
+ * <br>Randomly selects a representative from its population every generation to use as comparison during
+ * species identification
+ */
+public class Species implements WeightedRandom{
+    /** The representative of this species. Used during species identification and randomly chosen every new generation */
     private Agent representative;
-    public int age,stag;
-    public double speciesScore;
-    public ArrayList<Agent> NeuralNets = new ArrayList<Agent>();
 
-    public Species(Agent representative){
-        this.representative=representative;
-        this.NeuralNets.add(representative);
-        this.age=0;
-        this.stag=0;
-        this.speciesScore = representative.score;
+    /** The age of this species. Sometimes used in the NEAT algorithm calculation */
+    private int age = 0;
+
+    /** Represents how stagnant this species is at improving. The higher the value, the more competitive this species is */
+    private int stag = 0;
+
+    /** The total score of all agents within this species */
+    private double populationScore;
+
+    /** Arraylist containing all members of this species */
+    private final ArrayList<Agent> population = new ArrayList<Agent>();
+
+    public Species(Agent representative) {
+        this.representative = representative;
+        this.population.add(representative);
+        this.populationScore = representative.getScore();
     }
 
-    public boolean add(Agent newNeuralNet){
-        if(representative.NN.compare(newNeuralNet.NN)< Constants.compatibilityThreshold){
-            if(NeuralNets.isEmpty()||NeuralNets.get(NeuralNets.size()-1).score>newNeuralNet.score){
-                NeuralNets.add(newNeuralNet);
-            }else{
-                for(int i=0;i<NeuralNets.size();i++){
-                    if(NeuralNets.get(i).score<newNeuralNet.score){
-                        NeuralNets.add(i,newNeuralNet);
+    /**
+     * Attempts to add {@code newAgent} to this species if it's genome is similar enough
+     * @return true if successful, false otherwise
+     */
+    public boolean add(Agent newAgent) {
+        if (representative.compare(newAgent) < Constants.compatibilityThreshold) {
+
+            //keeps score sorted from highest to lowest
+            if (population.isEmpty() || population.getLast().getScore() > newAgent.getScore()) {
+                population.add(newAgent);
+            } else {
+                for (int i = 0; i < population.size(); i++) {
+                    if (population.get(i).getScore() < newAgent.getScore()) {
+                        population.add(i, newAgent);
                         break;
                     }
                 }
@@ -35,61 +52,67 @@ public class Species {
         return false;
     }
 
-    public void calculateScore(){
-        speciesScore=0;
-        for(Agent agent : NeuralNets){
-            speciesScore+= agent.score;
+    /** Calculates the {@link #populationScore} of all members of this species, taking into account {@link #stag} */
+    public void calculateScore() {
+        populationScore = 0;
+        for (Agent agent : population) {
+            populationScore += agent.getScore();
         }
-        speciesScore /= NeuralNets.size();
-        if(stag>=Constants.maxStagDropoff) speciesScore *= 0.7;
+        populationScore /= population.size();
+        if (stag >= Constants.maxStagDropoff) populationScore *= 0.7;
     }
 
-    public void updateStag(){
-        double count=0;
-        for(Agent agent : NeuralNets){
-            count+= agent.score;
+    /**
+     * Updates the {@link #stag} of this species.
+     * <br>Stag increases by 1 every time the current generation does worse than the previous
+     * <br>Stag decreases by a factor of how much better the current generation does than the previous
+     */
+    public void updateStag() {
+        double count = 0;
+        for (Agent agent : population) {
+            count += agent.getScore();
         }
-        count /= NeuralNets.size();
-        if(speciesScore>count)stag++;
-        else stag = Math.max(0,(int)Math.round(stag * (1-(count-speciesScore)/speciesScore)));
+        count /= population.size();
+        if (populationScore > count) stag++;
+        else stag = Math.max(0, (int) Math.round(stag * (1 - (count - populationScore) / populationScore)));
     }
 
-    public void reset(){
-        representative = NeuralNets.get((int)(Math.random() * NeuralNets.size()));
-        NeuralNets.clear();
+    /**
+     * Randomly chooses a {@link #representative} from all members of this species and
+     * clears the {@link #population} arraylist
+     */
+    public void reset() {
+        representative = population.get((int) (Math.random() * population.size()));
+        population.clear();
     }
 
-    public void cull(double percentage){
-        int numSurvived = (int)(Math.round(NeuralNets.size()*(1-percentage)));
-        for(int i=NeuralNets.size()-1;i>numSurvived;i--){
-            NeuralNets.remove(i).NN =null;
+    /**
+     * Effect: A percentage of the worst performing members of this species have their genome removed
+     */
+    public void cull() {
+        int numSurvived = (int) (Math.round(population.size() * (1 - Constants.perctCull)));
+        for (int i = population.size() - 1; i > numSurvived; i--) {
+            population.remove(i).removeGenome();
         }
     }
 
-    public void extinct(){
-        for(Agent agent : NeuralNets){
-            agent.NN = null;
-        }
+    /**
+     * Returns if this species has no current members
+     */
+    public boolean isEmpty() {
+        return population.isEmpty();
     }
 
-    public void populateGenome(Agent emptyAgent){
-        Agent first = pickReproducer(NeuralNets);
-        Agent second = pickReproducer(NeuralNets);
-        emptyAgent.NN = NN.crossover(first.NN,second.NN,first.score,second.score);
-        emptyAgent.score=0;
-        NeuralNets.add(emptyAgent);
+    public void populateGenome(Agent emptyAgent) {
+        Agent first = WeightedRandom.getRandom(population);
+        Agent second = WeightedRandom.getRandom(population);
+        emptyAgent.crossover(first, second);
+        emptyAgent.reset();
+        population.add(emptyAgent);
     }
 
-    private Agent pickReproducer(ArrayList<Agent> currentPopulation){
-        if(speciesScore==0)return currentPopulation.get((int)(Math.random()*currentPopulation.size()));
-        double random = Math.random() * speciesScore;
-        for(Agent agent : currentPopulation){
-            random -= agent.score;
-            if(random<=0){
-                return agent;
-            }
-        }
-        return currentPopulation.get((int)(Math.random()*currentPopulation.size()));
+    @Override
+    public double getValue() {
+        return populationScore;
     }
-
 }

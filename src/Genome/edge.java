@@ -4,7 +4,7 @@ import Evolution.Constants;
 
 import java.util.List;
 
-/** Genome Blueprint for constructing the {@code sortedNetwork} of NN class */
+/** Genome Blueprint for constructing the {@code sortedNetwork} of genome class */
 public class edge extends Gene {
 
     /*

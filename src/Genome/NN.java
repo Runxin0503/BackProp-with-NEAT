@@ -57,7 +57,7 @@ public class NN {
     /**
      * Returns a positive value denoting how similar the Genomes of both Neural Networks are<br>
      * Should be the same for if either Neural Network ran this method on each other<br>
-     * EX: NN n1,n2; n1.compare(n2) == n2.compare(n1);
+     * EX: genome n1,n2; n1.compare(n2) == n2.compare(n1);
      */
     public double compare(NN other){
         if(this.genome.isEmpty() && other.genome.isEmpty()) return 0;
