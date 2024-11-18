@@ -106,13 +106,13 @@ public class Species implements WeightedRandom{
     public void populateGenome(Agent emptyAgent) {
         Agent first = WeightedRandom.getRandom(population);
         Agent second = WeightedRandom.getRandom(population);
-        emptyAgent.crossover(first, second);
+        Agent.crossover(first, second,emptyAgent);
         emptyAgent.reset();
         population.add(emptyAgent);
     }
 
     @Override
-    public double getValue() {
+    public double getScore() {
         return populationScore;
     }
 }
