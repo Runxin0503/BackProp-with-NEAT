@@ -5,20 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/src/Genome/Mutation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Genome/enums/cost.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Gene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Innovation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/hidden.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/hidden.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/nodeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/nodeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/output.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/output.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Render/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Frame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Render/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Frame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NN.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +25,7 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -83,6 +78,14 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="SGD BackProp with NEAT" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
       <module name="SGD BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -90,6 +93,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -126,7 +134,8 @@
       <workItem from="1731938667873" duration="756000" />
       <workItem from="1731948640708" duration="3000" />
       <workItem from="1731949149775" duration="988000" />
-      <workItem from="1731960675862" duration="1757000" />
+      <workItem from="1731960675862" duration="7797000" />
+      <workItem from="1731983870227" duration="51000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

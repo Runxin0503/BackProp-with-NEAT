@@ -2,14 +2,10 @@ package Evolution;
 
 import Genome.enums.hidden;
 import Genome.enums.output;
-import globalGenomes.globalInnovations;
-import globalGenomes.globalNodes;
 
 public class Constants {
     public static final int inputNum=4;
     public static final int outputNum=1;
-    public static final globalNodes globalNodes= new globalNodes(inputNum, outputNum);
-    public static final globalInnovations globalInnovations = new globalInnovations(globalNodes);
 
     public static final hidden hiddenAF = hidden.sigmoid;
     public static final output outputAF = output.none;

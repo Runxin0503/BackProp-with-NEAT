@@ -46,7 +46,7 @@ public class Layer {
         this.currentNodeDeriv = new double[nodes];
     }
 
-    /*
+    /**
      * runs the weighted inputs through this layer of nodes
      * returns a list of outputs from each node
      */
@@ -64,16 +64,16 @@ public class Layer {
             for(int j=0;j<nodesBefore;j++){
                 sum+=weights[i][j]*latestInputs[j];
             }
+            latestSx[i]=sum;
+
             double temp = activationFunction(sum);
             latestAx[i]=temp;
             output[i]=temp;
-            latestSx[i]=sum;
-            // System.out.println(temp);
         }
         return output;
     }
 
-    /*
+    /**
      * makes sure the weighted input of each node is not too big to overflow the node
      * too big numbers also creates near-zero values during backpropogation, which needs to be prevented
      */
@@ -97,7 +97,7 @@ public class Layer {
         return output;
     }
 
-    /*
+    /**
      * a function that is applied as the last node operation
      * enables the neural network to create multiple regressions model
      */
@@ -119,7 +119,7 @@ public class Layer {
         return num;
     }
 
-    /*
+    /**
      * Deriv of Activation Function
      * with respect to Z(x) = Weight * x + bias
      */
@@ -142,7 +142,7 @@ public class Layer {
         return 1.0;
     }
 
-    /*
+    /**
      * returns how "wrong" the output is according to a set of equations
      */
     public double calculateCost(double output,double expectedOutputs){
@@ -156,7 +156,7 @@ public class Layer {
         return 0;
     }
 
-    /*
+    /**
      * Deriv of Cost Function
      * with respect to Activation Function A(x)
      */
@@ -170,7 +170,7 @@ public class Layer {
         return 0;
     }
 
-    /*
+    /**
      * for calculating and memorizing its own list of current node deriv
      * for output layer only
      */
@@ -183,23 +183,23 @@ public class Layer {
         return currentNodeDeriv;
     }
 
-    /*
+    /**
      * to use the layer after itself to calculate its own current node deriv
-     * for hidden layers only
+     * for hidden and input layers only
      */
-    public double[] calculateCurrentNodeDeriv(Layer afterLayer,double[] nextNodeDeriv){
+    public double[] calculateCurrentNodeDeriv(Layer nextLayer, double[] nextNodeDeriv){
         for(int i=0;i<nodes;i++){
             double nodeDeriv=0;
-            for(int j=0;j<afterLayer.nodes;j++){
-                // System.out.println(afterLayer.weights[j][i]+"|"+nextNodeDeriv[j]);
-                nodeDeriv+=afterLayer.weights[j][i]*nextNodeDeriv[j]*afterLayer.latestSD;
+            for(int j = 0; j< nextLayer.nodes; j++){
+                // System.out.println(nextLayer.weights[j][i]+"|"+nextNodeDeriv[j]);
+                nodeDeriv+= nextLayer.weights[j][i]*nextNodeDeriv[j]* nextLayer.latestSD;
             }
             currentNodeDeriv[i]=nodeDeriv*activationFunctionDerivative(latestSx[i]);
         }
         return currentNodeDeriv;
     }
 
-    /*
+    /**
      * given two gradient list pointers, update each gradient accordingly with its nodeDeriv
      */
     public void updateAllGradiants(double[][] weightGradiant,double[] biasGradiant){
@@ -212,7 +212,7 @@ public class Layer {
         }
     }
     
-    /*
+    /**
      * nudges all weights on this layer with respect to the weight gradient
      * and other factors like momentum, learn rate, and batch size
      */

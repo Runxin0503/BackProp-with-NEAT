@@ -23,7 +23,7 @@ public class NN {
         clearGradiants();
     }
 
-    /*
+    /**
      * returns the output of the neural network
      */
     public double[] calculateOutput(double[] input){
@@ -38,7 +38,7 @@ public class NN {
         return pointerHelper;
     }
 
-    /*
+    /**
      * returns the total cost one run of the neural network
      */
     public double calculateCosts(double[] input,double[] expectedOutputs){
@@ -54,7 +54,7 @@ public class NN {
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
-    /*
+    /**
      * sets all values of the gradient variables to 0
      * Either initializes the gradient variable or clears to save memory
      */
@@ -69,7 +69,7 @@ public class NN {
         }
     }
 
-    /*
+    /**
      * Tells the layer to nudge their respective weights according to the gradiant vector
      * Momentum is taken into account, as is the learn rate and batch size
      */
@@ -80,7 +80,7 @@ public class NN {
         }
     }
 
-    /*
+    /**
      * Uses calculus and derivatives to find the derivatives of the cost function with respect to each weight.
      * Uses that information to generate the gradient vector, which is later applied to nudge all weights in the direction of lowest cost
      */
@@ -98,7 +98,7 @@ public class NN {
         }
     }
 
-    /*
+    /**
      * runs the back-propogation function and adjusts all weights and biases based on the resulting gradient vector
      * only works with known outputs
      */

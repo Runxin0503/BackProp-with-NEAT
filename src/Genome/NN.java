@@ -71,6 +71,9 @@ public class NN {
         return output;
     }
 
+    /** */
+    public void Backpropagation(){}
+
     /**
      * Returns a positive value denoting how similar the Genomes of both Neural Networks are<br>
      * Should be the same for if either Neural Network ran this method on each other<br>
