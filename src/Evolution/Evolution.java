@@ -1,22 +1,23 @@
 package Evolution;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import Genome.enums.Activation;
 
-public class Evolution implements Iterator<Agent> {
+import java.util.*;
+
+public class Evolution {
     private final ArrayList<Species> species = new ArrayList<>();
-    private final Agent[] agents;
-    private int index = 0;
+    public final Agent[] agents;
 
-    public Evolution(int numSimulated){
+    public Constants Constants;
 
-        Agent first = new Agent();
-        agents = new Agent[numSimulated];
+    private Evolution(Constants Constants){
+        this.Constants = Constants;
+        Agent first = new Agent(Constants);
+        agents = new Agent[Constants.numSimulated];
         agents[0] = first;
-        species.add(new Species(first));
-        for(int i=1;i<numSimulated;i++){
-            Agent temp = new Agent();
+        species.add(new Species(first,Constants));
+        for(int i=1;i<Constants.numSimulated;i++){
+            Agent temp = new Agent(Constants);
             species.getFirst().add(temp);
             agents[i] = temp;
         }
@@ -37,7 +38,7 @@ public class Evolution implements Iterator<Agent> {
                     break;
                 }
             }
-            if(!found) species.add(new Species(agent));
+            if(!found) species.add(new Species(agent,Constants));
         }
 
         //update stagnant count, then cull
@@ -74,14 +75,49 @@ public class Evolution implements Iterator<Agent> {
         }
     }
 
-    @Override
-    public boolean hasNext() {
-        return index < agents.length;
-    }
+    /**
+     * The builder class for {@link Evolution}, which is a factory that produces, trains, and applies the NEAT genetic algorithm on neural network agents.
+     */
+    public class EvolutionBuilder {
+        private Constants Constants = new Constants();
 
-    @Override
-    public Agent next() {
-        if(hasNext()) return agents[index++];
-        throw new NoSuchElementException();
+        public EvolutionBuilder(){}
+
+        public EvolutionBuilder setNumSimulated(int numSimulated){
+            Constants.numSimulated = numSimulated;
+            return this;
+        }
+
+        public EvolutionBuilder setInputNum(int inputNum){
+            Constants.inputNum = inputNum;
+            return this;
+        }
+
+        public EvolutionBuilder setOutputNum(int outputNum){
+            Constants.outputNum = outputNum;
+            return this;
+        }
+
+        public EvolutionBuilder setOutputAF(Activation.arrays outputAF){
+            Constants.outputAF = outputAF;
+            return this;
+        }
+
+        public EvolutionBuilder setDefaultHiddenAF(Activation defaultHiddenAF){
+            Constants.defaultHiddenAF = defaultHiddenAF;
+            return this;
+        }
+
+        public Evolution build() throws MissingInformation {
+            if(Constants.inputNum==-1 || Constants.outputNum==-1 || Constants.numSimulated==-1 || Constants.outputAF == null) throw new MissingInformation();
+            return new Evolution(Constants);
+        }
+
+        private static class MissingInformation extends Exception {
+            @Override
+            public String getMessage() {
+                return "Missing Resources in EvolutionBuilder class";
+            }
+        }
     }
 }

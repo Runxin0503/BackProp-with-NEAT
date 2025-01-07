@@ -1,11 +1,8 @@
 package Genome;
 
-import Evolution.Constants;
-import Genome.enums.nodeType;
-
+import Genome.enums.Activation;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /** Package-private Static class that mutates the genome of any given {@link NN} */
@@ -17,7 +14,7 @@ class Mutation {
         for(int count = 0; count <100; count++){
             edge e = nn.genome.get((int)(Math.random()*nn.genome.size()));
 
-            if(e.shiftWeights()) return;
+            if(e.shiftWeights(nn.Constants.mutationWeightShiftStrength)) return;
         }
     }
 
@@ -27,17 +24,18 @@ class Mutation {
         for(int count = 0; count <100; count++){
             edge e = nn.genome.get((int)(Math.random()*nn.genome.size()));
 
-            if(e.randomWeights()) return;
+            if(e.randomWeights(nn.Constants.mutationWeightRandomStrength)) return;
         }
     }
 
     /** Chooses a random node to shift its bias by a random amount */
     static void shiftBias(NN nn){
         for(int count = 0; count <100; count++){
-            node n = nn.nodes.get((int)(Math.random()*nn.nodes.size()));
-            if(n.getType().equals(nodeType.output)) continue;
+            int nodeIndex = (int)(Math.random()*nn.nodes.size());
+            if(nn.nodes.size()-nn.Constants.getOutputNum()-1 < nodeIndex) continue;//ignore if nodeIndex is output node
 
-            if(n.shiftBias()) return;
+            node n = nn.nodes.get(nodeIndex);
+            if(n.shiftBias(nn.Constants)) return;
         }
     }
 
@@ -46,7 +44,7 @@ class Mutation {
         for(int count = 0; count <100; count++){
             int i1 = (int)(Math.random()*nn.nodes.size()), i2 = (int)(Math.random()*nn.nodes.size());
 
-            if(i1==i2 || (i1 > i2 && isLooping(i1,i2,nn)) || i2 < Constants.inputNum || i1 >= nn.nodes.size()-Constants.outputNum) continue;
+            if(i1==i2 || (i1 > i2 && isLooping(i1,i2,nn)) || i2 < nn.Constants.getInputNum() || i1 >= nn.nodes.size()-nn.Constants.getOutputNum()) continue;
 
             node n1 = nn.nodes.get(i1), n2 = nn.nodes.get(i2);
             int edgeIID = Innovation.getEdgeInnovationID(n1.getInnovationID(),n2.getInnovationID());
@@ -91,7 +89,7 @@ class Mutation {
 
             edge.disable();
 
-            node newNode = new node(nodeType.hidden,edge.getInnovationID(),Constants.hiddenAF);
+            node newNode = new node(edge.getInnovationID(),nn.Constants.getDefaultHiddenAF());
 
             node prevNode = nn.nodes.get(edge.getPreviousIndex()),nextNode = nn.nodes.get(edge.getNextIndex());
             int prevIID = prevNode.getInnovationID(), midIID = newNode.getInnovationID(), nextIID = nextNode.getInnovationID();

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * <br>Randomly selects a representative from its population every generation to use as comparison during
  * species identification
  */
-public class Species implements WeightedRandom{
+class Species implements WeightedRandom{
     /** The representative of this species. Used during species identification and randomly chosen every new generation */
     private Agent representative;
 
@@ -23,10 +23,13 @@ public class Species implements WeightedRandom{
     /** Arraylist containing all members of this species */
     private final ArrayList<Agent> population = new ArrayList<Agent>();
 
-    public Species(Agent representative) {
+    private final Constants Constants;
+
+    public Species(Agent representative,Constants Constants) {
         this.representative = representative;
         this.population.add(representative);
         this.populationScore = representative.getScore();
+        this.Constants = Constants;
     }
 
     /**

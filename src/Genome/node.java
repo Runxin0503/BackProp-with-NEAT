@@ -1,8 +1,7 @@
 package Genome;
 
 import Evolution.Constants;
-import Genome.enums.hidden;
-import Genome.enums.nodeType;
+import Genome.enums.Activation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 class node extends Gene {
     /*
      * must contain:
-     * - nodeType enum: (input,hidden,output)
      * - innovation number:
      *      - should be the same as synapse split if hidden node ( >= 0)
      *      - if input/output node, should range from -(inputNum+outputNum) to -1
@@ -24,23 +22,30 @@ class node extends Gene {
      * - int array of incoming connections (index of edges)
      */
 
-    private final nodeType type;
-    private hidden AF;
+    /** The Activation Function of this neuron */
+    private Activation AF;
+
+    /** The bias value of this neuron */
     private double bias;
+
+    /**
+     * True if neuron's output is > 0, false otherwise.
+     * <br>Used in visualizing individual neuron firing
+     */
     private boolean activated;
+
+    /** A list of local indices of incoming/outgoing edges to this node */
     private final List<Integer> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
-    public node(nodeType type,int innovationID, hidden AF){
-        this.type = type;
+    public node(int innovationID, Activation AF){
         this.innovationID = innovationID;
         this.AF = AF;
         this.bias = 0;
         this.activated = false;
     }
 
-    private node(nodeType type, int innovationID, hidden AF, double bias){
-        this.type = type;
+    private node(int innovationID, Activation AF, double bias){
         this.innovationID = innovationID;
         this.AF = AF;
         this.bias = bias;
@@ -51,9 +56,20 @@ class node extends Gene {
      * Applies the bias and activation function to the given {@code input}.<br>
      * Changes the {@code activated} var to the appropriate value
      */
-    public double calculateOutput(double input){
-        if(type.equals(nodeType.output)) return input;
-        return AF.evaluate(input+bias);
+    double calculateOutput(double input){
+        double output = AF.calculate(input+bias);
+        activated = output > 0;
+        return output;
+    }
+
+    @Override
+    void applyGradient(double gradient, double adjustedLearningRate, double momentum, double beta, double epsilon) {
+        //todo
+    }
+
+    /** Returns true if the last output of this neuron is > 0, false otherwise */
+    public boolean isActivated(){
+        return activated;
     }
 
     /**
@@ -74,38 +90,32 @@ class node extends Gene {
 
     /**
      * Attempts to add {@code index} to the array of outgoing edge indices.
-     * <br>Returns false if the array already contains the index, true otherwise
+     * Doesn't do anything if the array already contains the index
      */
-    public boolean addOutgoingEdgeIndex(int index){
-        if(outgoingConnections.contains(index)) return false;
+    public void addOutgoingEdgeIndex(int index){
+        if(outgoingConnections.contains(index)) return;
         outgoingConnections.add(index);
-        return true;
     }
     /**
      * Attempts to add {@code index} to the array of incoming edge indices.
-     * <br>Returns false if the array already contains the index, true otherwise
+     * Doesn't do anything if the array already contains the index
      */
-    public boolean addIncomingEdgeIndex(int index){
-        if(incomingConnections.contains(index)) return false;
+    public void addIncomingEdgeIndex(int index){
+        if(incomingConnections.contains(index)) return;
         incomingConnections.add(index);
-        return true;
     }
-
-    /** Returns the type of this node */
-    public nodeType getType() {return type;}
 
     /**
      * Shifts the Bias of this node by a random amount
      * @return false if this edge can't apply this mutation, true otherwise
      */
-    public boolean shiftBias() {
-        if(type.equals(nodeType.output)) return false;
+    public boolean shiftBias(Constants Constants) {
         this.bias *= (Math.random()*2-1) * Constants.mutationBiasShiftStrength;
         return true;
     }
 
     @Override
-    public node clone() {return new node(type,innovationID,AF,bias);}
+    public node clone() {return new node(innovationID,AF,bias);}
 
     @Override
     public boolean equals(Object obj){

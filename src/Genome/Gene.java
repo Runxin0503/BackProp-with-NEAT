@@ -8,18 +8,25 @@ abstract class Gene {
      */
     protected int innovationID;
 
+    /** The velocity and squared-velocity used for ADAM optimizer */
+    protected double velocity = 0, velocitySquared = 0;
+
+    /** Applies the given {@code Gradient} to the value of this Gene using the ADAM optimizer */
+    abstract void applyGradient(double gradient,double adjustedLearningRate, double momentum, double beta, double epsilon);
+
     /** returns the innovation ID of this gene */
-    public int getInnovationID(){
+    int getInnovationID() {
         return innovationID;
     }
 
     /** Implementers should calculate the value of the output of this gene */
-    public abstract double calculateOutput(double input);
+    abstract double calculateOutput(double input);
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return getInnovationID();
     }
 
+    @Override
     public abstract boolean equals(Object obj);
 }

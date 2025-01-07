@@ -1,32 +1,52 @@
 package Evolution;
 
-import Genome.enums.hidden;
-import Genome.enums.output;
+import Genome.enums.Activation;
 
+/**
+ * A Constants class containing the default value of the {@link Evolution} class, which
+ * is modified to fit the client's needs during the construction process
+ */
 public class Constants {
-    public static final int inputNum=4;
-    public static final int outputNum=1;
+    int inputNum = -1,outputNum = -1;
+    int numSimulated = -1;
+    Activation.arrays outputAF = null;
 
-    public static final hidden hiddenAF = hidden.sigmoid;
-    public static final output outputAF = output.none;
+    Activation defaultHiddenAF = Activation.none;
+    boolean batchNormalizeLayer = false;
 
-    public static final boolean batchNormalizeLayer = false;
+    public double
+            weightedExcess = 1,
+            weightedDisjoints = 1,
+            weightedWeights = 1,
+            compatibilityThreshold = 4,
+            maxStagDropoff = 20,
+            mutationSynapseProbability=0.03,
+            mutationNodeProbability=0.2,
+            mutationWeightShiftProbability=0.06,
+            mutationWeightRandomProbability=0.06,
+            mutationBiasShiftProbability=0.06,
+            mutationWeightShiftStrength=2,
+            mutationWeightRandomStrength=2,
+            mutationBiasShiftStrength=0.3,
+            perctCull = 0.2;
 
-    public static final double weightedExcess = 1;
-    public static final double weightedDisjoints = 1;
-    public static final double weightedWeights = 1;
-    public static final double compatibilityThreshold = 4;
-    public static final double maxStagDropoff = 20;
+    public int getNumSimulated() {
+        return numSimulated;
+    }
 
-    public static final double mutationSynapseProbability=0.03;
-    public static final double mutationNodeProbability=0.2;
+    public int getInputNum() {
+        return inputNum;
+    }
 
-    public static final double mutationWeightShiftProbability=0.06;
-    public static final double mutationWeightRandomProbability=0.06;
-    public static final double mutationBiasShiftProbability=0.06;
+    public int getOutputNum() {
+        return outputNum;
+    }
 
-    public static final double mutationWeightShiftStrength=2;
-    public static final double mutationWeightRandomStrength=2;
-    public static final double mutationBiasShiftStrength=0.3;
-    public static final double perctCull = 0.2;
+    public Activation getDefaultHiddenAF() {
+        return defaultHiddenAF;
+    }
+
+    public Activation.arrays getOutputAF() {
+        return outputAF;
+    }
 }

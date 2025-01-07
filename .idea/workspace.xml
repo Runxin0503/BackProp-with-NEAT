@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/src/Genome/enums/cost.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Evolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Species.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Species.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Gene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Mutation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Frame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Render/Panel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/enums/cost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/cost.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/enums/hidden.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/enums/nodeType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/enums/output.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Layer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NN.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +71,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/OneDrive/Desktop/Java Stuff/COLLEGE 2112 HONORS/Discussion 10&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD-BackPropagation-MNIST&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -136,6 +145,25 @@
       <workItem from="1731949149775" duration="988000" />
       <workItem from="1731960675862" duration="7797000" />
       <workItem from="1731983870227" duration="51000" />
+      <workItem from="1731984751403" duration="720000" />
+      <workItem from="1731985531801" duration="597000" />
+      <workItem from="1732024712879" duration="4248000" />
+      <workItem from="1732029943789" duration="12000" />
+      <workItem from="1733856849695" duration="595000" />
+      <workItem from="1736122184477" duration="259000" />
+      <workItem from="1736132773328" duration="1561000" />
+      <workItem from="1736134395087" duration="1758000" />
+      <workItem from="1736136175703" duration="149000" />
+      <workItem from="1736136444137" duration="5733000" />
+      <workItem from="1736202195685" duration="806000" />
+      <workItem from="1736207022729" duration="8000" />
+      <workItem from="1736207039406" duration="2000" />
+      <workItem from="1736207048216" duration="5374000" />
+      <workItem from="1736215188848" duration="1000" />
+      <workItem from="1736215214605" duration="781000" />
+      <workItem from="1736217233530" duration="187000" />
+      <workItem from="1736217943770" duration="355000" />
+      <workItem from="1736218319283" duration="329000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

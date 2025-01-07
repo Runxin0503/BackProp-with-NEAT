@@ -15,9 +15,9 @@ public class Agent implements WeightedRandom{
      */
     private double score;
 
-    public Agent(){
+    public Agent(Constants Constants){
         this.score=0;
-        this.genome = NN.getDefaultNode();
+        this.genome = NN.getDefaultNeuralNet(Constants);
     }
 
     /** Resets the score of this Agent */
@@ -31,14 +31,10 @@ public class Agent implements WeightedRandom{
         return score;
     }
 
-    /**
-     * Removes the genome of this Agent.
-     * @return whether this Agent had a genome to begin with or not.
-     */
-    public boolean removeGenome() {
-        if(!hasGenome()) return false;
+    /** Removes the genome of this Agent. */
+    public void removeGenome() {
+        assert hasGenome();
         genome = null;
-        return true;
     }
 
     /**
