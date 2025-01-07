@@ -23,23 +23,12 @@ class edge extends Gene {
     private boolean enabled;
 
     /** The local indices of the previous and next node */
-    private int previousIndex, nextIndex;
+    public int prevIndex, nextIndex;
 
     /** The absolute Innovation ID of the previous and next node */
     private final int previousIID,nextIID;
 
-    /**
-     * Used during {@link Mutation#mutateNode} and {@link Mutation#mutateSynapse} function to create new edges
-     */
-    public edge(int innovationID,int previousInnovationID,int nextInnovationID) {
-        this.innovationID = innovationID;
-        this.weight = 1;
-        this.previousIID = previousInnovationID;
-        this.nextIID = nextInnovationID;
-        this.enabled = true;
-    }
-
-    private edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID) {
+    public edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID) {
         this.innovationID = innovationID;
         this.weight = weight;
         this.previousIID = previousIID;
@@ -55,31 +44,25 @@ class edge extends Gene {
         return !enabled;
     }
 
-    @Override
-    void applyGradient(double gradient, double adjustedLearningRate, double momentum, double beta, double epsilon) {
-        //todo
-    }
-
-    /** Returns the local node index of the previous node */
-    public int getPreviousIndex(){return previousIndex;}
-    /** Returns the ID (local node index or Innovation ID) of the next node */
-    public int getNextIndex(){return nextIndex;}
-
     /** Returns the Innovation ID of the previous node */
     public int getPreviousIID(){return previousIID;}
     /** Returns the Innovation ID of the next node */
     public int getNextIID(){return nextIID;}
 
     /** Sets the local node index of the previous node */
-    public void setPreviousIndex(int previousIndex){this.previousIndex = previousIndex;}
+    public void setPreviousIndex(int prevIndex){this.prevIndex = prevIndex;}
     /** Sets the local node index of the next node */
     public void setNextIndex(int nextIndex){this.nextIndex = nextIndex;}
 
     /** Applies the weight of this edge to the given {@code input} */
+    @Override
     double calculateOutput(double input){
         if(enabled) return input * weight;
         return 0;
     }
+
+    @Override
+    void addValue(double deltaValue){this.weight += deltaValue;}
 
     /**
      * Shifts the weight of this edge by a random amount
@@ -110,7 +93,7 @@ class edge extends Gene {
     }
 
     public edge clone(List<node> nodes) {
-        return new edge(innovationID, weight,enabled,nodes.get(previousIndex).innovationID,nodes.get(nextIndex).innovationID);
+        return new edge(innovationID, weight,enabled,nodes.get(prevIndex).innovationID,nodes.get(nextIndex).innovationID);
     }
 
     @Override

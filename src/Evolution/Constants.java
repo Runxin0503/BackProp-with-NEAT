@@ -1,6 +1,9 @@
 package Evolution;
 
 import Genome.enums.Activation;
+import Genome.enums.Cost;
+
+import java.util.function.Supplier;
 
 /**
  * A Constants class containing the default value of the {@link Evolution} class, which
@@ -12,7 +15,9 @@ public class Constants {
     Activation.arrays outputAF = null;
 
     Activation defaultHiddenAF = Activation.none;
-    boolean batchNormalizeLayer = false;
+    Supplier<Double> defaultValueInitializer;
+    Cost CostFunction = null;
+    boolean batchNormalizeLayer = false;//todo implement
 
     public double
             weightedExcess = 1,
@@ -30,10 +35,6 @@ public class Constants {
             mutationBiasShiftStrength=0.3,
             perctCull = 0.2;
 
-    public int getNumSimulated() {
-        return numSimulated;
-    }
-
     public int getInputNum() {
         return inputNum;
     }
@@ -44,6 +45,14 @@ public class Constants {
 
     public Activation getDefaultHiddenAF() {
         return defaultHiddenAF;
+    }
+
+    public double getInitializedValue() {
+        return defaultValueInitializer.get();
+    }
+
+    public Cost getCostFunction() {
+        return CostFunction;
     }
 
     public Activation.arrays getOutputAF() {

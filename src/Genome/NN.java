@@ -22,9 +22,6 @@ public class NN {
      */
     final ArrayList<node> nodes;
 
-    /** The Derivatives of each node output with respect to the loss function, dz_dC */
-    private Double[] nodeGradients;
-
     /** The number of input & output neurons in this Neural Network */
     final Constants Constants;
 
@@ -44,9 +41,9 @@ public class NN {
         ArrayList<node> nodes = new ArrayList<>();
 
         for(int i = -Constants.getInputNum() - Constants.getOutputNum()-1; i<-Constants.getOutputNum();i++)
-            nodes.add(new node(i,Constants.getDefaultHiddenAF()));
+            nodes.add(new node(i,Constants.getDefaultHiddenAF(),Constants.getInitializedValue()));
         for(int i = -Constants.getOutputNum()-1; i<0;i++)
-            nodes.add(new node(i,Constants.getDefaultHiddenAF()));
+            nodes.add(new node(i,Constants.getDefaultHiddenAF(),Constants.getInitializedValue()));
 
         return new NN(nodes,Constants);
     }
@@ -181,12 +178,15 @@ public class NN {
         System.arraycopy(input, 0, calculator, 0, input.length);
 
         for(int i = 0; i < calculator.length; i++) {
+            //if calculator array doesn't have any value at that node,
+            //the node doesn't have an active incoming edge, so ignore that node
             if(Double.isNaN(calculator[i])) continue;
+
             calculator[i] = nodes.get(i).calculateOutput(calculator[i]);
             for(int j : nodes.get(i).getOutgoingEdgeIndices()){
                 edge e = genome.get(j);
                 if(e.isDisabled()) continue;
-                int targetIndex = e.getNextIndex();
+                int targetIndex = e.nextIndex;
                 calculator[targetIndex] += e.calculateOutput(calculator[i]);
             }
         }
@@ -200,26 +200,79 @@ public class NN {
         return output;
     }
 
-    /** */
+    /**
+     * back-propagates the derivatives of the weights and biases through this Network, ignoring any
+     * disconnected components during back-propagation
+     */
     private void backPropagate(double[] input, double[] expectedOutput){
-        double[] calculator = new double[nodes.size()], z = new double[nodes.size()];
+        double[] calculator = new double[nodes.size()], nodeGradients = new double[nodes.size()];
+        Arrays.fill(calculator,Double.NaN);
+        System.arraycopy(input, 0, calculator, 0, input.length);
+
         for(int i = 0; i < calculator.length; i++){
-            //todo get first pass through to populate z with node inputs
+            //get first pass through to populate calculator with edge inputs (node AF outputs)
+            //if calculator array doesn't have any value at that node,
+            //the node doesn't have an active incoming edge, so ignore that node
+            if(Double.isNaN(calculator[i])) continue;
+
+            calculator[i] = nodes.get(i).calculateOutput(calculator[i]);
+            for(int j : nodes.get(i).getOutgoingEdgeIndices()){
+                edge e = genome.get(j);
+                if(e.isDisabled()) continue;
+                int targetIndex = e.nextIndex;
+                calculator[targetIndex] += e.calculateOutput(calculator[i]);
+            }
         }
 
-        for(int i = calculator.length-1; i >= 0; i--){
-            //todo reverse passing through to calculate final node derivatives
+        double[] output = new double[Constants.getOutputNum()];
+        for(int i=calculator.length-output.length;i<calculator.length;i++){
+            if(Double.isNaN(calculator[i])) continue;
+            output[i] = calculator[i];
+        }
+        Constants.getOutputAF().calculate(output);
+        double[] outputActivationGradients = Constants.getCostFunction().derivative(output,expectedOutput);
+        double[] outputGradients = Constants.getOutputAF().derivative(output,outputActivationGradients);
+
+        Arrays.fill(nodeGradients, Double.NaN);
+        System.arraycopy(outputGradients,0,nodeGradients,nodeGradients.length-Constants.getOutputNum()-1,Constants.getOutputNum());
+
+        for(int i = nodeGradients.length-Constants.getOutputNum()-1; i >= 0; i--){
+            //reverse passing through to calculate final node derivatives
+            //nodeGradients[i] contains da_dC, convert to dz_dC and update gradient of n and all incoming edges
+            //then convert dz_dC to the da_dC of each node of the incoming edges
+            //save da_dC to appropriate nodeGradients element
+            node n = nodes.get(i);
+
+            //if calculator[i] is NaN, the first pass didn't have any active incoming edges to
+            //this node so skip this node, we check nodeGradients[i] because calculator[i] is NaN
+            //for every node disconnected and beyond, but since we're traversing backwards we have to
+            //skip all nodes that has only disconnected descendents
+            if(Double.isNaN(calculator[i]) || Double.isNaN(nodeGradients[i])) continue;
+            //convert nodeGradient to dz_dC
+            nodeGradients[i] = n.activationFunction.derivative(calculator[i],nodeGradients[i]);
+            //db_dC = dz_dC since z = wx + b
+            n.addGradient(nodeGradients[i]);
+
+            for(int edgeIndex : n.getIncomingEdgeIndices()){
+                edge e = genome.get(edgeIndex);
+                if(e.isDisabled()) continue;
+                //dw_dC = dz_dC * x since z = w*x + b
+                e.addGradient(nodeGradients[i] * calculator[e.prevIndex]);
+                //da_dC of the previous node is just da_dC = dz_dC * w since z = w*x + b and x = a (prev node output)
+                if(Double.isNaN(nodeGradients[e.prevIndex])) nodeGradients[e.prevIndex] = nodeGradients[i] * e.getWeight();
+                else nodeGradients[e.prevIndex] += nodeGradients[i] * e.getWeight();
+            }
         }
     }
 
     /** Re-initializes the weight and bias gradients, effectively setting all contained values to 0 */
     private void clearGradient() {
-        nodeGradients = new Double[nodes.size()];
-        Arrays.fill(nodeGradients, 0.0);
+        for(node n : nodes) n.clearGradient();
+        for(edge e : genome) e.clearGradient();
     }
 
     /**
-     * Applies the {@link #nodeGradients} derivatives to all nodes and edges in this Neural Network
+     * Applies the {@link Gene#gradient} to all nodes and edges in this Neural Network
      */
     private void applyGradient(double adjustedLearningRate, double momentum, double beta, double epsilon) {
         //todo

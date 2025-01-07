@@ -5,23 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Evolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Species.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Species.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Gene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Mutation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/NN.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/enums/cost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/enums/cost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/enums/hidden.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/enums/nodeType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/enums/output.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Layer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NN.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,6 +154,7 @@
       <workItem from="1736217233530" duration="187000" />
       <workItem from="1736217943770" duration="355000" />
       <workItem from="1736218319283" duration="329000" />
+      <workItem from="1736218667702" duration="1418000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

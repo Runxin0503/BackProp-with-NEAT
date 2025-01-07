@@ -31,7 +31,7 @@ public enum Cost {
         this.derivativeFunction = derivativeFunction;
     }
 
-    /** Transform {@code output} to the result of applying this Cost Function on the given output and expectedOutput array */
+    /** Returns the result of applying this Cost Function on the given output and expectedOutput array */
     public double[] calculate(double[] output, double[] expectedOutput) {
         for(double v : output) assert Double.isFinite(v) : "Attempted to input invalid values into Loss Function";
         double[] costs = this.function.apply(output, expectedOutput);
@@ -39,7 +39,7 @@ public enum Cost {
         return costs;
     }
 
-    /** Transform {@code output} to the result of applying the derivative of this Cost Function on the given output and expectedOutput array */
+    /** Returns the result of applying the derivative of this Cost Function on the given output and expectedOutput array */
     public double[] derivative(double[] output, double[] expectedOutput) {
         for(double v : output) assert Double.isFinite(v) : "Attempted to input invalid values into Deriv of Loss Function";
         double[] gradient = this.derivativeFunction.apply(output, expectedOutput);

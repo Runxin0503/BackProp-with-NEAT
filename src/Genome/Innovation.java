@@ -80,8 +80,8 @@ class Innovation {
         for(int i=0;i<topologicalOrder.size();i++) innovationIDtoLocalIndex.put(topologicalOrder.get(i).innovationID,i);
 
         for(edge e : genome){
-            e.setPreviousIndex(innovationIDtoLocalIndex.get(e.getPreviousIID()));
-            e.setNextIndex(innovationIDtoLocalIndex.get(e.getNextIID()));
+            e.prevIndex = innovationIDtoLocalIndex.get(e.getPreviousIID());
+            e.nextIndex = innovationIDtoLocalIndex.get(e.getNextIID());
         }
 
         return topologicalOrder;

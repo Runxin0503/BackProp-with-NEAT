@@ -23,7 +23,7 @@ class node extends Gene {
      */
 
     /** The Activation Function of this neuron */
-    private Activation AF;
+    Activation activationFunction;
 
     /** The bias value of this neuron */
     private double bias;
@@ -38,16 +38,9 @@ class node extends Gene {
     private final List<Integer> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
-    public node(int innovationID, Activation AF){
+    public node(int innovationID, Activation activationFunction, double bias){
         this.innovationID = innovationID;
-        this.AF = AF;
-        this.bias = 0;
-        this.activated = false;
-    }
-
-    private node(int innovationID, Activation AF, double bias){
-        this.innovationID = innovationID;
-        this.AF = AF;
+        this.activationFunction = activationFunction;
         this.bias = bias;
         this.activated = false;
     }
@@ -56,16 +49,15 @@ class node extends Gene {
      * Applies the bias and activation function to the given {@code input}.<br>
      * Changes the {@code activated} var to the appropriate value
      */
+    @Override
     double calculateOutput(double input){
-        double output = AF.calculate(input+bias);
+        double output = activationFunction.calculate(input+bias);
         activated = output > 0;
         return output;
     }
 
     @Override
-    void applyGradient(double gradient, double adjustedLearningRate, double momentum, double beta, double epsilon) {
-        //todo
-    }
+    void addValue(double deltaValue){this.bias += deltaValue;}
 
     /** Returns true if the last output of this neuron is > 0, false otherwise */
     public boolean isActivated(){
@@ -115,7 +107,7 @@ class node extends Gene {
     }
 
     @Override
-    public node clone() {return new node(innovationID,AF,bias);}
+    public node clone() {return new node(innovationID, activationFunction,bias);}
 
     @Override
     public boolean equals(Object obj){

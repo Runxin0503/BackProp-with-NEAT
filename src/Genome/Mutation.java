@@ -1,6 +1,5 @@
 package Genome;
 
-import Genome.enums.Activation;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -31,8 +30,8 @@ class Mutation {
     /** Chooses a random node to shift its bias by a random amount */
     static void shiftBias(NN nn){
         for(int count = 0; count <100; count++){
-            int nodeIndex = (int)(Math.random()*nn.nodes.size());
-            if(nn.nodes.size()-nn.Constants.getOutputNum()-1 < nodeIndex) continue;//ignore if nodeIndex is output node
+            //randomly picks an index for all nodes except an input node
+            int nodeIndex = (int)(Math.random()*(nn.nodes.size()-nn.Constants.getInputNum())+nn.Constants.getInputNum());
 
             node n = nn.nodes.get(nodeIndex);
             if(n.shiftBias(nn.Constants)) return;
@@ -50,7 +49,7 @@ class Mutation {
             int edgeIID = Innovation.getEdgeInnovationID(n1.getInnovationID(),n2.getInnovationID());
 
             int edgeIndex = nn.genome.size();
-            nn.genome.add(new edge(edgeIID,n1.getInnovationID(),n2.getInnovationID()));
+            nn.genome.add(new edge(edgeIID,nn.Constants.getInitializedValue(),true,n1.getInnovationID(),n2.getInnovationID()));
             n1.addOutgoingEdgeIndex(edgeIndex);
             n2.addIncomingEdgeIndex(edgeIndex);
 
@@ -63,11 +62,11 @@ class Mutation {
                 for(edge e : nn.genome){
                     //shifts node index to the right if its within [i2,i1)
                     //sets node index to i2 if it equals i1
-                    int prevIndex = e.getPreviousIndex(), nextIndex = e.getNextIndex();
-                    if(prevIndex==i1) e.setPreviousIndex(i2);
-                    else if(prevIndex < i1 && prevIndex >= i2) e.setPreviousIndex(prevIndex+1);
-                    if(nextIndex==i1) e.setNextIndex(i2);
-                    else if(nextIndex < i1 && nextIndex >= i2) e.setNextIndex(prevIndex+1);
+                    int prevIndex = e.prevIndex, nextIndex = e.nextIndex;
+                    if(prevIndex==i1) e.prevIndex = i2;
+                    else if(prevIndex < i1 && prevIndex >= i2) e.prevIndex = prevIndex+1;
+                    if(nextIndex==i1) e.nextIndex = i2;
+                    else if(nextIndex < i1 && nextIndex >= i2) e.nextIndex = prevIndex+1;
                 }
             }
 
@@ -89,12 +88,12 @@ class Mutation {
 
             edge.disable();
 
-            node newNode = new node(edge.getInnovationID(),nn.Constants.getDefaultHiddenAF());
+            node newNode = new node(edge.getInnovationID(),nn.Constants.getDefaultHiddenAF(),nn.Constants.getInitializedValue());
 
-            node prevNode = nn.nodes.get(edge.getPreviousIndex()),nextNode = nn.nodes.get(edge.getNextIndex());
+            node prevNode = nn.nodes.get(edge.prevIndex),nextNode = nn.nodes.get(edge.nextIndex);
             int prevIID = prevNode.getInnovationID(), midIID = newNode.getInnovationID(), nextIID = nextNode.getInnovationID();
-            edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID,midIID),prevIID,midIID);
-            edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID,nextIID),midIID,nextIID);
+            edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID,midIID),nn.Constants.getInitializedValue(),true,prevIID,midIID);
+            edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID,nextIID),nn.Constants.getInitializedValue(),true,midIID,nextIID);
 
             //add indices to nodes
             prevNode.addOutgoingEdgeIndex(nn.genome.size());
@@ -103,15 +102,15 @@ class Mutation {
             nn.genome.add(edge2);
 
             // insert the brand new node right after prevNode index, push every other node back and re-index
-            edge1.setPreviousIndex(edge.getPreviousIndex());
-            edge2.setNextIndex(edge.getNextIndex());
+            edge1.setPreviousIndex(edge.prevIndex);
+            edge2.setNextIndex(edge.nextIndex);
 
-            int newNodeIndex = edge.getPreviousIndex()+1;
+            int newNodeIndex = edge.prevIndex+1;
 
             //increase every edge's nodeIndex by one if their index is after the new node index
             for(edge e : nn.genome){
-                if(e.getPreviousIndex() >= newNodeIndex) e.setPreviousIndex(e.getPreviousIndex()+1);
-                if(e.getNextIndex() >= newNodeIndex) e.setNextIndex(e.getNextIndex()+1);
+                if(e.prevIndex >= newNodeIndex) e.prevIndex++;
+                if(e.nextIndex >= newNodeIndex) e.nextIndex++;
             }
             nn.nodes.add(newNodeIndex,newNode);
 
@@ -131,7 +130,7 @@ class Mutation {
         while(!queue.isEmpty()){
             int nodeIndex = queue.remove();
             for(int edgeIndex : nn.nodes.get(nodeIndex).getOutgoingEdgeIndices()){
-                int nextNode = nn.genome.get(edgeIndex).getNextIndex();
+                int nextNode = nn.genome.get(edgeIndex).nextIndex;
                 if(nextNode==rootNodeIndex) return true;
                 if(!visitedNodes.contains(nextNode)) queue.add(nextNode);
             }
