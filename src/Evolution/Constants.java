@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * is modified to fit the client's needs during the construction process
  */
 public class Constants {
-    int inputNum = -1,outputNum = -1;
+    int inputNum = -1, outputNum = -1;
     int numSimulated = -1;
     Activation.arrays outputAF = null;
 
@@ -25,14 +25,14 @@ public class Constants {
             weightedWeights = 1,
             compatibilityThreshold = 4,
             maxStagDropoff = 20,
-            mutationSynapseProbability=0.03,
-            mutationNodeProbability=0.2,
-            mutationWeightShiftProbability=0.06,
-            mutationWeightRandomProbability=0.06,
-            mutationBiasShiftProbability=0.06,
-            mutationWeightShiftStrength=2,
-            mutationWeightRandomStrength=2,
-            mutationBiasShiftStrength=0.3,
+            mutationSynapseProbability = 0.03,
+            mutationNodeProbability = 0.2,
+            mutationWeightShiftProbability = 0.06,
+            mutationWeightRandomProbability = 0.06,
+            mutationBiasShiftProbability = 0.06,
+            mutationWeightShiftStrength = 2,
+            mutationWeightRandomStrength = 2,
+            mutationBiasShiftStrength = 0.3,
             perctCull = 0.2;
 
     public int getInputNum() {

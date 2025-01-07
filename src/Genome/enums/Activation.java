@@ -21,13 +21,13 @@ public enum Activation {
             (input, gradient) -> {
                 double a = 1 / (1 + Math.exp(-input));
                 return gradient * a * (1 - a);
-    }),
+            }),
     tanh(
             Math::tanh,
             (input, gradient) -> {
-            double tanhValue = Math.tanh(input);
-            return gradient * (1 - tanhValue * tanhValue);
-    }),
+                double tanhValue = Math.tanh(input);
+                return gradient * (1 - tanhValue * tanhValue);
+            }),
     LeakyReLU(
             input -> input > 0 ? input : 0.1 * input,
             (input, gradient) -> input > 0 ? gradient : 0.1 * gradient
@@ -71,7 +71,7 @@ public enum Activation {
         else return () -> XAVIER_Initialization.apply(inputNum, outputNum);
     }
 
-    public enum arrays{
+    public enum arrays {
         none,
         ReLU,
         sigmoid,
@@ -104,33 +104,36 @@ public enum Activation {
             return output;
         });
 
-        private final Function<double[],double[]> arrayFunction;
-        private final BiFunction<double[],double[],double[]> arrayDerivativeFunction;
+        private final Function<double[], double[]> arrayFunction;
+        private final BiFunction<double[], double[], double[]> arrayDerivativeFunction;
 
-        arrays(){
+        arrays() {
             arrayFunction = (input) -> {
-                Function<Double,Double> func = Activation.valueOf(toString()).function;
+                Function<Double, Double> func = Activation.valueOf(toString()).function;
                 double[] output = new double[input.length];
-                for(int i=0;i<input.length;i++) output[i] = func.apply(input[i]);
+                for (int i = 0; i < input.length; i++) output[i] = func.apply(input[i]);
                 return output;
             };
-            arrayDerivativeFunction = (input,gradient) -> {
-                BiFunction<Double,Double,Double> func = Activation.valueOf(toString()).derivativeFunction;
+            arrayDerivativeFunction = (input, gradient) -> {
+                BiFunction<Double, Double, Double> func = Activation.valueOf(toString()).derivativeFunction;
                 double[] output = new double[input.length];
-                for(int i=0;i<input.length;i++) output[i] = func.apply(input[i], gradient[i]);
+                for (int i = 0; i < input.length; i++) output[i] = func.apply(input[i], gradient[i]);
                 return output;
             };
         }
-        arrays(Function<double[],double[]> arrayFunction, BiFunction<double[],double[],double[]> arrayDerivativeFunction){
+
+        arrays(Function<double[], double[]> arrayFunction, BiFunction<double[], double[], double[]> arrayDerivativeFunction) {
             this.arrayFunction = arrayFunction;
             this.arrayDerivativeFunction = arrayDerivativeFunction;
         }
 
         /** Returns the result of AF(x) for every x in {@code input} array*/
         public double[] calculate(double[] input) {
-            for(double v : input) assert Double.isFinite(v) : "Attempted to input invalid values into Activation Function " + Arrays.toString(input);
+            for (double v : input)
+                assert Double.isFinite(v) : "Attempted to input invalid values into Activation Function " + Arrays.toString(input);
             double[] output = this.arrayFunction.apply(input);
-            for(double v : output) assert Double.isFinite(v) : "Activation Function returning invalid values " + Arrays.toString(input);
+            for (double v : output)
+                assert Double.isFinite(v) : "Activation Function returning invalid values " + Arrays.toString(input);
             return output;
         }
 
@@ -139,9 +142,11 @@ public enum Activation {
          * @return {@code dz_dC}
          */
         public double[] derivative(double[] z, double[] da_dC) {
-            for(double v : da_dC) assert Double.isFinite(v) : "Attempted to input invalid values into Deriv of Activation Function " + Arrays.toString(z) + "  " + Arrays.toString(da_dC);
+            for (double v : da_dC)
+                assert Double.isFinite(v) : "Attempted to input invalid values into Deriv of Activation Function " + Arrays.toString(z) + "  " + Arrays.toString(da_dC);
             double[] newGradient = this.arrayDerivativeFunction.apply(z, da_dC);
-            for(double v : newGradient) assert Double.isFinite(v) : "Deriv of Activation Function returning invalid values " + Arrays.toString(z) + "  " + Arrays.toString(da_dC);
+            for (double v : newGradient)
+                assert Double.isFinite(v) : "Deriv of Activation Function returning invalid values " + Arrays.toString(z) + "  " + Arrays.toString(da_dC);
             return newGradient;
         }
     }

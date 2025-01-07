@@ -3,7 +3,7 @@ package Evolution;
 import Genome.enums.Activation;
 import Genome.enums.Cost;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Evolution {
     private final ArrayList<Species> species = new ArrayList<>();
@@ -11,67 +11,67 @@ public class Evolution {
 
     public Constants Constants;
 
-    private Evolution(Constants Constants){
+    private Evolution(Constants Constants) {
         this.Constants = Constants;
         Agent first = new Agent(Constants);
         agents = new Agent[Constants.numSimulated];
         agents[0] = first;
-        species.add(new Species(first,Constants));
-        for(int i=1;i<Constants.numSimulated;i++){
+        species.add(new Species(first, Constants));
+        for (int i = 1; i < Constants.numSimulated; i++) {
             Agent temp = new Agent(Constants);
             species.getFirst().add(temp);
             agents[i] = temp;
         }
     }
 
-    public void nextGen(){
+    public void nextGen() {
         //Species Separation
-        for(Species s : species){
+        for (Species s : species) {
             s.reset();
         }
 
         //assign all agents to a species
-        for(Agent agent : agents){
+        for (Agent agent : agents) {
             boolean found = false;
-            for(Species s : species){
-                if(s.add(agent)){
-                    found=true;
+            for (Species s : species) {
+                if (s.add(agent)) {
+                    found = true;
                     break;
                 }
             }
-            if(!found) species.add(new Species(agent,Constants));
+            if (!found) species.add(new Species(agent, Constants));
         }
 
         //update stagnant count, then cull
-        for(Species s : species){
+        for (Species s : species) {
             s.updateStag();
             s.cull();
         }
 
         //remove empty species
-        for(int i = species.size()-1; i>=0; i--){
+        for (int i = species.size() - 1; i >= 0; i--) {
             Species s = species.get(i);
-            if(s.isEmpty()) species.remove(i);
+            if (s.isEmpty()) species.remove(i);
 
         }
 
         //calculates population score
-        for(Species s : species) s.calculateScore();
+        for (Species s : species) s.calculateScore();
 
         //repopulate Genomes & reproduce
-        for(Agent agent : agents){
-            if(!agent.hasGenome()){
+        for (Agent agent : agents) {
+            if (!agent.hasGenome()) {
                 WeightedRandom.getRandom(species).populateGenome(agent);
             }
         }
 
         //mutate
-        for(Agent agent : agents){
+        for (Agent agent : agents) {
             agent.mutate();
         }
 
         //reset
-        for(Agent agent : agents){
+        for (Agent agent : agents) {
             agent.reset();
         }
     }
@@ -82,41 +82,43 @@ public class Evolution {
     public class EvolutionBuilder {
         private Constants Constants = new Constants();
 
-        public EvolutionBuilder(){}
+        public EvolutionBuilder() {
+        }
 
-        public EvolutionBuilder setNumSimulated(int numSimulated){
+        public EvolutionBuilder setNumSimulated(int numSimulated) {
             Constants.numSimulated = numSimulated;
             return this;
         }
 
-        public EvolutionBuilder setInputNum(int inputNum){
+        public EvolutionBuilder setInputNum(int inputNum) {
             Constants.inputNum = inputNum;
             return this;
         }
 
-        public EvolutionBuilder setOutputNum(int outputNum){
+        public EvolutionBuilder setOutputNum(int outputNum) {
             Constants.outputNum = outputNum;
             return this;
         }
 
-        public EvolutionBuilder setOutputAF(Activation.arrays outputAF){
+        public EvolutionBuilder setOutputAF(Activation.arrays outputAF) {
             Constants.outputAF = outputAF;
             return this;
         }
 
-        public EvolutionBuilder setDefaultHiddenAF(Activation defaultHiddenAF){
+        public EvolutionBuilder setDefaultHiddenAF(Activation defaultHiddenAF) {
             Constants.defaultHiddenAF = defaultHiddenAF;
             return this;
         }
 
-        public EvolutionBuilder setCostFunction(Cost CostFunction){
+        public EvolutionBuilder setCostFunction(Cost CostFunction) {
             Constants.CostFunction = CostFunction;
             return this;
         }
 
         public Evolution build() throws MissingInformation {
-            if(Constants.inputNum==-1 || Constants.outputNum==-1 || Constants.numSimulated==-1 || Constants.outputAF == null || Constants.CostFunction == null) throw new MissingInformation();
-            Constants.defaultValueInitializer = Activation.getInitializer(Constants.defaultHiddenAF,Constants.inputNum,Constants.outputNum);
+            if (Constants.inputNum == -1 || Constants.outputNum == -1 || Constants.numSimulated == -1 || Constants.outputAF == null || Constants.CostFunction == null)
+                throw new MissingInformation();
+            Constants.defaultValueInitializer = Activation.getInitializer(Constants.defaultHiddenAF, Constants.inputNum, Constants.outputNum);
             return new Evolution(Constants);
         }
 

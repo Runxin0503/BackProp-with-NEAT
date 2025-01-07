@@ -15,10 +15,14 @@ abstract class Gene {
     protected double gradient = 0;
 
     /** Clears the Gradient of this particular node */
-    void clearGradient(){this.gradient = 0;}
+    void clearGradient() {
+        this.gradient = 0;
+    }
 
     /** Adds {@code newGradient} to the existing gradient of this Gene */
-    synchronized void addGradient(double newGradient){this.gradient += newGradient;}
+    synchronized void addGradient(double newGradient) {
+        this.gradient += newGradient;
+    }
 
     /**
      * Applies the given {@code Gradient} to the value of this Gene using the ADAM optimizer
@@ -30,7 +34,7 @@ abstract class Gene {
      * @param correctionBeta 1 / (1 - beta^t), where t is the number of times the Neural Network was trained
      * @param epsilon a hyper-parameter in {@link NN#learn}, typically a very small value like {@code 1e-8}
      */
-    void applyGradient(double gradient,double adjustedLearningRate, double momentum, double beta,double correctionMomentum,double correctionBeta, double epsilon){
+    void applyGradient(double adjustedLearningRate, double momentum, double correctionMomentum, double beta, double correctionBeta, double epsilon) {
         velocity = momentum * velocity + (1 - momentum) * gradient;
         velocitySquared = beta * velocitySquared + (1 - beta) * gradient * gradient;
         double correctedVelocity = velocity * correctionMomentum;
@@ -42,7 +46,9 @@ abstract class Gene {
     abstract void addValue(double deltaValue);
 
     /** returns the innovation ID of this gene */
-    int getInnovationID() {return innovationID;}
+    int getInnovationID() {
+        return innovationID;
+    }
 
     /** Implementers should calculate the value of the output of this gene */
     abstract double calculateOutput(double input);

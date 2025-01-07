@@ -1,8 +1,8 @@
 package Evolution;
 
-import Genome.*;
+import Genome.NN;
 
-public class Agent implements WeightedRandom{
+public class Agent implements WeightedRandom {
     /**
      * The genome of this Agent
      * <br> Can be null if this Agent's genome is currently being repurposed by a better-performing genome
@@ -15,14 +15,14 @@ public class Agent implements WeightedRandom{
      */
     private double score;
 
-    public Agent(Constants Constants){
-        this.score=0;
+    public Agent(Constants Constants) {
+        this.score = 0;
         this.genome = NN.getDefaultNeuralNet(Constants);
     }
 
     /** Resets the score of this Agent */
-    public void reset(){
-        score=0;
+    public void reset() {
+        score = 0;
     }
 
     /** Returns the score of this Agent as input to the NEAT algorithm */
@@ -42,8 +42,9 @@ public class Agent implements WeightedRandom{
      * @throws RuntimeException if parent 1 or 2 are missing genome or child already has genome
      */
     public static void crossover(Agent parent1, Agent parent2, Agent child) {
-        if(!parent1.hasGenome() || !parent2.hasGenome() || child.hasGenome()) throw new RuntimeException("Genome Exception");
-        child.genome = NN.crossover(parent1.genome,parent2.genome,parent1.score,parent2.score);
+        if (!parent1.hasGenome() || !parent2.hasGenome() || child.hasGenome())
+            throw new RuntimeException("Genome Exception");
+        child.genome = NN.crossover(parent1.genome, parent2.genome, parent1.score, parent2.score);
     }
 
     /** Returns whether this Agent has a genome or not */
@@ -62,7 +63,7 @@ public class Agent implements WeightedRandom{
      * @throws RuntimeException when either Agent is missing a genome
      */
     public double compare(Agent newAgent) {
-        if(!hasGenome() || !newAgent.hasGenome()) throw new RuntimeException("Genome Exception");
+        if (!hasGenome() || !newAgent.hasGenome()) throw new RuntimeException("Genome Exception");
         return genome.compare(newAgent.genome);
     }
 
@@ -72,7 +73,7 @@ public class Agent implements WeightedRandom{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return genome.toString();
     }
 

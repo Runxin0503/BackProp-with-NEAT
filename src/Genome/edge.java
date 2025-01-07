@@ -26,7 +26,7 @@ class edge extends Gene {
     public int prevIndex, nextIndex;
 
     /** The absolute Innovation ID of the previous and next node */
-    private final int previousIID,nextIID;
+    private final int previousIID, nextIID;
 
     public edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID) {
         this.innovationID = innovationID;
@@ -36,41 +36,53 @@ class edge extends Gene {
         this.enabled = enabled;
     }
 
-    public double getWeight(){
+    public double getWeight() {
         return weight;
     }
 
-    public boolean isDisabled(){
+    public boolean isDisabled() {
         return !enabled;
     }
 
     /** Returns the Innovation ID of the previous node */
-    public int getPreviousIID(){return previousIID;}
+    public int getPreviousIID() {
+        return previousIID;
+    }
+
     /** Returns the Innovation ID of the next node */
-    public int getNextIID(){return nextIID;}
+    public int getNextIID() {
+        return nextIID;
+    }
 
     /** Sets the local node index of the previous node */
-    public void setPreviousIndex(int prevIndex){this.prevIndex = prevIndex;}
+    public void setPreviousIndex(int prevIndex) {
+        this.prevIndex = prevIndex;
+    }
+
     /** Sets the local node index of the next node */
-    public void setNextIndex(int nextIndex){this.nextIndex = nextIndex;}
+    public void setNextIndex(int nextIndex) {
+        this.nextIndex = nextIndex;
+    }
 
     /** Applies the weight of this edge to the given {@code input} */
     @Override
-    double calculateOutput(double input){
-        if(enabled) return input * weight;
+    double calculateOutput(double input) {
+        if (enabled) return input * weight;
         return 0;
     }
 
     @Override
-    void addValue(double deltaValue){this.weight += deltaValue;}
+    void addValue(double deltaValue) {
+        this.weight += deltaValue;
+    }
 
     /**
      * Shifts the weight of this edge by a random amount
      * @return false if this edge can't apply this mutation, true otherwise
      */
-    public boolean shiftWeights(double mutationWeightShiftStrength){
-        if(!enabled) return false;
-        this.weight *= mutationWeightShiftStrength * (Math.random()*2-1);
+    public boolean shiftWeights(double mutationWeightShiftStrength) {
+        if (!enabled) return false;
+        this.weight *= mutationWeightShiftStrength * (Math.random() * 2 - 1);
         return true;
     }
 
@@ -78,8 +90,8 @@ class edge extends Gene {
      * Sets the weight of this edge to a random number
      * @return false if this edge can't apply this mutation, true otherwise
      */
-    public boolean randomWeights(double mutationWeightRandomStrength){
-        if(!enabled) return false;
+    public boolean randomWeights(double mutationWeightRandomStrength) {
+        if (!enabled) return false;
         this.weight = mutationWeightRandomStrength * (Math.random());
         return true;
     }
@@ -88,16 +100,16 @@ class edge extends Gene {
      * Disables this synapse from the calculation process
      * <br> Returns false if it was already disabled, true otherwise
      */
-    public void disable(){
+    public void disable() {
         enabled = false;
     }
 
     public edge clone(List<node> nodes) {
-        return new edge(innovationID, weight,enabled,nodes.get(prevIndex).innovationID,nodes.get(nextIndex).innovationID);
+        return new edge(innovationID, weight, enabled, nodes.get(prevIndex).innovationID, nodes.get(nextIndex).innovationID);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof edge && ((edge)obj).innovationID == innovationID;
+        return obj instanceof edge && ((edge) obj).innovationID == innovationID;
     }
 }

@@ -38,7 +38,7 @@ class node extends Gene {
     private final List<Integer> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
-    public node(int innovationID, Activation activationFunction, double bias){
+    public node(int innovationID, Activation activationFunction, double bias) {
         this.innovationID = innovationID;
         this.activationFunction = activationFunction;
         this.bias = bias;
@@ -50,17 +50,19 @@ class node extends Gene {
      * Changes the {@code activated} var to the appropriate value
      */
     @Override
-    double calculateOutput(double input){
-        double output = activationFunction.calculate(input+bias);
+    double calculateOutput(double input) {
+        double output = activationFunction.calculate(input + bias);
         activated = output > 0;
         return output;
     }
 
     @Override
-    void addValue(double deltaValue){this.bias += deltaValue;}
+    void addValue(double deltaValue) {
+        this.bias += deltaValue;
+    }
 
     /** Returns true if the last output of this neuron is > 0, false otherwise */
-    public boolean isActivated(){
+    public boolean isActivated() {
         return activated;
     }
 
@@ -76,7 +78,7 @@ class node extends Gene {
      * Returns the local indices of all edges pointing out from this node.
      * <br>Used for feed-forward calculation
      */
-    public Integer[] getOutgoingEdgeIndices(){
+    public Integer[] getOutgoingEdgeIndices() {
         return outgoingConnections.toArray(new Integer[0]);
     }
 
@@ -84,16 +86,17 @@ class node extends Gene {
      * Attempts to add {@code index} to the array of outgoing edge indices.
      * Doesn't do anything if the array already contains the index
      */
-    public void addOutgoingEdgeIndex(int index){
-        if(outgoingConnections.contains(index)) return;
+    public void addOutgoingEdgeIndex(int index) {
+        if (outgoingConnections.contains(index)) return;
         outgoingConnections.add(index);
     }
+
     /**
      * Attempts to add {@code index} to the array of incoming edge indices.
      * Doesn't do anything if the array already contains the index
      */
-    public void addIncomingEdgeIndex(int index){
-        if(incomingConnections.contains(index)) return;
+    public void addIncomingEdgeIndex(int index) {
+        if (incomingConnections.contains(index)) return;
         incomingConnections.add(index);
     }
 
@@ -102,16 +105,18 @@ class node extends Gene {
      * @return false if this edge can't apply this mutation, true otherwise
      */
     public boolean shiftBias(Constants Constants) {
-        this.bias *= (Math.random()*2-1) * Constants.mutationBiasShiftStrength;
+        this.bias *= (Math.random() * 2 - 1) * Constants.mutationBiasShiftStrength;
         return true;
     }
 
     @Override
-    public node clone() {return new node(innovationID, activationFunction,bias);}
+    public node clone() {
+        return new node(innovationID, activationFunction, bias);
+    }
 
     @Override
-    public boolean equals(Object obj){
-        return obj instanceof node && ((node)obj).innovationID == innovationID;
+    public boolean equals(Object obj) {
+        return obj instanceof node && ((node) obj).innovationID == innovationID;
     }
 
 }
