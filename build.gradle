@@ -30,18 +30,26 @@ application {
 }
 
 javafx {
-    version = '21'
-    modules = ['javafx.controls', 'javafx.fxml']
+    version = "21"
+    modules = ['javafx.controls', 'javafx.web', 'javafx.fxml']
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+    }
+}
+
+application {
+    mainClass = "src/main/java/MVC/View.java"
 }
 
 dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-}
-
-test {
-    useJUnitPlatform()
 }
 
 jlink {

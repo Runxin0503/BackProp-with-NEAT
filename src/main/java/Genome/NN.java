@@ -46,9 +46,9 @@ public class NN {
     public static NN getDefaultNeuralNet(Constants Constants) {
         ArrayList<node> nodes = new ArrayList<>();
 
-        for (int i = -Constants.getInputNum() - Constants.getOutputNum() - 1; i < -Constants.getOutputNum(); i++)
+        for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < -Constants.getOutputNum(); i++)
             nodes.add(new node(i, Constants.getDefaultHiddenAF(), Constants.getInitializedValue()));
-        for (int i = -Constants.getOutputNum() - 1; i < 0; i++)
+        for (int i = -Constants.getOutputNum(); i < 0; i++)
             nodes.add(new node(i, Constants.getDefaultHiddenAF(), Constants.getInitializedValue()));
 
         return new NN(nodes, Constants);
@@ -171,7 +171,7 @@ public class NN {
         test.sort(Comparator.comparingInt(edge::getInnovationID));
         assert test.equals(newGenome);
 
-        ArrayList<node> newNodes = Innovation.constructNetworkFromGenome(newGenome, dominant.nodes, submissive.nodes);
+        ArrayList<node> newNodes = Innovation.constructNetworkFromGenome(newGenome, dominant.nodes, submissive.nodes,dominant.Constants);
 
         return new NN(newNodes, newGenome, parent1.Constants);
     }
@@ -368,6 +368,11 @@ public class NN {
         if (genome == null || nodes == null || nodes.isEmpty() ||
                 nodes.size() < Constants.getInputNum() + Constants.getOutputNum() ||
                 Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0) return false;
+        //check input & output nodes are sorted in ascending IID order
+        for(int i=-Constants.getOutputNum()-Constants.getInputNum();i<-Constants.getOutputNum();i++)
+            if(nodes.get(i+Constants.getOutputNum()+Constants.getInputNum()).innovationID!=i) return false;
+        for(int i=-Constants.getOutputNum();i<0;i++)
+            if(nodes.get(i+Constants.getOutputNum()).innovationID!=i) return false;
         //checks genome is sorted in increasing innovation ID
         for (int i = 1; i < genome.size(); i++)
             if (genome.get(i - 1).getInnovationID() >= genome.get(i).getInnovationID()) return false;

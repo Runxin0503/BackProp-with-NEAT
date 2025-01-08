@@ -1,5 +1,7 @@
 package Genome;
 
+import Evolution.Constants;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,10 +35,10 @@ class Innovation {
      * <br>The nodes should contain identical input/output nodes from {@code dominantNodes}
      * <br>It should also bind all node IDs in edges to the local node Index.
      */
-    public static ArrayList<node> constructNetworkFromGenome(ArrayList<edge> genome, ArrayList<node> dominantNodes, ArrayList<node> submissiveNodes) {
+    public static ArrayList<node> constructNetworkFromGenome(ArrayList<edge> genome, ArrayList<node> dominantNodes, ArrayList<node> submissiveNodes, Constants Constants) {
         // Maps Nodes to the number of incoming edges (for topological sorted orders)
         Map<Integer, AtomicInteger> indegree = new HashMap<>();
-        //maps innovationID to nodes
+        //maps innovationID to node clones
         HashMap<Integer, node> innovationIDtoNodes = new HashMap<>();
 
         // Step 1:
@@ -56,9 +58,9 @@ class Innovation {
             indegree.putIfAbsent(v.innovationID, new AtomicInteger(0));
         }
 
-        // Step 2: Initialize the queue with all nodes of indegree 0
+        // Step 2: Initialize the queue with all input nodes in order of innovation ID
         Queue<node> queue = new LinkedList<>();
-        for (node n : innovationIDtoNodes.values()) if (n.getIncomingEdgeIndices().length == 0) queue.add(n);
+        for(int i=-Constants.getInputNum()-Constants.getOutputNum();i<-Constants.getOutputNum();i++) queue.add(innovationIDtoNodes.get(i));
 
         // Step 3: Process the nodes
         ArrayList<node> topologicalOrder = new ArrayList<>();
@@ -84,6 +86,10 @@ class Innovation {
             e.prevIndex = innovationIDtoLocalIndex.get(e.getPreviousIID());
             e.nextIndex = innovationIDtoLocalIndex.get(e.getNextIID());
         }
+
+        //replace the last set of nodes (all output nodes) with a sorted fixed ascending innovation ID order
+        topologicalOrder.subList(topologicalOrder.size()-Constants.getOutputNum(), topologicalOrder.size()).clear();
+        for(int i=-Constants.getOutputNum();i<0;i++)topologicalOrder.add(innovationIDtoNodes.get(i));
 
         return topologicalOrder;
     }

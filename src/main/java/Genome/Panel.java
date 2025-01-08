@@ -1,6 +1,4 @@
-package Genome.Render;
-
-import Genome.*;
+package Genome;
 
 public class Panel {
 

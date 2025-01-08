@@ -5,25 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Agent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Constants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Evolution.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Species.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/WeightedRandom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Gene.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Innovation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Mutation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/NN.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Frame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Panel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/edge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/enums/Activation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/enums/cost.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Render/Frame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Render/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Render/Visualizer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Genome/Render/Visualizer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/iris.data" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,31 +82,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.IrisDatasetTest.testDataset.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD BackProp with NEAT",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IrisDatasetTest.testDataset.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD BackProp with NEAT&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\main\resources\Genome\Render" />
+      <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\main\resources\org\example\demo" />
+      <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\test\resources" />
+      <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\test\java" />
       <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\Genome" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Genome" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.IrisDatasetTest.testDataset">
@@ -219,6 +222,16 @@
       <workItem from="1736294527063" duration="11067000" />
       <workItem from="1736354983535" duration="20000" />
       <workItem from="1736355029299" duration="52000" />
+      <workItem from="1736355086578" duration="521000" />
+      <workItem from="1736355637920" duration="35000" />
+      <workItem from="1736355701454" duration="116000" />
+      <workItem from="1736355824404" duration="1075000" />
+      <workItem from="1736358093884" duration="40000" />
+      <workItem from="1736358158296" duration="785000" />
+      <workItem from="1736359163760" duration="109000" />
+      <workItem from="1736359284744" duration="30000" />
+      <workItem from="1736359555498" duration="82000" />
+      <workItem from="1736359655715" duration="8204000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

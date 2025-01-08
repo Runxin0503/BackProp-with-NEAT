@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /** Package-private Static class that mutates the genome of any given {@link NN} */
-class Mutation {
+public class Mutation {
 
     /** Chooses a random synapse (if there is one) to shift its weight by a random amount */
-    static void shiftWeights(NN nn) {
+    public static void shiftWeights(NN nn) {
         if (nn.genome.isEmpty()) return;
         for (int count = 0; count < 100; count++) {
             edge e = nn.genome.get((int) (Math.random() * nn.genome.size()));
@@ -18,7 +18,7 @@ class Mutation {
     }
 
     /** Chooses a random synapse (if there is one) to randomly set its weight */
-    static void randomWeights(NN nn) {
+    public static void randomWeights(NN nn) {
         if (nn.genome.isEmpty()) return;
         for (int count = 0; count < 100; count++) {
             edge e = nn.genome.get((int) (Math.random() * nn.genome.size()));
@@ -28,7 +28,7 @@ class Mutation {
     }
 
     /** Chooses a random node to shift its bias by a random amount */
-    static void shiftBias(NN nn) {
+    public static void shiftBias(NN nn) {
         for (int count = 0; count < 100; count++) {
             //randomly picks an index for all nodes except an input node
             int nodeIndex = (int) (Math.random() * (nn.nodes.size() - nn.Constants.getInputNum()) + nn.Constants.getInputNum());
@@ -39,7 +39,7 @@ class Mutation {
     }
 
     /** Chooses two random nodes that aren't directly connected and create a synapse between them */
-    static void mutateSynapse(NN nn) {
+    public static void mutateSynapse(NN nn) {
         for (int count = 0; count < 100; count++) {
             int i1 = (int) (Math.random() * nn.nodes.size()), i2 = (int) (Math.random() * nn.nodes.size());
 
@@ -81,7 +81,7 @@ class Mutation {
      * The two previously connected nodes will now connect through this new node.<br>
      * The previous synapse will be removed. Two new synapses will be created connecting the 3 nodes
      */
-    static void mutateNode(NN nn) {
+    public static void mutateNode(NN nn) {
         if (nn.genome.isEmpty()) return;
         for (int count = 0; count < 100; count++) {
             //any edge in the genome is valid for node splitting
@@ -124,7 +124,7 @@ class Mutation {
     }
 
     /** Returns whether introducing an edge from {@code rootNodeIndex} to {@code newEdgeNodeIndex} will introduce a cycle */
-    static boolean isLooping(int rootNodeIndex, int newEdgeNodeIndex, NN nn) {
+    private static boolean isLooping(int rootNodeIndex, int newEdgeNodeIndex, NN nn) {
         HashSet<Integer> visitedNodes = new HashSet<>();
         Queue<Integer> queue = new LinkedList<>();
         queue.add(newEdgeNodeIndex);
