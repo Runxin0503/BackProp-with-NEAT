@@ -202,8 +202,24 @@ public class NN {
             if (Double.isNaN(calculator[i])) continue;
             output[i] = calculator[i];
         }
-        Constants.getOutputAF().calculate(output);
+        output = Constants.getOutputAF().calculate(output);
         return output;
+    }
+
+    /**
+     * Returns the loss of this Neural Network, or how far the expected output differs from the actual output.
+     */
+    public double calculateCost(double[] input, double[] expectedOutputs) {
+        double[] output = calculateWeightedOutput(input);
+        double sum = 0;
+
+        for (double v : output) assert Double.isFinite(v);
+        double[] costs = Constants.getCostFunction().calculate(output, expectedOutputs);
+
+        for (double v : costs)
+            sum += v;
+
+        return sum;
     }
 
     /**
@@ -235,7 +251,7 @@ public class NN {
             if (Double.isNaN(calculator[i])) continue;
             output[i] = calculator[i];
         }
-        Constants.getOutputAF().calculate(output);
+        output = Constants.getOutputAF().calculate(output);
         double[] outputActivationGradients = Constants.getCostFunction().derivative(output, expectedOutput);
         double[] outputGradients = Constants.getOutputAF().derivative(output, outputActivationGradients);
 
@@ -336,5 +352,37 @@ public class NN {
         }
         if (Math.random() < Constants.mutationBiasShiftProbability) Mutation.shiftBias(this);
         if (Math.random() < Constants.mutationSynapseProbability) Mutation.mutateSynapse(this);
+    }
+
+    @Override
+    public Object clone() {
+        ArrayList<node> newNodes = new ArrayList<>(nodes.size());
+        ArrayList<edge> newGenome = new ArrayList<>(genome.size());
+        nodes.forEach(node -> newNodes.add(node.clone()));
+        genome.forEach(edge -> newGenome.add(edge.clone(nodes)));
+        return new NN(nodes, genome, Constants);
+    }
+
+    /** Returns true if the class invariant of this instance is satisfied, false otherwise */
+    public boolean classInv() {
+        if (genome == null || nodes == null || nodes.isEmpty() ||
+                nodes.size() < Constants.getInputNum() + Constants.getOutputNum() ||
+                Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0) return false;
+        //checks genome is sorted in increasing innovation ID
+        for (int i = 1; i < genome.size(); i++)
+            if (genome.get(i - 1).getInnovationID() >= genome.get(i).getInnovationID()) return false;
+        //checks edges and nodes have the correct local and absolute references to each other
+        for (edge e : genome)
+            if (nodes.get(e.prevIndex).innovationID != e.getPreviousIID() || nodes.get(e.nextIndex).innovationID != e.getNextIID())
+                return false;
+        for (node n : nodes) {
+            for (int i : n.getIncomingEdgeIndices()) if (genome.get(i).getNextIID() != n.innovationID) return false;
+            for (int i : n.getOutgoingEdgeIndices()) if (genome.get(i).getPreviousIID() != n.innovationID) return false;
+        }
+
+        //checks validity of nodes in sorted topological order
+        for (edge e : genome) if (e.prevIndex >= e.nextIndex) return false;
+
+        return true;
     }
 }

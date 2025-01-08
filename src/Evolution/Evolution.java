@@ -24,7 +24,12 @@ public class Evolution {
         }
     }
 
+    /** Once every agent has a valid score, {@code nextGen} applies the NEAT algorithm on the Agents and create the next generation */
     public void nextGen() {
+        double populationScore = 0;
+        for (Agent agent : agents) populationScore+=agent.getScore();
+        System.out.println("Generation score: " + populationScore);
+
         //Species Separation
         for (Species s : species) {
             s.reset();
@@ -79,11 +84,8 @@ public class Evolution {
     /**
      * The builder class for {@link Evolution}, a factory that produces, trains, and applies the NEAT genetic algorithm on neural network agents.
      */
-    public class EvolutionBuilder {
-        private Constants Constants = new Constants();
-
-        public EvolutionBuilder() {
-        }
+    public static class EvolutionBuilder {
+        private final Constants Constants = new Constants();
 
         public EvolutionBuilder setNumSimulated(int numSimulated) {
             Constants.numSimulated = numSimulated;
@@ -122,7 +124,7 @@ public class Evolution {
             return new Evolution(Constants);
         }
 
-        private static class MissingInformation extends Exception {
+        public static class MissingInformation extends RuntimeException {
             @Override
             public String getMessage() {
                 return "Missing Resources in EvolutionBuilder class";

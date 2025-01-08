@@ -18,6 +18,7 @@ public class Agent implements WeightedRandom {
     public Agent(Constants Constants) {
         this.score = 0;
         this.genome = NN.getDefaultNeuralNet(Constants);
+        for(int i=0;i<100;i++) genome.mutate();
     }
 
     /** Resets the score of this Agent */
@@ -30,6 +31,14 @@ public class Agent implements WeightedRandom {
     public double getScore() {
         return score;
     }
+
+    /** Sets the score of this Agent */
+    public void setScore(double newScore) {
+        score = newScore;
+    }
+
+    /** Returns the clone of this Agent's genome, throws a {@link NullPointerException} if this Agent doesn't have a genome */
+    public NN getGenomeClone(){return (NN) genome.clone();}
 
     /** Removes the genome of this Agent. */
     public void removeGenome() {
@@ -65,11 +74,6 @@ public class Agent implements WeightedRandom {
     public double compare(Agent newAgent) {
         if (!hasGenome() || !newAgent.hasGenome()) throw new RuntimeException("Genome Exception");
         return genome.compare(newAgent.genome);
-    }
-
-    /** Calculates the weighted output of the values using the Neural Network currently in this Agent */
-    public double[] calculateWeightedOutput(double[] input) {
-        return genome.calculateWeightedOutput(input);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Genome.enums;
 
+import java.util.Arrays;
 import java.util.function.BiFunction;
 
 /** Cost Function enum containing both regular and derivative version of commonly-used Loss Functions */
@@ -36,9 +37,9 @@ public enum Cost {
 
     /** Returns the result of applying this Cost Function on the given output and expectedOutput array */
     public double[] calculate(double[] output, double[] expectedOutput) {
-        for (double v : output) assert Double.isFinite(v) : "Attempted to input invalid values into Loss Function";
+        for (double v : output) assert Double.isFinite(v) : "Attempted to input invalid values into Loss Function " + Arrays.toString(output);
         double[] costs = this.function.apply(output, expectedOutput);
-        for (double v : costs) assert Double.isFinite(v) : "Loss Function returning invalid values";
+        for (double v : costs) assert Double.isFinite(v) : "Loss Function returning invalid values " + Arrays.toString(output);
         return costs;
     }
 
