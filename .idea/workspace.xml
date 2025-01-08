@@ -5,18 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/src/tests/IrisDatasetTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SGD BackProp with NEAT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SGD BackProp with NEAT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Evolution/Evolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/Mutation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genome/NN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Agent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Evolution.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/Species.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Evolution/WeightedRandom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Gene.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Innovation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Mutation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/NN.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Frame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/Render/Panel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/edge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/enums/Activation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/enums/cost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genome/node.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="demo" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -66,7 +100,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD-BackPropagation-MNIST",
+    "last_opened_file_path": "C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD BackProp with NEAT",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -183,6 +217,8 @@
       <workItem from="1736288383981" duration="937000" />
       <workItem from="1736289892916" duration="4032000" />
       <workItem from="1736294527063" duration="11067000" />
+      <workItem from="1736354983535" duration="20000" />
+      <workItem from="1736355029299" duration="52000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

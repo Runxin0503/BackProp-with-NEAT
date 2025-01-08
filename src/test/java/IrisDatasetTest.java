@@ -1,5 +1,3 @@
-package tests;
-
 import Evolution.*;
 import Evolution.Evolution.EvolutionBuilder;
 import Genome.NN;
