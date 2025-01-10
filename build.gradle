@@ -1,13 +1,9 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
 }
-
-group 'org.example'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -25,13 +21,12 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'org.example.demo'
-    mainClass = 'org.example.demo.HelloApplication'
+    mainClass = 'Genome.Renderer'
 }
 
 javafx {
     version = "21"
-    modules = ['javafx.controls', 'javafx.web', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 test {
@@ -42,12 +37,9 @@ test {
     }
 }
 
-application {
-    mainClass = "src/main/java/MVC/View.java"
-}
-
 dependencies {
-
+    implementation 'org.openjfx:javafx-controls:21'
+    implementation 'org.openjfx:javafx-fxml:21'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

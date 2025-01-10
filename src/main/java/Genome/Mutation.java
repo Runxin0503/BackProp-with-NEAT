@@ -119,6 +119,8 @@ public class Mutation {
             edge1.setNextIndex(newNodeIndex);
             edge2.setPreviousIndex(newNodeIndex);
 
+            Innovation.resetNodeCoords(nn);
+
             return;
         }
     }

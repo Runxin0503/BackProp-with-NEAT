@@ -38,11 +38,15 @@ class node extends Gene {
     private final List<Integer> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
+    double x,y;
+
     public node(int innovationID, Activation activationFunction, double bias) {
         this.innovationID = innovationID;
         this.activationFunction = activationFunction;
         this.bias = bias;
         this.activated = false;
+        this.x = 0;
+        this.y = 0;
     }
 
     /**

@@ -1,12 +1,8 @@
 package Genome;
 
-import Evolution.*;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-
+import Evolution.Agent;
+import Evolution.Evolution;
+import Evolution.Evolution.EvolutionBuilder;
 import Genome.enums.Activation;
 import Genome.enums.Cost;
 import javafx.animation.KeyFrame;
@@ -17,7 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -26,8 +23,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.stage.Stage;
-import Evolution.Evolution.EvolutionBuilder;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.ResourceBundle;
 
 public class Renderer extends Application implements Initializable {
 
@@ -89,6 +90,8 @@ public class Renderer extends Application implements Initializable {
             final Scene scene = new Scene(node);
             stage.setScene(scene);
             stage.sizeToScene();
+            stage.setTitle("Neural Network Visualizer");
+            stage.setResizable(false);
             stage.show();
         } catch (final IOException ioe) {
             System.err.println("Can't load FXML file.");
@@ -123,11 +126,11 @@ public class Renderer extends Application implements Initializable {
 
         calculate.setOnAction(e -> {
             double[] input = new double[agentFactory.Constants.getInputNum()];
-            for(int i=0;i<input.length;i++)input[i]=Math.random() * 20 - 10;
+            for (int i = 0; i < input.length; i++) input[i] = Math.random() * 20 - 10;
             System.out.print("Input: ");
-            for(Double d : input)System.out.print(d+" ");
+            for (Double d : input) System.out.print(d + " ");
             System.out.println();
-            System.out.println("Output: "+Arrays.toString(agentGenome.calculateWeightedOutput(input)));
+            System.out.println("Output: " + Arrays.toString(agentGenome.calculateWeightedOutput(input)));
         });
 
         canvasScroller.setOnScroll(ae -> {
@@ -139,7 +142,7 @@ public class Renderer extends Application implements Initializable {
                     return;
 
                 Point2D mouseCoords;
-                try{
+                try {
                     mouseCoords = canvasTransform.inverseTransform(canvas.sceneToLocal(ae.getSceneX(), ae.getSceneY()));
                 } catch (NonInvertibleTransformException e) {
                     throw new RuntimeException(e);
@@ -204,22 +207,22 @@ public class Renderer extends Application implements Initializable {
         double minX = Math.clamp(
                 (radius - canvasTransform.getTx()) / canvasTransform.getMxx(),
                 radius,
-                canvas.getWidth()-radius
+                canvas.getWidth() - radius
         );
         double minY = Math.clamp(
                 (radius - canvasTransform.getTy()) / canvasTransform.getMyy(),
                 radius,
-                canvas.getHeight()-radius
+                canvas.getHeight() - radius
         );
         double maxX = Math.clamp(
                 (canvas.getWidth() - radius - canvasTransform.getTx()) / canvasTransform.getMxx(),
                 radius,
-                canvas.getWidth()-radius
+                canvas.getWidth() - radius
         );
         double maxY = Math.clamp(
                 (canvas.getHeight() - radius - canvasTransform.getTy()) / canvasTransform.getMyy(),
                 radius,
-                canvas.getHeight()-radius
+                canvas.getHeight() - radius
         );
 
         Rectangle2D canvasCameraBoundingBox = new Rectangle2D(minX, minY, maxX - minX, maxY - minY);
@@ -232,17 +235,19 @@ public class Renderer extends Application implements Initializable {
         gc.translate(canvasTransform.getTx(), canvasTransform.getTy());  // Translate first
         gc.scale(canvasTransform.getMxx(), canvasTransform.getMyy());  // Then apply scale
 
-        gc.setStroke(Color.BLACK);
-        for (int i=0; i<agentGenome.nodes.size();i++) {
+        double width = (canvas.getWidth() - radius * 2), height = (canvas.getHeight() - radius * 2);
+        for (node n : agentGenome.nodes) {
             //todo loop through all nodes and edges NN and draw them
+            double x = n.x * width + radius, y = n.y * height + radius;
 
-            if(i<agentFactory.Constants.getInputNum()){
-                //input nodes
-            }else if(i>agentGenome.nodes.size()-agentFactory.Constants.getOutputNum()-1){
-                //output nodes
-            }else{
-                //hidden nodes
+            gc.setStroke(Color.RED);
+            for (int edge : n.getOutgoingEdgeIndices()) {
+                node nextNode = agentGenome.nodes.get(agentGenome.genome.get(edge).nextIndex);
+                double nextX = nextNode.x * width + radius, nextY = nextNode.y * height + radius;
+                gc.strokeLine(x, y, nextX, nextY);
             }
+            gc.setStroke(Color.BLACK);
+            gc.strokeOval(x, y, radius, radius);
         }
 
         gc.restore();

@@ -368,6 +368,8 @@ public class NN {
         if (genome == null || nodes == null || nodes.isEmpty() ||
                 nodes.size() < Constants.getInputNum() + Constants.getOutputNum() ||
                 Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0) return false;
+        //check node coordinates aren't both 0,0 (uninitialized)
+        for(node n : nodes) if(n.x == n.y && n.y == 0) return false;
         //check input & output nodes are sorted in ascending IID order
         for(int i=-Constants.getOutputNum()-Constants.getInputNum();i<-Constants.getOutputNum();i++)
             if(nodes.get(i+Constants.getOutputNum()+Constants.getInputNum()).innovationID!=i) return false;

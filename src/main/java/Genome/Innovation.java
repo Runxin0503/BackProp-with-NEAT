@@ -30,6 +30,46 @@ class Innovation {
         return nodePairsToEdge.size() - 1;
     }
 
+    /** Re-initializes all hidden nodes to its appropriate values */
+    public static void resetNodeCoords(NN nn) {
+        int inputNum = nn.Constants.getInputNum(), outputNum = nn.Constants.getOutputNum(), nodesNum = nn.nodes.size();
+        for (int i = 0; i < inputNum; i++) {
+            nn.nodes.get(i).x = 0;
+            nn.nodes.get(i).y = (i + 1) / (inputNum + 1.0);
+        }
+        for (int i = nodesNum - outputNum; i < nodesNum; i++) {
+            nn.nodes.get(i).x = 1;
+            nn.nodes.get(i).y = (i - nodesNum - outputNum - 2) / (outputNum + 1.0);
+        }
+
+        for (int i = inputNum, j = nn.nodes.size() - outputNum - 1; i <= j; i++, j--) {
+            node front = nn.nodes.get(i),back = nn.nodes.get(j);
+            front.x = (i - inputNum + 1) / (nodesNum - inputNum - outputNum + 1.0);
+            back.x = (j - inputNum + 1) / (nodesNum - inputNum - outputNum + 1.0);
+            if (i == j) {
+                //middle node, y = avg of all prev and next connected nodes
+                double y = 0;
+                for(int edge : front.getIncomingEdgeIndices())
+                    y += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
+                for(int edge : front.getOutgoingEdgeIndices())
+                    y += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
+                y /= front.getIncomingEdgeIndices().length + front.getOutgoingEdgeIndices().length;
+                front.y = y;
+            } else {
+                //1 sided node, y = avg of either prev or next connected nodes
+                double frontY = 0, backY = 0;
+                for(int edge : front.getIncomingEdgeIndices())
+                    frontY += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
+                for(int edge : front.getOutgoingEdgeIndices())
+                    backY += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
+                frontY /= front.getIncomingEdgeIndices().length;
+                backY /= front.getOutgoingEdgeIndices().length;
+                front.y = frontY;
+                back.y = backY;
+            }
+        }
+    }
+
     /**
      * Creates a topologically sorted array of nodes from a list of edges (genomes) used for calculating
      * <br>The nodes should contain identical input/output nodes from {@code dominantNodes}
@@ -60,7 +100,8 @@ class Innovation {
 
         // Step 2: Initialize the queue with all input nodes in order of innovation ID
         Queue<node> queue = new LinkedList<>();
-        for(int i=-Constants.getInputNum()-Constants.getOutputNum();i<-Constants.getOutputNum();i++) queue.add(innovationIDtoNodes.get(i));
+        for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < -Constants.getOutputNum(); i++)
+            queue.add(innovationIDtoNodes.get(i));
 
         // Step 3: Process the nodes
         ArrayList<node> topologicalOrder = new ArrayList<>();
@@ -88,8 +129,8 @@ class Innovation {
         }
 
         //replace the last set of nodes (all output nodes) with a sorted fixed ascending innovation ID order
-        topologicalOrder.subList(topologicalOrder.size()-Constants.getOutputNum(), topologicalOrder.size()).clear();
-        for(int i=-Constants.getOutputNum();i<0;i++)topologicalOrder.add(innovationIDtoNodes.get(i));
+        topologicalOrder.subList(topologicalOrder.size() - Constants.getOutputNum(), topologicalOrder.size()).clear();
+        for (int i = -Constants.getOutputNum(); i < 0; i++) topologicalOrder.add(innovationIDtoNodes.get(i));
 
         return topologicalOrder;
     }

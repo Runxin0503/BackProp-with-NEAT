@@ -22,7 +22,7 @@ public class IrisDatasetTest {
     private static final ArrayList<String> names = new ArrayList<>();
 
     static {
-        try (BufferedReader br = new BufferedReader(new FileReader("lib/iris.data"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/test/resources/iris.data"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
