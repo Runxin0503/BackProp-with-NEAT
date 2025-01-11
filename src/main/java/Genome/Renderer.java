@@ -20,6 +20,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.stage.Stage;
@@ -66,10 +69,11 @@ public class Renderer extends Application implements Initializable {
     private NN agentGenome;
 
     private final double radius = 10;
+    private final double padding = 5 + radius;
     private final double MAX_FPS = 120;
     private final double MIN_ZOOM = 0;
     private final double MAX_ZOOM = 10;
-    private boolean redrawCanvas = true;
+    private boolean redrawCanvas;
 
     public static void main(String[] args) {
         launch(args);
@@ -89,7 +93,6 @@ public class Renderer extends Application implements Initializable {
             final Parent node = FXMLLoader.load(r);
             final Scene scene = new Scene(node);
             stage.setScene(scene);
-            stage.sizeToScene();
             stage.setTitle("Neural Network Visualizer");
             stage.setResizable(false);
             stage.show();
@@ -111,27 +114,46 @@ public class Renderer extends Application implements Initializable {
                 .setInputNum(4).setOutputNum(3).setOutputAF(Activation.arrays.softmax).build();
         agent = agentFactory.agents[0];
         agentGenome = agent.getGenomeClone();
+        redrawCanvas = true;
 
-        rWeights.setOnAction(e -> Mutation.randomWeights(agentGenome));
+        rWeights.setOnAction(e -> {
+            Mutation.randomWeights(agentGenome);
+            redrawCanvas = true;
+        });
 
-        sWeights.setOnAction(e -> Mutation.shiftWeights(agentGenome));
+        sWeights.setOnAction(e -> {
+            Mutation.shiftWeights(agentGenome);
+            redrawCanvas = true;
+        });
 
-        sBias.setOnAction(e -> Mutation.shiftBias(agentGenome));
+        sBias.setOnAction(e -> {
+            Mutation.shiftBias(agentGenome);
+            redrawCanvas = true;
+        });
 
-        rEdge.setOnAction(e -> Mutation.mutateSynapse(agentGenome));
+        rEdge.setOnAction(e -> {
+            Mutation.mutateSynapse(agentGenome);
+            redrawCanvas = true;
+        });
 
-        rNode.setOnAction(e -> Mutation.mutateNode(agentGenome));
+        rNode.setOnAction(e -> {
+            Mutation.mutateNode(agentGenome);
+            redrawCanvas = true;
+        });
 
-        mutate.setOnAction(e -> agentGenome.mutate());
+        mutate.setOnAction(e -> {
+            agentGenome.mutate();
+            redrawCanvas = true;
+        });
 
         calculate.setOnAction(e -> {
             double[] input = new double[agentFactory.Constants.getInputNum()];
             for (int i = 0; i < input.length; i++) input[i] = Math.random() * 20 - 10;
-            System.out.print("Input: ");
-            for (Double d : input) System.out.print(d + " ");
-            System.out.println();
+            System.out.println("Input: " + Arrays.toString(input));
             System.out.println("Output: " + Arrays.toString(agentGenome.calculateWeightedOutput(input)));
         });
+
+        canvasTransform = new Affine();
 
         canvasScroller.setOnScroll(ae -> {
             if (ae.getDeltaY() != 0) {  // Only react to vertical scroll
@@ -178,17 +200,6 @@ public class Renderer extends Application implements Initializable {
             redrawCanvas = true;
         });
 
-        canvasScroller.setOnMouseReleased(ae -> {
-            Point2D mouseCoords;
-            try {
-                mouseCoords = canvasTransform.inverseTransform(canvas.sceneToLocal(ae.getSceneX(), ae.getSceneY()));
-            } catch (NonInvertibleTransformException e) {
-                throw new RuntimeException(e);
-            }
-
-            redrawCanvas = true;
-        });
-
         Timeline updateCanvasPeriodically = new Timeline(new KeyFrame(
                 Duration.seconds(1.0 / MAX_FPS),
                 event -> {
@@ -204,25 +215,27 @@ public class Renderer extends Application implements Initializable {
     }
 
     private void drawCanvas() {
+        assert agentGenome.classInv();
+
         double minX = Math.clamp(
-                (radius - canvasTransform.getTx()) / canvasTransform.getMxx(),
-                radius,
-                canvas.getWidth() - radius
+                - canvasTransform.getTx() / canvasTransform.getMxx(),
+                0,
+                canvas.getWidth()
         );
         double minY = Math.clamp(
-                (radius - canvasTransform.getTy()) / canvasTransform.getMyy(),
-                radius,
-                canvas.getHeight() - radius
+                - canvasTransform.getTy() / canvasTransform.getMyy(),
+                0,
+                canvas.getHeight()
         );
         double maxX = Math.clamp(
-                (canvas.getWidth() - radius - canvasTransform.getTx()) / canvasTransform.getMxx(),
-                radius,
-                canvas.getWidth() - radius
+                (canvas.getWidth() - canvasTransform.getTx()) / canvasTransform.getMxx(),
+                0,
+                canvas.getWidth()
         );
         double maxY = Math.clamp(
-                (canvas.getHeight() - radius - canvasTransform.getTy()) / canvasTransform.getMyy(),
-                radius,
-                canvas.getHeight() - radius
+                (canvas.getHeight() - canvasTransform.getTy()) / canvasTransform.getMyy(),
+                0,
+                canvas.getHeight()
         );
 
         Rectangle2D canvasCameraBoundingBox = new Rectangle2D(minX, minY, maxX - minX, maxY - minY);
@@ -235,19 +248,61 @@ public class Renderer extends Application implements Initializable {
         gc.translate(canvasTransform.getTx(), canvasTransform.getTy());  // Translate first
         gc.scale(canvasTransform.getMxx(), canvasTransform.getMyy());  // Then apply scale
 
-        double width = (canvas.getWidth() - radius * 2), height = (canvas.getHeight() - radius * 2);
-        for (node n : agentGenome.nodes) {
-            //todo loop through all nodes and edges NN and draw them
-            double x = n.x * width + radius, y = n.y * height + radius;
+        gc.setFill(Color.LIGHTGRAY);
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-            gc.setStroke(Color.RED);
+        double cappedZoomRatio = Math.min(1, 1 / canvasTransform.getMxx());
+        double adjustedRadius = radius * cappedZoomRatio;
+        gc.setLineWidth(2 * cappedZoomRatio);
+        gc.setFont(Font.font(null, FontWeight.LIGHT, 10 * cappedZoomRatio));
+
+        double width = (canvas.getWidth() - padding * 2), height = (canvas.getHeight() - padding * 2);
+        for (node n : agentGenome.nodes) {
+            double x = n.x * width + padding, y = n.y * height + padding;
+
             for (int edge : n.getOutgoingEdgeIndices()) {
+                if(agentGenome.genome.get(edge).isDisabled()) continue;
                 node nextNode = agentGenome.nodes.get(agentGenome.genome.get(edge).nextIndex);
-                double nextX = nextNode.x * width + radius, nextY = nextNode.y * height + radius;
-                gc.strokeLine(x, y, nextX, nextY);
+                double nextX = nextNode.x * width + padding, nextY = nextNode.y * height + padding;
+                if (canvasCameraBoundingBox.intersects(x, Math.min(y, nextY), nextX - x, Math.abs(y - nextY))) {
+                    gc.setStroke(Color.GRAY);
+                    gc.strokeLine(x, y, nextX, nextY);
+                    double clampedX,clampedY,clampedNextX,clampedNextY;
+                    //y = mx+b
+                    double m = (nextY - y) / (nextX - x);
+                    //if x is clamped to left side, check if the point intersecting the line is within view of camera
+                    //using clampedY. If it is, keep clampedY the way it is, otherwise, delegate to the "else if" statement
+                    if((clampedX = Math.max(x,canvasCameraBoundingBox.getMinX())) == canvasCameraBoundingBox.getMinX() &&
+                            (clampedY = (clampedX-x) * m + y) < canvasCameraBoundingBox.getMaxY() && clampedY > canvasCameraBoundingBox.getMinY());
+                    //if clampedY is clamped to either top or bottom side, find clampedX using linear equation
+                    else if((clampedY = Math.clamp(y, canvasCameraBoundingBox.getMinY(),canvasCameraBoundingBox.getMaxY())) == canvasCameraBoundingBox.getMinY() || clampedY == canvasCameraBoundingBox.getMaxY())
+                        clampedX = (clampedY - y) / m + x;
+                    else {
+                        clampedX = x;
+                        clampedY = y;
+                    }
+
+                    if((clampedNextX = Math.min(nextX,canvasCameraBoundingBox.getMaxX())) == canvasCameraBoundingBox.getMaxX() &&
+                            (clampedNextY = (clampedNextX-x) * m + y) < canvasCameraBoundingBox.getMaxY() && clampedNextY > canvasCameraBoundingBox.getMinY());
+                    else if((clampedNextY = Math.clamp(nextY, canvasCameraBoundingBox.getMinY(),canvasCameraBoundingBox.getMaxY())) == canvasCameraBoundingBox.getMinY() || clampedNextY == canvasCameraBoundingBox.getMaxY())
+                        clampedNextX = (clampedNextY - y) / m + x;
+                    else {
+                        clampedNextX = nextX;
+                        clampedNextY = nextY;
+                    }
+
+                    double midX = (clampedNextX + clampedX) / 2,midY = (clampedNextY + clampedY) / 2;
+                    gc.setFill(Color.RED);
+                    gc.fillText((agentGenome.genome.get(edge).getWeight()+"").substring(0,4),midX - adjustedRadius,midY - adjustedRadius * 0.65);
+                }
             }
-            gc.setStroke(Color.BLACK);
-            gc.strokeOval(x, y, radius, radius);
+            if (canvasCameraBoundingBox.intersects(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2)) {
+                gc.setFill(Color.GRAY);
+                gc.fillOval(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2);
+                gc.setFill(Color.BLACK);
+                gc.fillText(n.activationFunction + "", x - adjustedRadius, y - adjustedRadius * 1.2);
+                gc.fillText((n.getBias() + "").substring(0,4), x - adjustedRadius * 0.8, y + adjustedRadius * 1.9);
+            }
         }
 
         gc.restore();

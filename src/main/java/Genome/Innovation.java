@@ -32,6 +32,7 @@ class Innovation {
 
     /** Re-initializes all hidden nodes to its appropriate values */
     public static void resetNodeCoords(NN nn) {
+        assert nn.classInv();
         int inputNum = nn.Constants.getInputNum(), outputNum = nn.Constants.getOutputNum(), nodesNum = nn.nodes.size();
         for (int i = 0; i < inputNum; i++) {
             nn.nodes.get(i).x = 0;
@@ -39,7 +40,7 @@ class Innovation {
         }
         for (int i = nodesNum - outputNum; i < nodesNum; i++) {
             nn.nodes.get(i).x = 1;
-            nn.nodes.get(i).y = (i - nodesNum - outputNum - 2) / (outputNum + 1.0);
+            nn.nodes.get(i).y = (i - (nodesNum - outputNum) + 1) / (outputNum + 1.0);
         }
 
         for (int i = inputNum, j = nn.nodes.size() - outputNum - 1; i <= j; i++, j--) {
@@ -52,7 +53,7 @@ class Innovation {
                 for(int edge : front.getIncomingEdgeIndices())
                     y += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
                 for(int edge : front.getOutgoingEdgeIndices())
-                    y += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
+                    y += nn.nodes.get(nn.genome.get(edge).nextIndex).y;
                 y /= front.getIncomingEdgeIndices().length + front.getOutgoingEdgeIndices().length;
                 front.y = y;
             } else {
@@ -60,10 +61,10 @@ class Innovation {
                 double frontY = 0, backY = 0;
                 for(int edge : front.getIncomingEdgeIndices())
                     frontY += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
-                for(int edge : front.getOutgoingEdgeIndices())
-                    backY += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
+                for(int edge : back.getOutgoingEdgeIndices())
+                    backY += nn.nodes.get(nn.genome.get(edge).nextIndex).y;
                 frontY /= front.getIncomingEdgeIndices().length;
-                backY /= front.getOutgoingEdgeIndices().length;
+                backY /= back.getOutgoingEdgeIndices().length;
                 front.y = frontY;
                 back.y = backY;
             }
@@ -171,6 +172,11 @@ class Innovation {
         @Override
         public int hashCode() {
             return Long.hashCode(combined);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof intPairs && combined == ((intPairs) obj).combined;
         }
     }
 }

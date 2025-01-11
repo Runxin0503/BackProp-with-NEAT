@@ -5,23 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Agent.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Evolution/Agent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/Visualizer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/Visualizer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Panel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Genome/Render/Visualizer.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Visualizer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Visualizer.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,33 +96,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.Renderer.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.IrisDatasetTest.executor": "Run",
-    "Gradle.SGD BackProp with NEAT [run].executor": "Run",
-    "JUnit.IrisDatasetTest.testDataset.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD BackProp with NEAT",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Renderer.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.IrisDatasetTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SGD BackProp with NEAT [run].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IrisDatasetTest.testDataset.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD BackProp with NEAT&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\main\resources\Genome\Render" />
@@ -201,7 +208,7 @@
             <option value="run" />
           </list>
         </option>
-        <option name="vmOptions" />
+        <option name="vmOptions" value="-ea" />
       </ExternalSystemSettings>
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
@@ -225,6 +232,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Renderer" />
+      <item itemvalue="Gradle.IrisDatasetTest" />
+      <item itemvalue="Gradle.SGD BackProp with NEAT [run]" />
+      <item itemvalue="JUnit.IrisDatasetTest.testDataset" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.SGD BackProp with NEAT [run]" />
@@ -313,6 +327,14 @@
       <workItem from="1736532910679" duration="3000" />
       <workItem from="1736532929814" duration="64000" />
       <workItem from="1736533007050" duration="99000" />
+      <workItem from="1736533142579" duration="392000" />
+      <workItem from="1736533561356" duration="8000" />
+      <workItem from="1736533590788" duration="1077000" />
+      <workItem from="1736535262976" duration="136000" />
+      <workItem from="1736535440780" duration="30000" />
+      <workItem from="1736535478863" duration="619000" />
+      <workItem from="1736536198886" duration="129000" />
+      <workItem from="1736536348434" duration="29720000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -331,5 +353,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
     <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/Mutation.java</url>
+          <line>130</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

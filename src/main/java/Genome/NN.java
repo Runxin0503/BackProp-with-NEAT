@@ -51,7 +51,11 @@ public class NN {
         for (int i = -Constants.getOutputNum(); i < 0; i++)
             nodes.add(new node(i, Constants.getDefaultHiddenAF(), Constants.getInitializedValue()));
 
-        return new NN(nodes, Constants);
+        NN nn = new NN(nodes, Constants);
+        Innovation.resetNodeCoords(nn);
+
+        assert nn.classInv();
+        return nn;
     }
 
     /**
@@ -352,6 +356,7 @@ public class NN {
         }
         if (Math.random() < Constants.mutationBiasShiftProbability) Mutation.shiftBias(this);
         if (Math.random() < Constants.mutationSynapseProbability) Mutation.mutateSynapse(this);
+        assert classInv();
     }
 
     @Override
@@ -391,5 +396,27 @@ public class NN {
         for (edge e : genome) if (e.prevIndex >= e.nextIndex) return false;
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        nodes.forEach(n -> {
+            if(n.innovationID < -Constants.getOutputNum()) sb.append("Input Node (");
+            else if(n.innovationID < 0) sb.append("Output Node (");
+            else sb.append("Hidden Node (");
+            sb.append(n.innovationID).append(",").append(n.activationFunction).append("):\t");
+            sb.append(n.x).append(',').append(n.y);
+            sb.append('\n');
+        });
+
+        genome.forEach(e -> {
+            sb.append("edge (").append(e.getInnovationID()).append(") from (").append(nodes.get(e.prevIndex).x).append(',').append(nodes.get(e.prevIndex).y).append(") to (");
+            sb.append(nodes.get(e.nextIndex).x).append(',').append(nodes.get(e.nextIndex).y).append("), or ");
+            sb.append(e.getPreviousIID()).append(" -> ").append(e.getNextIID()).append('\n');
+        });
+
+        return sb.toString();
     }
 }

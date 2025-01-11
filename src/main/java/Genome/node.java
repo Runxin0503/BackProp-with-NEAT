@@ -104,6 +104,9 @@ class node extends Gene {
         incomingConnections.add(index);
     }
 
+    /** Returns the bias of this node */
+    double getBias(){return bias;}
+
     /**
      * Shifts the Bias of this node by a random amount
      * @return false if this edge can't apply this mutation, true otherwise

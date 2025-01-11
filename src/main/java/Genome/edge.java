@@ -36,11 +36,13 @@ class edge extends Gene {
         this.enabled = enabled;
     }
 
-    public double getWeight() {
+    /** Returns the weight of this edge */
+    double getWeight() {
         return weight;
     }
 
-    public boolean isDisabled() {
+    /** Returns true if this edge is disabled, false otherwise */
+    boolean isDisabled() {
         return !enabled;
     }
 
