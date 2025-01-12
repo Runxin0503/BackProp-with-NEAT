@@ -13,14 +13,39 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Agent.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Evolution/Agent.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Renderer.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/IrisDatasetTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/IrisDatasetTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-IrisDatasetTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-IrisDatasetTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Agent.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Evolution$EvolutionBuilder$MissingInformation.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Evolution$EvolutionBuilder.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Evolution.class.uniqueId7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Innovation$intPairs.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Innovation$intPairs.class.uniqueId0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Innovation.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Mutation.class.uniqueId6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/NN.class.uniqueId9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Renderer.class.uniqueId8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Species.class.uniqueId5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/IrisDatasetTest.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/IrisDatasetTest.class.uniqueId0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Panel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +121,7 @@
     "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Download Sources.executor": "Run",
     "Gradle.IrisDatasetTest.executor": "Run",
-    "Gradle.SGD BackProp with NEAT [run].executor": "Run",
+    "Gradle.SGD BackProp with NEAT [run].executor": "Debug",
     "JUnit.IrisDatasetTest.testDataset.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -329,7 +354,7 @@
       <workItem from="1736536198886" duration="129000" />
       <workItem from="1736536348434" duration="29720000" />
       <workItem from="1736608029045" duration="7214000" />
-      <workItem from="1736626451156" duration="8238000" />
+      <workItem from="1736626451156" duration="21945000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -354,47 +379,47 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>379</line>
+          <line>383</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>382</line>
+          <line>386</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>386</line>
+          <line>390</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>389</line>
+          <line>393</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>393</line>
+          <line>397</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>397</line>
+          <line>401</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>400</line>
+          <line>404</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>402</line>
+          <line>406</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>407</line>
+          <line>411</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>

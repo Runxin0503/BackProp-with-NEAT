@@ -119,6 +119,7 @@ public class NN {
      */
     public static NN crossover(NN parent1, NN parent2, double firstScore, double secondScore) {
         assert parent1.Constants == parent2.Constants;//both parents should belong to the same Evolution object
+        assert parent1.classInv() && parent2.classInv();
 
         int index1 = 0, index2 = 0;
         boolean equalScore = firstScore == secondScore;
@@ -177,7 +178,11 @@ public class NN {
 
         ArrayList<node> newNodes = Innovation.constructNetworkFromGenome(newGenome, dominant.nodes, submissive.nodes,dominant.Constants);
 
-        return new NN(newNodes, newGenome, parent1.Constants);
+        NN offspring = new NN(newNodes, newGenome, parent1.Constants);
+        Innovation.resetNodeCoords(offspring);
+        assert offspring.classInv();
+
+        return offspring;
     }
 
     /** Calculates the weighted output of the values using the Neural Network currently in this Agent */
@@ -360,7 +365,6 @@ public class NN {
         }
         if (Math.random() < Constants.mutationBiasShiftProbability) Mutation.shiftBias(this);
         if (Math.random() < Constants.mutationSynapseProbability) Mutation.mutateSynapse(this);
-        assert classInv();
     }
 
     @Override

@@ -51,9 +51,7 @@ public class IrisDatasetTest {
         for(int generation = 0; generation < generations; generation++) {
             for(int i=0;i<agentFactory.agents.length;i++) {
                 Agent agent = agentFactory.agents[i];
-                workerThreads[i] = new Thread(() -> {
-                    agent.setScore(trainAgent(agent));
-                });
+                workerThreads[i] = new Thread(() -> agent.setScore(trainAgent(agent)));
                 workerThreads[i].start();
             }
 

@@ -74,23 +74,23 @@ class node extends Gene {
      * Returns the local indices of all edges pointing into this node.
      * <br>Used for calculating derivative terms in back-propagation
      */
-    public Integer[] getIncomingEdgeIndices() {
-        return incomingConnections.toArray(new Integer[0]);
+    List<Integer> getIncomingEdgeIndices() {
+        return incomingConnections;
     }
 
     /**
      * Returns the local indices of all edges pointing out from this node.
      * <br>Used for feed-forward calculation
      */
-    public Integer[] getOutgoingEdgeIndices() {
-        return outgoingConnections.toArray(new Integer[0]);
+    List<Integer> getOutgoingEdgeIndices() {
+        return outgoingConnections;
     }
 
     /**
      * Attempts to add {@code index} to the array of outgoing edge indices.
      * Doesn't do anything if the array already contains the index
      */
-    public void addOutgoingEdgeIndex(int index) {
+    void addOutgoingEdgeIndex(int index) {
         if (outgoingConnections.contains(index)) return;
         outgoingConnections.add(index);
     }
@@ -99,7 +99,7 @@ class node extends Gene {
      * Attempts to add {@code index} to the array of incoming edge indices.
      * Doesn't do anything if the array already contains the index
      */
-    public void addIncomingEdgeIndex(int index) {
+    void addIncomingEdgeIndex(int index) {
         if (incomingConnections.contains(index)) return;
         incomingConnections.add(index);
     }
@@ -109,11 +109,9 @@ class node extends Gene {
 
     /**
      * Shifts the Bias of this node by a random amount
-     * @return false if this edge can't apply this mutation, true otherwise
      */
-    public boolean shiftBias(Constants Constants) {
+    public void shiftBias(Constants Constants) {
         this.bias *= (Math.random() * 2 - 1) * Constants.mutationBiasShiftStrength;
-        return true;
     }
 
     @Override

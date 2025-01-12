@@ -13,7 +13,10 @@ public class Mutation {
         for (int count = 0; count < 100; count++) {
             edge e = nn.genome.get((int) (Math.random() * nn.genome.size()));
 
-            if (e.shiftWeights(nn.Constants.mutationWeightShiftStrength)) return;
+            if (e.shiftWeights(nn.Constants.mutationWeightShiftStrength)) {
+                assert nn.classInv();
+                return;
+            }
         }
     }
 
@@ -23,7 +26,10 @@ public class Mutation {
         for (int count = 0; count < 100; count++) {
             edge e = nn.genome.get((int) (Math.random() * nn.genome.size()));
 
-            if (e.randomWeights(nn.Constants.mutationWeightRandomStrength)) return;
+            if (e.randomWeights(nn.Constants.mutationWeightRandomStrength)) {
+                assert nn.classInv();
+                return;
+            }
         }
     }
 
@@ -34,7 +40,9 @@ public class Mutation {
             int nodeIndex = (int) (Math.random() * (nn.nodes.size() - nn.Constants.getInputNum()) + nn.Constants.getInputNum());
 
             node n = nn.nodes.get(nodeIndex);
-            if (n.shiftBias(nn.Constants)) return;
+            n.shiftBias(nn.Constants);
+            assert nn.classInv();
+            return;
         }
     }
 
@@ -49,16 +57,11 @@ public class Mutation {
             node n1 = nn.nodes.get(i1), n2 = nn.nodes.get(i2);
             int edgeIID = Innovation.getEdgeInnovationID(n1.getInnovationID(), n2.getInnovationID());
 
-            int edgeIndex = nn.genome.size();
             edge newEdge = new edge(edgeIID, nn.Constants.getInitializedValue(), true, n1.getInnovationID(), n2.getInnovationID());
             newEdge.prevIndex = i1;
             newEdge.nextIndex = i2;
 
-            if(nn.genome.contains(newEdge)) continue;
-            nn.genome.add(newEdge);
-
-            n1.addOutgoingEdgeIndex(edgeIndex);
-            n2.addIncomingEdgeIndex(edgeIndex);
+            if (!addEdge(nn, newEdge, edgeIID, n1, n2)) continue;
 
             // if i1 > i2, move and insert i1 at i2's position and push i2 back
             // if i1 < i2 no sorting required
@@ -76,10 +79,11 @@ public class Mutation {
                     else if (nextIndex < i1 && nextIndex >= i2) e.nextIndex = prevIndex + 1;
                 }
             }
+            assert nn.classInv();
 
             return;
         }
-        System.err.println("failed");
+        System.err.println("mutateSynapse failed");
     }
 
     /**
@@ -103,20 +107,12 @@ public class Mutation {
             edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID, midIID), nn.Constants.getInitializedValue(), true, prevIID, midIID);
             edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID, nextIID), nn.Constants.getInitializedValue(), true, midIID, nextIID);
 
-            //add indices to nodes
-            prevNode.addOutgoingEdgeIndex(nn.genome.size());
-            newNode.addIncomingEdgeIndex(nn.genome.size());
-            newNode.addOutgoingEdgeIndex(nn.genome.size() + 1);
-            nextNode.addIncomingEdgeIndex(nn.genome.size() + 1);
-            nn.genome.add(edge1);
-            nn.genome.add(edge2);
-
-            // insert the brand new node right after prevNode index, push every other node back and re-index
-            edge1.prevIndex = edge.prevIndex;
-            edge2.nextIndex = edge.nextIndex;
+            //add edges to genome
+            if (!addEdge(nn, edge1, edge1.innovationID, prevNode, newNode) || !addEdge(nn, edge2, edge2.innovationID, newNode, nextNode))
+                continue;
 
             //new node index can't be in between input node indexes
-            int newNodeIndex = Math.max(edge.prevIndex + 1,nn.Constants.getInputNum());
+            int newNodeIndex = Math.max(edge.prevIndex + 1, nn.Constants.getInputNum());
 
             //increase every edge's nodeIndex by one if their index is after the new node index
             for (edge e : nn.genome) {
@@ -125,11 +121,14 @@ public class Mutation {
             }
             nn.nodes.add(newNodeIndex, newNode);
 
+            edge1.prevIndex = edge.prevIndex;
+            edge2.nextIndex = edge.nextIndex;
             edge1.nextIndex = newNodeIndex;
             edge2.prevIndex = newNodeIndex;
 
             Innovation.resetNodeCoords(nn);
 
+            assert nn.classInv();
             return;
         }
     }
@@ -151,5 +150,44 @@ public class Mutation {
         }
 
         return false;
+    }
+
+    /**
+     * Attempts to add an edge to {@code nn}
+     * <br>Effect: Inserts the edge in a sorted manner into nn's genome,
+     * re-indexes every node's local reference to their edges after that operation.
+     * @param n1 the source node of newEdge
+     * @param n2 the destination node of newEdge
+     * @return false if nn's genome already contains an identical edge to {@code newEdge}, true otherwise
+     */
+    private static boolean addEdge(NN nn, edge newEdge, int edgeIID, node n1, node n2) {
+        int edgeIndex = 0;
+        //attempts to insert newEdge at appropriate index and shift node's local references
+        // ONLY IF genome is not empty
+        if (!nn.genome.isEmpty()) {
+            //sets edgeIndex to the first index where the edge has
+            // either the same or a larger InnovationID than newEdge, or nn.genome.size() if
+            // it has the largest InnovationID
+            for (; edgeIndex < nn.genome.size(); edgeIndex++) {
+                if (nn.genome.get(edgeIndex).innovationID == edgeIID) break;
+                else if (nn.genome.get(edgeIndex).innovationID > edgeIID) break;
+            }
+            //if edgeIndex has same innovationID there's already an existing edge like this one so ignore it
+            if (nn.genome.size() != edgeIndex && nn.genome.get(edgeIndex).equals(newEdge)) return false;
+
+            for (node n : nn.nodes) {
+                for (int i = 0; i < n.getIncomingEdgeIndices().size(); i++)
+                    if (n.getIncomingEdgeIndices().get(i) >= edgeIndex)
+                        n.getIncomingEdgeIndices().set(i, n.getIncomingEdgeIndices().get(i) + 1);
+                for (int i = 0; i < n.getOutgoingEdgeIndices().size(); i++)
+                    if (n.getOutgoingEdgeIndices().get(i) >= edgeIndex)
+                        n.getOutgoingEdgeIndices().set(i, n.getOutgoingEdgeIndices().get(i) + 1);
+            }
+        }
+        nn.genome.add(edgeIndex, newEdge);
+
+        n1.addOutgoingEdgeIndex(edgeIndex);
+        n2.addIncomingEdgeIndex(edgeIndex);
+        return true;
     }
 }

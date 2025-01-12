@@ -43,27 +43,27 @@ class Innovation {
         }
 
         for (int i = inputNum, j = nn.nodes.size() - outputNum - 1; i <= j; i++, j--) {
-            node front = nn.nodes.get(i),back = nn.nodes.get(j);
+            node front = nn.nodes.get(i), back = nn.nodes.get(j);
             front.x = (i - inputNum + 1) / (nodesNum - inputNum - outputNum + 1.0);
             back.x = (j - inputNum + 1) / (nodesNum - inputNum - outputNum + 1.0);
             if (i == j) {
                 //middle node, y = avg of all prev and next connected nodes
                 double y = 0;
-                for(int edge : front.getIncomingEdgeIndices())
+                for (int edge : front.getIncomingEdgeIndices())
                     y += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
-                for(int edge : front.getOutgoingEdgeIndices())
+                for (int edge : front.getOutgoingEdgeIndices())
                     y += nn.nodes.get(nn.genome.get(edge).nextIndex).y;
-                y /= front.getIncomingEdgeIndices().length + front.getOutgoingEdgeIndices().length;
+                y /= front.getIncomingEdgeIndices().size() + front.getOutgoingEdgeIndices().size();
                 front.y = y;
             } else {
                 //1 sided node, y = avg of either prev or next connected nodes
                 double frontY = 0, backY = 0;
-                for(int edge : front.getIncomingEdgeIndices())
+                for (int edge : front.getIncomingEdgeIndices())
                     frontY += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
-                for(int edge : back.getOutgoingEdgeIndices())
+                for (int edge : back.getOutgoingEdgeIndices())
                     backY += nn.nodes.get(nn.genome.get(edge).nextIndex).y;
-                frontY /= front.getIncomingEdgeIndices().length;
-                backY /= back.getOutgoingEdgeIndices().length;
+                frontY /= front.getIncomingEdgeIndices().size();
+                backY /= back.getOutgoingEdgeIndices().size();
                 front.y = frontY;
                 back.y = backY;
             }
@@ -79,8 +79,10 @@ class Innovation {
     public static ArrayList<node> constructNetworkFromGenome(ArrayList<edge> genome, ArrayList<node> dominantNodes, ArrayList<node> submissiveNodes, Constants Constants) {
         // Maps Nodes to the number of incoming edges (for topological sorted orders)
         Map<Integer, AtomicInteger> indegree = new HashMap<>();
-        //maps innovationID to node clones
+        //maps innovationID to node clones, initialize with input & output nodes
         HashMap<Integer, node> innovationIDtoNodes = new HashMap<>();
+        for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < 0; i++)
+            innovationIDtoNodes.put(i, getNodeByInnovationID(i, dominantNodes).clone());
 
         // Step 1:
         for (int i = 0; i < genome.size(); i++) {
@@ -88,9 +90,9 @@ class Innovation {
 
             //puts u and v inside map. sets u and v to appropriate object
             if (!innovationIDtoNodes.containsKey(u.innovationID)) innovationIDtoNodes.put(u.innovationID, u.clone());
-            else u = innovationIDtoNodes.get(u.innovationID);
+            u = innovationIDtoNodes.get(u.innovationID);
             if (!innovationIDtoNodes.containsKey(v.innovationID)) innovationIDtoNodes.put(v.innovationID, v.clone());
-            else v = innovationIDtoNodes.get(v.innovationID);
+            v = innovationIDtoNodes.get(v.innovationID);
 
             u.addOutgoingEdgeIndex(i);
             v.addIncomingEdgeIndex(i);
@@ -101,11 +103,13 @@ class Innovation {
 
         // Step 2: Initialize the queue with all input nodes in order of innovation ID
         Queue<node> queue = new LinkedList<>();
-        for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < -Constants.getOutputNum(); i++)
+        for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < -Constants.getOutputNum(); i++) {
             queue.add(innovationIDtoNodes.get(i));
+        }
 
         // Step 3: Process the nodes
         ArrayList<node> topologicalOrder = new ArrayList<>();
+        int outputNodeCount = 0;
         while (!queue.isEmpty()) {
             node n = queue.poll();
             topologicalOrder.add(n);
@@ -114,11 +118,18 @@ class Innovation {
             for (int edgeIndex : n.getOutgoingEdgeIndices()) {
                 node nextNode = innovationIDtoNodes.get(genome.get(edgeIndex).getNextIID());
                 int val = indegree.get(nextNode.innovationID).incrementAndGet();
-                if (val == nextNode.getIncomingEdgeIndices().length) {
-                    queue.add(nextNode);
+                if (val == nextNode.getIncomingEdgeIndices().size()) {
+                    //add only hidden nodes to queue
+                    if(nextNode.innovationID > 0)
+                        queue.add(nextNode);
+                    else outputNodeCount++;
                 }
             }
         }
+
+        assert outputNodeCount <= Constants.getOutputNum();
+
+        for (int i = -Constants.getOutputNum(); i < 0; i++) topologicalOrder.add(innovationIDtoNodes.get(i));
 
         HashMap<Integer, Integer> innovationIDtoLocalIndex = new HashMap<>();
         for (int i = 0; i < topologicalOrder.size(); i++)
@@ -128,10 +139,6 @@ class Innovation {
             e.prevIndex = innovationIDtoLocalIndex.get(e.getPreviousIID());
             e.nextIndex = innovationIDtoLocalIndex.get(e.getNextIID());
         }
-
-        //replace the last set of nodes (all output nodes) with a sorted fixed ascending innovation ID order
-        topologicalOrder.subList(topologicalOrder.size() - Constants.getOutputNum(), topologicalOrder.size()).clear();
-        for (int i = -Constants.getOutputNum(); i < 0; i++) topologicalOrder.add(innovationIDtoNodes.get(i));
 
         return topologicalOrder;
     }
