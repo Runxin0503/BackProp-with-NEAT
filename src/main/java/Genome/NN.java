@@ -192,19 +192,21 @@ public class NN {
             //the node doesn't have an active incoming edge, so ignore that node
             if (Double.isNaN(calculator[i])) continue;
 
-            calculator[i] = nodes.get(i).calculateOutput(calculator[i]);
+            if (i >= Constants.getInputNum())
+                calculator[i] = nodes.get(i).calculateOutput(calculator[i]);
             for (int j : nodes.get(i).getOutgoingEdgeIndices()) {
                 edge e = genome.get(j);
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
-                calculator[targetIndex] += e.calculateOutput(calculator[i]);
+                if(Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.calculateOutput(calculator[i]);
+                else calculator[targetIndex] += e.calculateOutput(calculator[i]);
             }
         }
 
         double[] output = new double[Constants.getOutputNum()];
         for (int i = calculator.length - output.length; i < calculator.length; i++) {
             if (Double.isNaN(calculator[i])) continue;
-            output[i] = calculator[i];
+            output[i - calculator.length + output.length] = calculator[i];
         }
         output = Constants.getOutputAF().calculate(output);
         return output;
@@ -241,19 +243,21 @@ public class NN {
             //the node doesn't have an active incoming edge, so ignore that node
             if (Double.isNaN(calculator[i])) continue;
 
-            calculator[i] = nodes.get(i).calculateOutput(calculator[i]);
+            if (i >= Constants.getInputNum())
+                calculator[i] = nodes.get(i).calculateOutput(calculator[i]);
             for (int j : nodes.get(i).getOutgoingEdgeIndices()) {
                 edge e = genome.get(j);
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
-                calculator[targetIndex] += e.calculateOutput(calculator[i]);
+                if(Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.calculateOutput(calculator[i]);
+                else calculator[targetIndex] += e.calculateOutput(calculator[i]);
             }
         }
 
         double[] output = new double[Constants.getOutputNum()];
         for (int i = calculator.length - output.length; i < calculator.length; i++) {
             if (Double.isNaN(calculator[i])) continue;
-            output[i] = calculator[i];
+            output[i - calculator.length + output.length] = calculator[i];
         }
         output = Constants.getOutputAF().calculate(output);
         double[] outputActivationGradients = Constants.getCostFunction().derivative(output, expectedOutput);
@@ -372,28 +376,36 @@ public class NN {
     public boolean classInv() {
         if (genome == null || nodes == null || nodes.isEmpty() ||
                 nodes.size() < Constants.getInputNum() + Constants.getOutputNum() ||
-                Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0) return false;
+                Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0)
+            return false;
         //check node coordinates aren't both 0,0 (uninitialized)
-        for(node n : nodes) if(n.x == n.y && n.y == 0) return false;
+        for(node n : nodes) if(n.x == n.y && n.y == 0)
+            return false;
         //check input & output nodes are sorted in ascending IID order
         for(int i=-Constants.getOutputNum()-Constants.getInputNum();i<-Constants.getOutputNum();i++)
-            if(nodes.get(i+Constants.getOutputNum()+Constants.getInputNum()).innovationID!=i) return false;
+            if(nodes.get(i+Constants.getOutputNum()+Constants.getInputNum()).innovationID!=i)
+                return false;
         for(int i=-Constants.getOutputNum();i<0;i++)
-            if(nodes.get(i+Constants.getOutputNum()).innovationID!=i) return false;
+            if(nodes.get(i+nodes.size()).innovationID!=i)
+                return false;
         //checks genome is sorted in increasing innovation ID
         for (int i = 1; i < genome.size(); i++)
-            if (genome.get(i - 1).getInnovationID() >= genome.get(i).getInnovationID()) return false;
+            if (genome.get(i - 1).getInnovationID() >= genome.get(i).getInnovationID())
+                return false;
         //checks edges and nodes have the correct local and absolute references to each other
         for (edge e : genome)
             if (nodes.get(e.prevIndex).innovationID != e.getPreviousIID() || nodes.get(e.nextIndex).innovationID != e.getNextIID())
                 return false;
         for (node n : nodes) {
-            for (int i : n.getIncomingEdgeIndices()) if (genome.get(i).getNextIID() != n.innovationID) return false;
-            for (int i : n.getOutgoingEdgeIndices()) if (genome.get(i).getPreviousIID() != n.innovationID) return false;
+            for (int i : n.getIncomingEdgeIndices()) if (genome.get(i).getNextIID() != n.innovationID)
+                return false;
+            for (int i : n.getOutgoingEdgeIndices()) if (genome.get(i).getPreviousIID() != n.innovationID)
+                return false;
         }
 
         //checks validity of nodes in sorted topological order
-        for (edge e : genome) if (e.prevIndex >= e.nextIndex) return false;
+        for (edge e : genome) if (e.prevIndex >= e.nextIndex)
+            return false;
 
         return true;
     }

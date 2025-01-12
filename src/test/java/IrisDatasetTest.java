@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class IrisDatasetTest {
 
     private static final int Iris_Size = 150;
@@ -102,7 +100,7 @@ public class IrisDatasetTest {
         for (int i = 0; i < Iris_Size; i++) {
             double[] feature = features.get(i);
             int category = featuresToCategories.get(feature);
-            double[] expectedOutput = new double[10];
+            double[] expectedOutput = new double[names.size()];
             expectedOutput[category] = 1;
             cost += NeuralNetwork.calculateCost(feature, expectedOutput);
             if (evaluateOutput(NeuralNetwork.calculateWeightedOutput(feature), category)) accuracy++;

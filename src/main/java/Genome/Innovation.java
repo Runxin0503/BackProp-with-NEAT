@@ -32,7 +32,6 @@ class Innovation {
 
     /** Re-initializes all hidden nodes to its appropriate values */
     public static void resetNodeCoords(NN nn) {
-        assert nn.classInv();
         int inputNum = nn.Constants.getInputNum(), outputNum = nn.Constants.getOutputNum(), nodesNum = nn.nodes.size();
         for (int i = 0; i < inputNum; i++) {
             nn.nodes.get(i).x = 0;
@@ -69,6 +68,7 @@ class Innovation {
                 back.y = backY;
             }
         }
+        assert nn.classInv();
     }
 
     /**
