@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /** Neural Network that uses topological sort to minimize computational time and increase memory efficiency */
 public class NN {
@@ -15,15 +16,15 @@ public class NN {
      * Stores a list of edges.
      * <br>Cannot ever decrease in size or have any genome removed
      * <br>Class Invariant: Sorted in InnovationID order
-     */
-    final ArrayList<edge> genome;
+     */ //todo made public for testing
+    public final ArrayList<edge> genome;
 
     /**
      * Stores a list of nodes.
      * <br>Cannot ever decrease in size or have any nodes removed.
      * <br>Class Invariant: Sorted in Topological order
-     */
-    final ArrayList<node> nodes;
+     */ //todo made public for testing
+    public final ArrayList<node> nodes;
 
     /** The number of input & output neurons in this Neural Network */
     final Constants Constants;
@@ -122,7 +123,6 @@ public class NN {
         assert parent1.classInv() && parent2.classInv();
 
         int index1 = 0, index2 = 0;
-        boolean equalScore = firstScore == secondScore;
         NN dominant = parent1, submissive = parent2;
         if (firstScore < secondScore) {
             dominant = parent2;
@@ -143,7 +143,6 @@ public class NN {
                 index1++;
                 index2++;
             } else if (firstInnovationID > secondInnovationID) {
-                if (equalScore) newGenome.add(gene2.clone(submissive.nodes));
                 //disjoint gene of b
                 index2++;
             } else {
@@ -162,21 +161,12 @@ public class NN {
             newGenome.add(gene1.clone(dominant.nodes));
             index1++;
         }
-        if (equalScore) {
-            while (index2 < submissive.genome.size()) {
-                edge gene2 = submissive.genome.get(index2);
-                //same logic as above
-                assert !newGenome.contains(gene2);
-                newGenome.add(gene2.clone(submissive.nodes));
-                index2++;
-            }
-        }
         //newGenome must be sorted by Innovation ID since they were inserted in order from smallest to biggest
         List<edge> test = new ArrayList<>(newGenome);
         test.sort(Comparator.comparingInt(edge::getInnovationID));
         assert test.equals(newGenome);
 
-        ArrayList<node> newNodes = Innovation.constructNetworkFromGenome(newGenome, dominant.nodes, submissive.nodes,dominant.Constants);
+        ArrayList<node> newNodes = Innovation.constructNetworkFromGenome(newGenome, dominant.nodes, submissive.nodes, dominant.Constants);
 
         NN offspring = new NN(newNodes, newGenome, parent1.Constants);
         Innovation.resetNodeCoords(offspring);
@@ -203,7 +193,7 @@ public class NN {
                 edge e = genome.get(j);
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
-                if(Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.calculateOutput(calculator[i]);
+                if (Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.calculateOutput(calculator[i]);
                 else calculator[targetIndex] += e.calculateOutput(calculator[i]);
             }
         }
@@ -254,7 +244,7 @@ public class NN {
                 edge e = genome.get(j);
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
-                if(Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.calculateOutput(calculator[i]);
+                if (Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.calculateOutput(calculator[i]);
                 else calculator[targetIndex] += e.calculateOutput(calculator[i]);
             }
         }
@@ -371,9 +361,21 @@ public class NN {
     public Object clone() {
         ArrayList<node> newNodes = new ArrayList<>(nodes.size());
         ArrayList<edge> newGenome = new ArrayList<>(genome.size());
-        nodes.forEach(node -> newNodes.add(node.clone()));
-        genome.forEach(edge -> newGenome.add(edge.clone(nodes)));
-        return new NN(nodes, genome, Constants);
+        nodes.forEach(node -> {
+            node newNode = node.clone();
+            newNode.getIncomingEdgeIndices().addAll(node.getIncomingEdgeIndices());
+            newNode.getOutgoingEdgeIndices().addAll(node.getOutgoingEdgeIndices());
+            newNodes.add(newNode);
+        });
+        genome.forEach(edge -> {
+            edge newEdge = edge.clone(nodes);
+            newEdge.prevIndex = edge.prevIndex;
+            newEdge.nextIndex = edge.nextIndex;
+            newGenome.add(newEdge);
+        });
+        NN clone = new NN(newNodes, newGenome, Constants);
+        Innovation.resetNodeCoords(clone);
+        return clone;
     }
 
     /** Returns true if the class invariant of this instance is satisfied, false otherwise */
@@ -383,14 +385,15 @@ public class NN {
                 Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0)
             return false;
         //check node coordinates aren't both 0,0 (uninitialized)
-        for(node n : nodes) if(n.x == n.y && n.y == 0)
-            return false;
-        //check input & output nodes are sorted in ascending IID order
-        for(int i=-Constants.getOutputNum()-Constants.getInputNum();i<-Constants.getOutputNum();i++)
-            if(nodes.get(i+Constants.getOutputNum()+Constants.getInputNum()).innovationID!=i)
+        for (node n : nodes)
+            if (n.x == n.y && n.y == 0)
                 return false;
-        for(int i=-Constants.getOutputNum();i<0;i++)
-            if(nodes.get(i+nodes.size()).innovationID!=i)
+        //check input & output nodes are sorted in ascending IID order
+        for (int i = -Constants.getOutputNum() - Constants.getInputNum(); i < -Constants.getOutputNum(); i++)
+            if (nodes.get(i + Constants.getOutputNum() + Constants.getInputNum()).innovationID != i)
+                return false;
+        for (int i = -Constants.getOutputNum(); i < 0; i++)
+            if (nodes.get(i + nodes.size()).innovationID != i)
                 return false;
         //checks genome is sorted in increasing innovation ID
         for (int i = 1; i < genome.size(); i++)
@@ -401,15 +404,18 @@ public class NN {
             if (nodes.get(e.prevIndex).innovationID != e.getPreviousIID() || nodes.get(e.nextIndex).innovationID != e.getNextIID())
                 return false;
         for (node n : nodes) {
-            for (int i : n.getIncomingEdgeIndices()) if (genome.get(i).getNextIID() != n.innovationID)
-                return false;
-            for (int i : n.getOutgoingEdgeIndices()) if (genome.get(i).getPreviousIID() != n.innovationID)
-                return false;
+            for (int i : n.getIncomingEdgeIndices())
+                if (genome.get(i).getNextIID() != n.innovationID)
+                    return false;
+            for (int i : n.getOutgoingEdgeIndices())
+                if (genome.get(i).getPreviousIID() != n.innovationID)
+                    return false;
         }
 
         //checks validity of nodes in sorted topological order
-        for (edge e : genome) if (e.prevIndex >= e.nextIndex)
-            return false;
+        for (edge e : genome)
+            if (e.prevIndex >= e.nextIndex)
+                return false;
 
         return true;
     }
@@ -418,21 +424,44 @@ public class NN {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
+        AtomicInteger count = new AtomicInteger();
         nodes.forEach(n -> {
-            if(n.innovationID < -Constants.getOutputNum()) sb.append("Input Node (");
-            else if(n.innovationID < 0) sb.append("Output Node (");
+            sb.append("[").append(count.getAndIncrement()).append("]");
+            if (n.innovationID < -Constants.getOutputNum()) sb.append("Input Node (");
+            else if (n.innovationID < 0) sb.append("Output Node (");
             else sb.append("Hidden Node (");
             sb.append(n.innovationID).append(",").append(n.activationFunction).append("):\t");
-            sb.append(n.x).append(',').append(n.y);
+            sb.append(String.format("%.2f",n.x)).append(',').append(String.format("%.2f",n.y));
+            sb.append("\n\t\t\tIncoming indices - ").append(Arrays.toString(n.getIncomingEdgeIndices().toArray()));
+            sb.append("\n\t\t\tOutgoing indices - ").append(Arrays.toString(n.getOutgoingEdgeIndices().toArray()));
             sb.append('\n');
         });
 
+        count.set(0);
         genome.forEach(e -> {
-            sb.append("edge (").append(e.getInnovationID()).append(") from (").append(nodes.get(e.prevIndex).x).append(',').append(nodes.get(e.prevIndex).y).append(") to (");
-            sb.append(nodes.get(e.nextIndex).x).append(',').append(nodes.get(e.nextIndex).y).append("), or ");
+            sb.append("[").append(count.getAndIncrement()).append("]");
+            sb.append("edge (").append(e.getInnovationID()).append(") from (").append(String.format("%.2f",nodes.get(e.prevIndex).x)).append(',').append(String.format("%.2f",nodes.get(e.prevIndex).y)).append(") to (");
+            sb.append(String.format("%.2f",nodes.get(e.nextIndex).x)).append(',').append(String.format("%.2f",nodes.get(e.nextIndex).y)).append("), or ");
             sb.append(e.getPreviousIID()).append(" -> ").append(e.getNextIID()).append('\n');
         });
 
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof NN nn))
+            return false;
+        if (nn.nodes.size() != nodes.size() || nn.genome.size() != genome.size() || nn.Constants != Constants)
+            return false;
+
+        for (int i = 0; i < nodes.size(); i++)
+            if (!nn.nodes.get(i).identical(nodes.get(i)))
+                return false;
+        for (int i = 0; i < genome.size(); i++)
+            if (!nn.genome.get(i).identical(genome.get(i)))
+                return false;
+
+        return nn.toString().equals(toString());
     }
 }

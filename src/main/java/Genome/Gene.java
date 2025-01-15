@@ -1,12 +1,13 @@
 package Genome;
 
-abstract class Gene {
+//todo made public for testing purposes
+public abstract class Gene {
 
     /** Identifies the unique ID this gene has.
      * <br>Used for matching nodes against synapses and vice versa.
      * <br>Also used in Neural Network comparisons and crossovers.
-     */
-    protected int innovationID;
+     *///todo made public for testing purposes (was protected)
+    public int innovationID;
 
     /** The velocity and squared-velocity used for ADAM optimizer */
     protected double velocity = 0, velocitySquared = 0;
@@ -26,7 +27,6 @@ abstract class Gene {
 
     /**
      * Applies the given {@code Gradient} to the value of this Gene using the ADAM optimizer
-     * @param gradient the derivative of this Gene's value with respect to the loss function
      * @param adjustedLearningRate the learning rate for {@link NN#learn} divided by the batch size
      * @param momentum the momentum hyper-parameter in {@link NN#learn}, used in SGD with momentum and ADAM
      * @param correctionMomentum 1 / (1 - momentum^t), where t is the number of times the Neural Network was trained

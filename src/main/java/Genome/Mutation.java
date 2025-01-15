@@ -1,8 +1,6 @@
 package Genome;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /** Package-private Static class that mutates the genome of any given {@link NN} */
 public class Mutation {
@@ -14,7 +12,7 @@ public class Mutation {
             edge e = nn.genome.get((int) (Math.random() * nn.genome.size()));
 
             if (e.shiftWeights(nn.Constants.mutationWeightShiftStrength)) {
-                assert nn.classInv();
+                assert nn.classInv() : nn.toString();
                 return;
             }
         }
@@ -27,7 +25,7 @@ public class Mutation {
             edge e = nn.genome.get((int) (Math.random() * nn.genome.size()));
 
             if (e.randomWeights(nn.Constants.mutationWeightRandomStrength)) {
-                assert nn.classInv();
+                assert nn.classInv() : nn.toString();
                 return;
             }
         }
@@ -35,15 +33,12 @@ public class Mutation {
 
     /** Chooses a random node to shift its bias by a random amount */
     public static void shiftBias(NN nn) {
-        for (int count = 0; count < 100; count++) {
-            //randomly picks an index for all nodes except an input node
-            int nodeIndex = (int) (Math.random() * (nn.nodes.size() - nn.Constants.getInputNum()) + nn.Constants.getInputNum());
+        //randomly picks an index for all nodes except an input node
+        int nodeIndex = (int) (Math.random() * (nn.nodes.size() - nn.Constants.getInputNum()) + nn.Constants.getInputNum());
 
-            node n = nn.nodes.get(nodeIndex);
-            n.shiftBias(nn.Constants);
-            assert nn.classInv();
-            return;
-        }
+        node n = nn.nodes.get(nodeIndex);
+        n.shiftBias(nn.Constants);
+        assert nn.classInv() : nn.toString();
     }
 
     /** Chooses two random nodes that aren't directly connected and create a synapse between them */
@@ -61,29 +56,19 @@ public class Mutation {
             newEdge.prevIndex = i1;
             newEdge.nextIndex = i2;
 
-            if (!addEdge(nn, newEdge, edgeIID, n1, n2)) continue;
+            if (!addEdge(nn, newEdge, n1, n2)) continue;
 
-            // if i1 > i2, move and insert i1 at i2's position and push i2 back
+            // if i1 > i2, topologically sort the entire NN
             // if i1 < i2 no sorting required
             if (i1 > i2) {
-                //moves i1 node to i2's index and shifts every node in [i2,i1) to the right
-                nn.nodes.add(i2, nn.nodes.remove(i1));
-
-                for (edge e : nn.genome) {
-                    //shifts node index to the right if its within [i2,i1)
-                    //sets node index to i2 if it equals i1
-                    int prevIndex = e.prevIndex, nextIndex = e.nextIndex;
-                    if (prevIndex == i1) e.prevIndex = i2;
-                    else if (prevIndex < i1 && prevIndex >= i2) e.prevIndex = prevIndex + 1;
-                    if (nextIndex == i1) e.nextIndex = i2;
-                    else if (nextIndex < i1 && nextIndex >= i2) e.nextIndex = prevIndex + 1;
-                }
+                ArrayList<node> newNodes = Innovation.topologicalSort(List.copyOf(nn.nodes),nn.genome,nn.Constants);
+                nn.nodes.clear();
+                nn.nodes.addAll(newNodes);
             }
-            assert nn.classInv();
+            Innovation.resetNodeCoords(nn);
 
             return;
         }
-        System.err.println("mutateSynapse failed");
     }
 
     /**
@@ -98,18 +83,18 @@ public class Mutation {
             edge edge = nn.genome.get((int) (Math.random() * nn.genome.size()));
             if (edge.isDisabled()) continue;
 
-            edge.disable();
-
-            node newNode = new node(edge.getInnovationID(), nn.Constants.getDefaultHiddenAF(), nn.Constants.getInitializedValue());
+            node newNode = new node(Innovation.getSplitNodeInnovationID(edge.innovationID,nn.nodes), nn.Constants.getDefaultHiddenAF(), nn.Constants.getInitializedValue());
 
             node prevNode = nn.nodes.get(edge.prevIndex), nextNode = nn.nodes.get(edge.nextIndex);
             int prevIID = prevNode.getInnovationID(), midIID = newNode.getInnovationID(), nextIID = nextNode.getInnovationID();
-            edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID, midIID), nn.Constants.getInitializedValue(), true, prevIID, midIID);
-            edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID, nextIID), nn.Constants.getInitializedValue(), true, midIID, nextIID);
+            edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID, midIID), edge.getWeight(), true, prevIID, midIID);
+            edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID, nextIID), 1, true, midIID, nextIID);
 
             //add edges to genome
-            if (!addEdge(nn, edge1, edge1.innovationID, prevNode, newNode) || !addEdge(nn, edge2, edge2.innovationID, newNode, nextNode))
+            if (!addEdge(nn, edge1, prevNode, newNode) || !addEdge(nn, edge2, newNode, nextNode))
                 continue;
+
+            edge.disable();
 
             //new node index can't be in between input node indexes
             int newNodeIndex = Math.max(edge.prevIndex + 1, nn.Constants.getInputNum());
@@ -119,6 +104,10 @@ public class Mutation {
                 if (e.prevIndex >= newNodeIndex) e.prevIndex++;
                 if (e.nextIndex >= newNodeIndex) e.nextIndex++;
             }
+            newNode.getIncomingEdgeIndices().clear();
+            newNode.addIncomingEdgeIndex(nn.genome.indexOf(edge1));
+            newNode.getOutgoingEdgeIndices().clear();
+            newNode.addOutgoingEdgeIndex(nn.genome.indexOf(edge2));
             nn.nodes.add(newNodeIndex, newNode);
 
             edge1.prevIndex = edge.prevIndex;
@@ -128,7 +117,7 @@ public class Mutation {
 
             Innovation.resetNodeCoords(nn);
 
-            assert nn.classInv();
+            assert nn.classInv() : nn.toString();
             return;
         }
     }
@@ -160,7 +149,7 @@ public class Mutation {
      * @param n2 the destination node of newEdge
      * @return false if nn's genome already contains an identical edge to {@code newEdge}, true otherwise
      */
-    private static boolean addEdge(NN nn, edge newEdge, int edgeIID, node n1, node n2) {
+    private static boolean addEdge(NN nn, edge newEdge, node n1, node n2) {
         int edgeIndex = 0;
         //attempts to insert newEdge at appropriate index and shift node's local references
         // ONLY IF genome is not empty
@@ -169,11 +158,15 @@ public class Mutation {
             // either the same or a larger InnovationID than newEdge, or nn.genome.size() if
             // it has the largest InnovationID
             for (; edgeIndex < nn.genome.size(); edgeIndex++) {
-                if (nn.genome.get(edgeIndex).innovationID == edgeIID) break;
-                else if (nn.genome.get(edgeIndex).innovationID > edgeIID) break;
+                if (nn.genome.get(edgeIndex).innovationID == newEdge.innovationID) {
+                    if (nn.genome.get(edgeIndex).isDisabled()) {
+                        nn.genome.set(edgeIndex,newEdge);
+                        return true;
+                    }
+                    else return false;
+                }
+                else if (nn.genome.get(edgeIndex).innovationID > newEdge.innovationID) break;
             }
-            //if edgeIndex has same innovationID there's already an existing edge like this one so ignore it
-            if (nn.genome.size() != edgeIndex && nn.genome.get(edgeIndex).equals(newEdge)) return false;
 
             for (node n : nn.nodes) {
                 for (int i = 0; i < n.getIncomingEdgeIndices().size(); i++)

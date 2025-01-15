@@ -3,7 +3,8 @@ package Genome;
 import java.util.List;
 
 /** Genome Blueprint for constructing the {@code sortedNetwork} of genome class */
-class edge extends Gene {
+//todo made public for testing
+public class edge extends Gene {
 
     /*
      * must contain:
@@ -28,7 +29,7 @@ class edge extends Gene {
     /** The absolute Innovation ID of the previous and next node */
     private final int previousIID, nextIID;
 
-    public edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID) {
+    edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID) {
         this.innovationID = innovationID;
         this.weight = weight;
         this.previousIID = previousIID;
@@ -36,13 +37,26 @@ class edge extends Gene {
         this.enabled = enabled;
     }
 
+    //todo made public for testing
+    public edge(int innovationID, double weight, boolean enabled, int prevIndex, int nextIndex, int previousIID, int nextIID) {
+        this.innovationID = innovationID;
+        this.weight = weight;
+        this.prevIndex = prevIndex;
+        this.nextIndex = nextIndex;
+        this.previousIID = previousIID;
+        this.nextIID = nextIID;
+        this.enabled = enabled;
+    }
+
     /** Returns the weight of this edge */
-    double getWeight() {
+//todo made public for testing
+    public double getWeight() {
         return weight;
     }
 
     /** Returns true if this edge is disabled, false otherwise */
-    boolean isDisabled() {
+//todo made public for testing
+    public boolean isDisabled() {
         return !enabled;
     }
 
@@ -54,16 +68,6 @@ class edge extends Gene {
     /** Returns the Innovation ID of the next node */
     public int getNextIID() {
         return nextIID;
-    }
-
-    /** Sets the local node index of the previous node */
-    public void setPreviousIndex(int prevIndex) {
-        this.prevIndex = prevIndex;
-    }
-
-    /** Sets the local node index of the next node */
-    public void setNextIndex(int nextIndex) {
-        this.nextIndex = nextIndex;
     }
 
     /** Applies the weight of this edge to the given {@code input} */
@@ -84,7 +88,7 @@ class edge extends Gene {
      */
     public boolean shiftWeights(double mutationWeightShiftStrength) {
         if (!enabled) return false;
-        this.weight *= mutationWeightShiftStrength * (Math.random() * 2 - 1);
+        this.weight *= Math.pow(mutationWeightShiftStrength, Math.random() * 2 - 1);
         return true;
     }
 
@@ -94,7 +98,7 @@ class edge extends Gene {
      */
     public boolean randomWeights(double mutationWeightRandomStrength) {
         if (!enabled) return false;
-        this.weight = mutationWeightRandomStrength * (Math.random());
+        this.weight = mutationWeightRandomStrength * (Math.random() * 2 - 1);
         return true;
     }
 
@@ -102,7 +106,7 @@ class edge extends Gene {
      * Disables this synapse from the calculation process
      * <br> Returns false if it was already disabled, true otherwise
      */
-    public void disable() {
+    void disable() {
         enabled = false;
     }
 
@@ -113,5 +117,11 @@ class edge extends Gene {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof edge && ((edge) obj).innovationID == innovationID;
+    }
+
+    boolean identical(edge other) {
+        return other.innovationID == innovationID && other.weight == weight && other.enabled == enabled &&
+                other.prevIndex == prevIndex && other.nextIndex == nextIndex &&
+                other.previousIID == previousIID && other.nextIID == nextIID;
     }
 }

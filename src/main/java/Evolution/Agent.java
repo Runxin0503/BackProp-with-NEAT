@@ -18,7 +18,7 @@ public class Agent implements WeightedRandom {
     public Agent(Constants Constants) {
         this.score = 0;
         this.genome = NN.getDefaultNeuralNet(Constants);
-        for(int i=0;i<10;i++) genome.mutate();
+//        for(int i=0;i<10;i++) genome.mutate(); //todo commented out for testing purposes
     }
 
     /** Resets the score of this Agent */

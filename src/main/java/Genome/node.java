@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** The Genome representation of a node */
-class node extends Gene {
+//todo made public for testing
+public class node extends Gene {
     /*
      * must contain:
      * - innovation number:
@@ -90,7 +91,8 @@ class node extends Gene {
      * Attempts to add {@code index} to the array of outgoing edge indices.
      * Doesn't do anything if the array already contains the index
      */
-    void addOutgoingEdgeIndex(int index) {
+//todo made public for testing
+    public void addOutgoingEdgeIndex(int index) {
         if (outgoingConnections.contains(index)) return;
         outgoingConnections.add(index);
     }
@@ -99,19 +101,21 @@ class node extends Gene {
      * Attempts to add {@code index} to the array of incoming edge indices.
      * Doesn't do anything if the array already contains the index
      */
-    void addIncomingEdgeIndex(int index) {
+//todo made public for testing
+    public void addIncomingEdgeIndex(int index) {
         if (incomingConnections.contains(index)) return;
         incomingConnections.add(index);
     }
 
     /** Returns the bias of this node */
-    double getBias(){return bias;}
+    //todo made public for testing
+    public double getBias(){return bias;}
 
     /**
      * Shifts the Bias of this node by a random amount
      */
     public void shiftBias(Constants Constants) {
-        this.bias *= (Math.random() * 2 - 1) * Constants.mutationBiasShiftStrength;
+        this.bias += Constants.mutationBiasShiftStrength * (Math.random() * 2 - 1);
     }
 
     @Override
@@ -124,4 +128,10 @@ class node extends Gene {
         return obj instanceof node && ((node) obj).innovationID == innovationID;
     }
 
+    boolean identical(node other){
+        return other.innovationID == innovationID && other.activationFunction == activationFunction &&
+                other.activated == activated && other.x == x && other.y == y &&
+                other.bias == bias && other.incomingConnections.equals(incomingConnections) &&
+                other.outgoingConnections.equals(outgoingConnections);
+    }
 }

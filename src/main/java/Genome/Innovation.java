@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * A Static class containing mappings between node and synapses using their InnovationIDs
  */
-class Innovation {
-
+//todo made public for testing purposes
+public class Innovation {
     /*
      * Must contain:
      * - A HashMap mapping synapses to pairs of nodes (creating a new synapse from two existing nodes)
@@ -17,6 +17,18 @@ class Innovation {
 
     /** Used to obtain the innovationID of the two nodes of any given synapse innovationID */
     private static final HashMap<intPairs, Integer> nodePairsToEdge = new HashMap<>();
+
+    /** Used to obtain the node Innovation ID when split from a synapse */
+    private static final HashMap<Integer,ArrayList<Integer>> edgeToSplitNode = new HashMap<>();
+
+    private static int splitNodeInnovation = 0;
+
+    //todo created for testing purposes
+    public static void reset(){
+        nodePairsToEdge.clear();
+        edgeToSplitNode.clear();
+        splitNodeInnovation = 0;
+    }
 
     /**
      * Returns the Innovation ID of the edge connecting {@code node1IID} and {@code node2IID}
@@ -28,6 +40,17 @@ class Innovation {
 
         nodePairsToEdge.put(pair, nodePairsToEdge.size());
         return nodePairsToEdge.size() - 1;
+    }
+
+    public static int getSplitNodeInnovationID(int edgeIID,List<node> nodes) {
+        edgeToSplitNode.putIfAbsent(edgeIID, new ArrayList<>());
+        for (int i : edgeToSplitNode.get(edgeIID)) {
+            if(!nodes.contains(new node(i,null,-1))){
+                return i;
+            }
+        }
+        edgeToSplitNode.get(edgeIID).add(splitNodeInnovation++);
+        return splitNodeInnovation;
     }
 
     /** Re-initializes all hidden nodes to its appropriate values */
@@ -77,34 +100,56 @@ class Innovation {
      * <br>It should also bind all node IDs in edges to the local node Index.
      */
     public static ArrayList<node> constructNetworkFromGenome(ArrayList<edge> genome, ArrayList<node> dominantNodes, ArrayList<node> submissiveNodes, Constants Constants) {
-        // Maps Nodes to the number of incoming edges (for topological sorted orders)
-        Map<Integer, AtomicInteger> indegree = new HashMap<>();
-        //maps innovationID to node clones, initialize with input & output nodes
-        HashMap<Integer, node> innovationIDtoNodes = new HashMap<>();
-        for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < 0; i++)
-            innovationIDtoNodes.put(i, getNodeByInnovationID(i, dominantNodes).clone());
+        ArrayList<node> nodes = new ArrayList<>();
+        for (int i = 0; i < Constants.getInputNum(); i++)
+            nodes.add(dominantNodes.get(i).clone());
+        for (int i = -Constants.getOutputNum(); i < 0; i++)
+            nodes.add(dominantNodes.get(dominantNodes.size() + i).clone());
 
         // Step 1:
         for (int i = 0; i < genome.size(); i++) {
             node u = getNodeByInnovationID(genome.get(i).getPreviousIID(), dominantNodes, submissiveNodes), v = getNodeByInnovationID(genome.get(i).getNextIID(), dominantNodes, submissiveNodes);
 
             //puts u and v inside map. sets u and v to appropriate object
-            if (!innovationIDtoNodes.containsKey(u.innovationID)) innovationIDtoNodes.put(u.innovationID, u.clone());
-            u = innovationIDtoNodes.get(u.innovationID);
-            if (!innovationIDtoNodes.containsKey(v.innovationID)) innovationIDtoNodes.put(v.innovationID, v.clone());
-            v = innovationIDtoNodes.get(v.innovationID);
+            int uIndex = nodes.indexOf(u);
+            if (uIndex == -1) nodes.add(Constants.getInputNum(),u = u.clone());
+            else u = nodes.get(uIndex);
+
+            int vIndex = nodes.indexOf(v);
+            if (vIndex == -1) nodes.add(Constants.getInputNum(),v = v.clone());
+            else v = nodes.get(vIndex);
 
             u.addOutgoingEdgeIndex(i);
             v.addIncomingEdgeIndex(i);
-
-            indegree.putIfAbsent(u.innovationID, new AtomicInteger(0));
-            indegree.putIfAbsent(v.innovationID, new AtomicInteger(0));
         }
+
+        for(int i=-Constants.getOutputNum();i<0;i++) assert nodes.get(nodes.size() + i).innovationID < 0 && nodes.get(nodes.size() + i).innovationID >= -Constants.getOutputNum();
+
+        return topologicalSort(nodes, genome, Constants);
+    }
+
+    /**
+     * Topologically sorts the {@code nodes} arrayList and returns the result.
+     * <br>Requires: each node in {@code nodes} have correct references to their connected edges and vice versa,
+     * also requires input nodes to be first, then hidden nodes, and lastly output nodes in {@code nodes}
+     * @param genome has to have correct innovationID references to their connected nodes
+     * @param nodes has to have correct indices references to their outgoing edges in {@code genome}
+     * @return
+     */
+    public static ArrayList<node> topologicalSort(List<node> nodes, List<edge> genome, Constants Constants) {
+        // Maps Nodes to the number of incoming edges (for topological sorted orders)
+        Map<Integer, AtomicInteger> indegree = new HashMap<>();
+        Map<Integer, node> innovationIDtoNode = new HashMap<>();
+
+        nodes.forEach(n -> {
+            indegree.put(n.innovationID, new AtomicInteger(n.getIncomingEdgeIndices().size()));
+            innovationIDtoNode.put(n.innovationID, n);
+        });
 
         // Step 2: Initialize the queue with all input nodes in order of innovation ID
         Queue<node> queue = new LinkedList<>();
-        for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < -Constants.getOutputNum(); i++) {
-            queue.add(innovationIDtoNodes.get(i));
+        for (int i = 0; i < Constants.getInputNum(); i++) {
+            queue.add(nodes.get(i));
         }
 
         // Step 3: Process the nodes
@@ -116,11 +161,10 @@ class Innovation {
 
             // For each neighbor, reduce the indegree and add to queue if it becomes 0
             for (int edgeIndex : n.getOutgoingEdgeIndices()) {
-                node nextNode = innovationIDtoNodes.get(genome.get(edgeIndex).getNextIID());
-                int val = indegree.get(nextNode.innovationID).incrementAndGet();
-                if (val == nextNode.getIncomingEdgeIndices().size()) {
+                node nextNode = innovationIDtoNode.get(genome.get(edgeIndex).getNextIID());
+                if (indegree.get(nextNode.innovationID).decrementAndGet() <= 0) {
                     //add only hidden nodes to queue
-                    if(nextNode.innovationID > 0)
+                    if (nextNode.innovationID >= 0)
                         queue.add(nextNode);
                     else outputNodeCount++;
                 }
@@ -129,7 +173,7 @@ class Innovation {
 
         assert outputNodeCount <= Constants.getOutputNum();
 
-        for (int i = -Constants.getOutputNum(); i < 0; i++) topologicalOrder.add(innovationIDtoNodes.get(i));
+        for (int i = -Constants.getOutputNum(); i < 0; i++) topologicalOrder.add(nodes.get(nodes.size() + i));
 
         HashMap<Integer, Integer> innovationIDtoLocalIndex = new HashMap<>();
         for (int i = 0; i < topologicalOrder.size(); i++)
