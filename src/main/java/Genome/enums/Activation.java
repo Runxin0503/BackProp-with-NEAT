@@ -82,7 +82,7 @@ public enum Activation {
             double latestInputSum = 0, max = Double.MIN_VALUE;
             for (double num : input) max = Math.max(max, num);
             for (double num : input) latestInputSum += Math.exp(num - max);
-            for (int i = 0; i < input.length; i++) output[i] = Math.exp(input[i] - max) / latestInputSum;
+            for (int i = 0; i < input.length; i++) output[i] = Math.clamp(Math.exp(input[i] - max) / latestInputSum,1e-32,1-1e-8);
             return output;
         }, (input, gradient) -> {
             double[] output = new double[input.length];
@@ -91,7 +91,7 @@ public enum Activation {
             for (double num : input) max = Math.max(max, num);
             for (double num : input) latestInputSum += Math.exp(num - max);
             for (int i = 0; i < input.length; i++)
-                softmaxOutput[i] = Math.exp(input[i] - max) / latestInputSum;
+                softmaxOutput[i] = Math.clamp(Math.exp(input[i] - max) / latestInputSum,1e-32,1-1e-8);
 
             // Compute the gradient using the vectorized form
             double dotProduct = 0.0;

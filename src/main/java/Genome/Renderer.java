@@ -93,7 +93,7 @@ public class Renderer extends Application implements Initializable {
             final Parent node = FXMLLoader.load(r);
             final Scene scene = new Scene(node);
             stage.setScene(scene);
-            stage.setTitle("Neural Network Visualizer");
+            stage.setTitle("Neural agentGenome Visualizer");
             stage.setResizable(false);
             stage.show();
         } catch (final IOException ioe) {
@@ -109,11 +109,34 @@ public class Renderer extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        agentFactory = new EvolutionBuilder()
-                .setDefaultHiddenAF(Activation.ReLU).setCostFunction(Cost.crossEntropy).setNumSimulated(1)
-                .setInputNum(4).setOutputNum(3).setOutputAF(Activation.arrays.softmax).build();
+        agentFactory = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
+                .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
         agent = agentFactory.agents[0];
-        agentGenome = agent.getGenomeClone();
+        agentGenome = NN.getDefaultNeuralNet(agentFactory.Constants);
+
+        for(int i=2;i<8;i++) {
+            node newNode = new node(0,Activation.sigmoid,agentFactory.Constants.getInitializedValue());
+            newNode.x = 0.5;
+            newNode.y = (i-1.0)/7;
+            agentGenome.nodes.add(i,newNode);
+        }        for (int i = 0; i < 2; i++)
+            for (int j = 2; j < 8; j++) {
+                agentGenome.nodes.get(i).addOutgoingEdgeIndex(agentGenome.genome.size());
+                agentGenome.nodes.get(j).addIncomingEdgeIndex(agentGenome.genome.size());
+                agentGenome.genome.add(new edge(
+                        0, agentFactory.Constants.getInitializedValue(), true, i, j,
+                        i - 4, 0));
+            }
+        for (int i = 2; i < 8; i++)
+            for (int j = 8; j < 10; j++) {
+                agentGenome.nodes.get(i).addOutgoingEdgeIndex(agentGenome.genome.size());
+                agentGenome.nodes.get(j).addIncomingEdgeIndex(agentGenome.genome.size());
+                agentGenome.genome.add(new edge(
+                        0, agentFactory.Constants.getInitializedValue(), true, i, j,
+                        0, j - 10));
+            }
+        System.out.println(agentGenome);
         redrawCanvas = true;
 
         rWeights.setOnAction(e -> {
@@ -293,7 +316,7 @@ public class Renderer extends Application implements Initializable {
 
                     double midX = (clampedNextX + clampedX) / 2,midY = (clampedNextY + clampedY) / 2;
                     gc.setFill(Color.RED);
-                    gc.fillText((agentGenome.genome.get(edge).getWeight()+"").substring(0,4),midX - adjustedRadius,midY - adjustedRadius * 0.65);
+                    gc.fillText(String.format("%.2f",agentGenome.genome.get(edge).getWeight()),midX - adjustedRadius,midY - adjustedRadius * 0.65);
                 }
             }
             if (canvasCameraBoundingBox.intersects(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2)) {
@@ -301,7 +324,7 @@ public class Renderer extends Application implements Initializable {
                 gc.fillOval(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2);
                 gc.setFill(Color.BLACK);
                 gc.fillText(n.activationFunction + "", x - adjustedRadius, y - adjustedRadius * 1.2);
-                gc.fillText((n.getBias() + "").substring(0,4), x - adjustedRadius * 0.8, y + adjustedRadius * 1.9);
+                gc.fillText(String.format("%.2f", n.getBias()), x - adjustedRadius * 0.8, y + adjustedRadius * 1.9);
             }
         }
 

@@ -10,19 +10,19 @@ public abstract class Gene {
     public int innovationID;
 
     /** The velocity and squared-velocity used for ADAM optimizer */
-    protected double velocity = 0, velocitySquared = 0;
+    private double velocity = 0, velocitySquared = 0;
 
     /** The Gradient of this particular Gene. */
-    protected double gradient = 0;
+    private double gradient = 0;
 
     /** Clears the Gradient of this particular node */
     void clearGradient() {
         this.gradient = 0;
     }
 
-    /** Adds {@code newGradient} to the existing gradient of this Gene */
-    synchronized void addGradient(double newGradient) {
-        this.gradient += newGradient;
+    /** Adds {@code deltaGradient} to the existing gradient of this Gene */
+    synchronized void addGradient(double deltaGradient) {
+        this.gradient += deltaGradient;
     }
 
     /**
@@ -43,7 +43,7 @@ public abstract class Gene {
     }
 
     /** Adds {@code deltaValue} to the current value of this Gene, used for back-propagation to tune Gene values */
-    abstract void addValue(double deltaValue);
+    protected abstract void addValue(double deltaValue);
 
     /** returns the innovation ID of this gene */
     int getInnovationID() {

@@ -17,6 +17,7 @@ public class node extends Gene {
      * - ActivationFunction enum:
      *      - should be null if it's input or output
      *      - can be any hiddenAF enums if its hidden, outputAF are reserved to used in Constants file
+     *      - if input/output node, CANNOT have an ActivationFunction enum other than Activation.none
      * - bias
      * - boolean activated: true if this node's output is > 0, false otherwise
      * - int array of outgoing connections (index of edges)
@@ -27,7 +28,8 @@ public class node extends Gene {
     Activation activationFunction;
 
     /** The bias value of this neuron */
-    private double bias;
+    //todo made public for testing purposes
+    public double bias;
 
     /**
      * True if neuron's output is > 0, false otherwise.
@@ -39,7 +41,9 @@ public class node extends Gene {
     private final List<Integer> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
-    double x,y;
+    //todo made x and y public for testing purposes
+    public double x;
+    public double y;
 
     public node(int innovationID, Activation activationFunction, double bias) {
         this.innovationID = innovationID;
@@ -62,7 +66,7 @@ public class node extends Gene {
     }
 
     @Override
-    void addValue(double deltaValue) {
+    protected void addValue(double deltaValue) {
         this.bias += deltaValue;
     }
 
@@ -108,8 +112,7 @@ public class node extends Gene {
     }
 
     /** Returns the bias of this node */
-    //todo made public for testing
-    public double getBias(){return bias;}
+    double getBias(){return bias;}
 
     /**
      * Shifts the Bias of this node by a random amount

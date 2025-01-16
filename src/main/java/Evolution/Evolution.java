@@ -27,7 +27,9 @@ public class Evolution {
     /** Once every agent has a valid score, {@code nextGen} applies the NEAT algorithm on the Agents and create the next generation */
     public void nextGen() {
         double populationScore = 0;
-        for (Agent agent : agents) populationScore+=agent.getScore();
+        for (Agent agent : agents) {
+            populationScore+=agent.getScore();
+        }
         System.out.println("Generation score: " + populationScore);
 
         //Species Separation

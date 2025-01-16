@@ -34,7 +34,7 @@ public class Agent implements WeightedRandom {
 
     /** Sets the score of this Agent */
     public void setScore(double newScore) {
-        score = newScore;
+        score = Math.max(0,newScore);
     }
 
     /** Returns the clone of this Agent's genome, throws a {@link NullPointerException} if this Agent doesn't have a genome */

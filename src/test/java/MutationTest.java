@@ -161,8 +161,8 @@ public class MutationTest {
         assertNotEquals(Network, Compare);
         int difference = 0;
         for(int i = 0; i < Network.nodes.size(); i++) {
-            if(Network.nodes.get(i).getBias() != Compare.nodes.get(i).getBias()) {
-                assertEquals(Compare.nodes.get(i).getBias(), Network.nodes.get(i).getBias(), Constants.mutationBiasShiftStrength);
+            if(Network.nodes.get(i).bias != Compare.nodes.get(i).bias) {
+                assertEquals(Compare.nodes.get(i).bias, Network.nodes.get(i).bias, Constants.mutationBiasShiftStrength);
                 difference++;
             }
         }
@@ -179,8 +179,8 @@ public class MutationTest {
         assertNotEquals(Compare, Network);
         int count = 0;
         for (int i = 0; i < Network.nodes.size(); i++) {
-            if (Network.nodes.get(i).getBias() != Compare.nodes.get(i).getBias()) {
-                assertEquals(Compare.nodes.get(i).getBias(), Network.nodes.get(i).getBias(), Constants.mutationBiasShiftStrength);
+            if (Network.nodes.get(i).bias != Compare.nodes.get(i).bias) {
+                assertEquals(Compare.nodes.get(i).bias, Network.nodes.get(i).bias, Constants.mutationBiasShiftStrength);
                 count++;
             }
         }
@@ -204,8 +204,8 @@ public class MutationTest {
         assertNotEquals(Compare, Network);
         int count = 0;
         for (int i = 0; i < Network.nodes.size(); i++) {
-            if (Network.nodes.get(i).getBias() != Compare.nodes.get(i).getBias()) {
-                assertEquals(Compare.nodes.get(i).getBias(), Network.nodes.get(i).getBias(), Constants.mutationBiasShiftStrength);
+            if (Network.nodes.get(i).bias != Compare.nodes.get(i).bias) {
+                assertEquals(Compare.nodes.get(i).bias, Network.nodes.get(i).bias, Constants.mutationBiasShiftStrength);
                 count++;
             }
         }
@@ -232,7 +232,19 @@ public class MutationTest {
         Mutation.mutateNode(Network);
         Mutation.mutateNode(Network);
 
+        assertEquals(5,Network.genome.size());
+        assertTrue(Network.genome.get(0).isDisabled());
+        assertTrue(Network.genome.get(1).isDisabled() == !Network.genome.get(2).isDisabled());
+        assertFalse(Network.genome.get(3).isDisabled());
+        assertFalse(Network.genome.get(4).isDisabled());
+        assertTrue(Network.classInv());
 
+        for(int i=0;i<1000;i++)
+            Mutation.mutateSynapse(Network);
+
+        assertEquals(27,Network.genome.size());
+        assertTrue(Network.classInv());
+        Network.genome.forEach(e -> assertFalse(e.isDisabled()));
     }
 
     @Test

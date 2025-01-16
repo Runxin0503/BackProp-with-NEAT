@@ -78,7 +78,7 @@ public class edge extends Gene {
     }
 
     @Override
-    void addValue(double deltaValue) {
+    protected void addValue(double deltaValue) {
         this.weight += deltaValue;
     }
 
