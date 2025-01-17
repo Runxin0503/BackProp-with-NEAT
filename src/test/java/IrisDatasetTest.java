@@ -1,4 +1,5 @@
-import Evolution.*;
+import Evolution.Agent;
+import Evolution.Evolution;
 import Evolution.Evolution.EvolutionBuilder;
 import Genome.NN;
 import Genome.enums.Activation;
@@ -15,7 +16,7 @@ import java.util.List;
 public class IrisDatasetTest {
 
     private static final int Iris_Size = 150;
-    private static final HashMap<double[],Integer> featuresToCategories = new HashMap<>(Iris_Size);
+    private static final HashMap<double[], Integer> featuresToCategories = new HashMap<>(Iris_Size);
     private static final List<double[]> features;
     private static final ArrayList<String> names = new ArrayList<>();
 
@@ -30,7 +31,7 @@ public class IrisDatasetTest {
                 }
                 String label = parts[4];
                 if (!names.contains(label)) names.add(label);
-                featuresToCategories.put(features,names.indexOf(label));
+                featuresToCategories.put(features, names.indexOf(label));
             }
             assert featuresToCategories.size() == Iris_Size;
             features = featuresToCategories.keySet().stream().toList();
@@ -43,31 +44,36 @@ public class IrisDatasetTest {
     void testDataset() {
         Evolution agentFactory = new EvolutionBuilder()
                 .setInputNum(4).setOutputNum(3)
-                .setOutputAF(Activation.arrays.softmax).setNumSimulated(100)
+                .setOutputAF(Activation.arrays.softmax).setNumSimulated(50)
                 .setCostFunction(Cost.crossEntropy).setDefaultHiddenAF(Activation.sigmoid).build();
+        agentFactory.Constants.mutationSynapseProbability = 0.1;
 
-        final int generations = 1000;
         Thread[] workerThreads = new Thread[agentFactory.agents.length];
-        for(int generation = 0; generation < generations; generation++) {
-            for(int i=0;i<agentFactory.agents.length;i++) {
+        while (true) {
+            for (int i = 0; i < agentFactory.agents.length; i++) {
                 Agent agent = agentFactory.agents[i];
                 workerThreads[i] = new Thread(() -> agent.setScore(trainAgent(agent)));
                 workerThreads[i].start();
             }
 
-            for(Thread thread : workerThreads)
-                try{
+            for (Thread thread : workerThreads)
+                try {
                     thread.join();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+
+            for (Agent agent : agentFactory.agents)
+                if (agent.getScore() == Double.POSITIVE_INFINITY)
+                    return;
+
 
             agentFactory.nextGen();
         }
     }
 
     /** Trains the agent on backpropagation and returns its performance rating */
-    private double trainAgent(Agent agent){
+    private double trainAgent(Agent agent) {
         final int trainingIterations = 10;
         final int batchSize = 15;
 
@@ -82,7 +88,7 @@ public class IrisDatasetTest {
                     trainBatchOutputs[i][featuresToCategories.get(trainBatchInputs[i])] = 1;
                 }
 
-                NN.learn(genome,0.1, 0.9, 0.9, 1e-4, trainBatchInputs, trainBatchOutputs);
+                NN.learn(genome, 0.3, 0.9, 0.9, 1e-4, trainBatchInputs, trainBatchOutputs);
             }
         }
 
@@ -107,8 +113,14 @@ public class IrisDatasetTest {
         double trainCost = (int) (cost * 100) / (Iris_Size * 100.0);
         System.out.println("Train Accuracy: " + trainAccuracy + "%\t\tAvg Cost: " + trainCost);
 
-        System.out.println(trainAccuracy * trainCost * trainCost);
-        return trainAccuracy * trainCost * trainCost;
+        double score = trainAccuracy - Math.log(trainCost * trainCost);
+        if (trainAccuracy > 95) {
+            System.out.println("Agent has passed the test, score of " + score);
+            System.out.println("\n" + NeuralNetwork + "\n\n\n\n\n");
+            score = Double.POSITIVE_INFINITY;
+        }
+        System.out.println(score);
+        return score;
     }
 
     private static boolean evaluateOutput(double[] output, int answer) {
