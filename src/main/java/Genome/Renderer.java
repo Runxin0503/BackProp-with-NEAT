@@ -45,6 +45,9 @@ public class Renderer extends Application implements Initializable {
     private Button sBias;
 
     @FXML
+    private Button rAF;
+
+    @FXML
     private Button rEdge;
 
     @FXML
@@ -114,29 +117,8 @@ public class Renderer extends Application implements Initializable {
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
         agent = agentFactory.agents[0];
         agentGenome = NN.getDefaultNeuralNet(agentFactory.Constants);
-
-        for(int i=2;i<8;i++) {
-            node newNode = new node(0,Activation.sigmoid,agentFactory.Constants.getInitializedValue());
-            newNode.x = 0.5;
-            newNode.y = (i-1.0)/7;
-            agentGenome.nodes.add(i,newNode);
-        }        for (int i = 0; i < 2; i++)
-            for (int j = 2; j < 8; j++) {
-                agentGenome.nodes.get(i).addOutgoingEdgeIndex(agentGenome.genome.size());
-                agentGenome.nodes.get(j).addIncomingEdgeIndex(agentGenome.genome.size());
-                agentGenome.genome.add(new edge(
-                        0, agentFactory.Constants.getInitializedValue(), true, i, j,
-                        i - 4, 0));
-            }
-        for (int i = 2; i < 8; i++)
-            for (int j = 8; j < 10; j++) {
-                agentGenome.nodes.get(i).addOutgoingEdgeIndex(agentGenome.genome.size());
-                agentGenome.nodes.get(j).addIncomingEdgeIndex(agentGenome.genome.size());
-                agentGenome.genome.add(new edge(
-                        0, agentFactory.Constants.getInitializedValue(), true, i, j,
-                        0, j - 10));
-            }
         System.out.println(agentGenome);
+
         redrawCanvas = true;
 
         rWeights.setOnAction(e -> {
@@ -151,6 +133,11 @@ public class Renderer extends Application implements Initializable {
 
         sBias.setOnAction(e -> {
             Mutation.shiftBias(agentGenome);
+            redrawCanvas = true;
+        });
+
+        rAF.setOnAction(e -> {
+            Mutation.changeAF(agentGenome);
             redrawCanvas = true;
         });
 

@@ -41,6 +41,16 @@ public class Mutation {
         assert nn.classInv() : nn.toString();
     }
 
+    /** Chooses a random node and selects a random, new Activation Function */
+    public static void changeAF(NN nn) {
+        //randomly picks an index for hidden nodes
+        int nodeIndex = (int) (Math.random() * (nn.nodes.size() - nn.Constants.getInputNum() - nn.Constants.getOutputNum()) + nn.Constants.getInputNum());
+
+        node n = nn.nodes.get(nodeIndex);
+        n.changeAF();
+        assert nn.classInv() : nn.toString();
+    }
+
     /** Chooses two random nodes that aren't directly connected and create a synapse between them */
     public static void mutateSynapse(NN nn) {
         for (int count = 0; count < 100; count++) {
@@ -94,7 +104,7 @@ public class Mutation {
             if (!addEdge(nn, edge1, prevNode, newNode) || !addEdge(nn, edge2, newNode, nextNode))
                 continue;
 
-            edge.disable();
+            edge.enabled = false;
 
             //new node index can't be in between input node indexes
             int newNodeIndex = Math.max(edge.prevIndex + 1, nn.Constants.getInputNum());

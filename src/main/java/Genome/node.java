@@ -54,22 +54,6 @@ public class node extends Gene {
         this.y = 0;
     }
 
-    /**
-     * Applies the bias and activation function to the given {@code input}.<br>
-     * Changes the {@code activated} var to the appropriate value
-     */
-    @Override
-    double calculateOutput(double input) {
-        double output = activationFunction.calculate(input + bias);
-        activated = output > 0;
-        return output;
-    }
-
-    @Override
-    protected void addValue(double deltaValue) {
-        this.bias += deltaValue;
-    }
-
     /** Returns true if the last output of this neuron is > 0, false otherwise */
     public boolean isActivated() {
         return activated;
@@ -121,6 +105,10 @@ public class node extends Gene {
         this.bias += Constants.mutationBiasShiftStrength * (Math.random() * 2 - 1);
     }
 
+    void changeAF() {
+        this.activationFunction = Activation.values()[(int) (Math.random() * Activation.values().length)];
+    }
+
     @Override
     public node clone() {
         return new node(innovationID, activationFunction, bias);
@@ -136,5 +124,10 @@ public class node extends Gene {
                 other.activated == activated && other.x == x && other.y == y &&
                 other.bias == bias && other.incomingConnections.equals(incomingConnections) &&
                 other.outgoingConnections.equals(outgoingConnections);
+    }
+
+    @Override
+    protected void addValue(double deltaValue) {
+        this.bias += deltaValue;
     }
 }

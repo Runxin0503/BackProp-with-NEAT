@@ -37,8 +37,8 @@ public abstract class Gene {
     void applyGradient(double adjustedLearningRate, double momentum, double correctionMomentum, double beta, double correctionBeta, double epsilon) {
         velocity = momentum * velocity + (1 - momentum) * gradient;
         velocitySquared = beta * velocitySquared + (1 - beta) * gradient * gradient;
-        double correctedVelocity = velocity * correctionMomentum;
-        double correctedVelocitySquared = velocitySquared * correctionBeta;
+        double correctedVelocity = velocity / correctionMomentum;
+        double correctedVelocitySquared = velocitySquared / correctionBeta;
         addValue(-adjustedLearningRate * correctedVelocity / Math.sqrt(correctedVelocitySquared + epsilon));
     }
 
@@ -49,9 +49,6 @@ public abstract class Gene {
     int getInnovationID() {
         return innovationID;
     }
-
-    /** Implementers should calculate the value of the output of this gene */
-    abstract double calculateOutput(double input);
 
     @Override
     public int hashCode() {

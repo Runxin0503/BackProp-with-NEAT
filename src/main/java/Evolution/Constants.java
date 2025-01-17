@@ -30,6 +30,7 @@ public class Constants {
             mutationWeightShiftProbability = 0.06,
             mutationWeightRandomProbability = 0.06,
             mutationBiasShiftProbability = 0.06,
+            mutationChangeAFProbability = 0.06,
             mutationWeightShiftStrength = 2,
             mutationWeightRandomStrength = 2,
             mutationBiasShiftStrength = 0.3,

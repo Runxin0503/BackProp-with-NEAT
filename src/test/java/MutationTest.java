@@ -24,7 +24,7 @@ public class MutationTest {
 
     static {
         Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(4).setOutputNum(3)
-                .setDefaultHiddenAF(Activation.ReLU).setOutputAF(Activation.arrays.softmax)
+                .setDefaultHiddenAF(Activation.reLU).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
         agent = agentFactory.agents[0];
         Constants = agentFactory.Constants;

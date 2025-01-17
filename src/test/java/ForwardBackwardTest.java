@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -110,6 +112,7 @@ public class ForwardBackwardTest {
         }
     }
 
+    //the backpropagate test written for ML_Optimizers, adapted to be identical to
     @RepeatedTest(1000)
     void testBackPropagateANDNetwork() {
         Constants Constants = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
@@ -117,11 +120,11 @@ public class ForwardBackwardTest {
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build().Constants;
         NN Network = NN.getDefaultNeuralNet(Constants);
 
-        for(int i=2;i<8;i++) {
-            node newNode = new node(0,Activation.sigmoid,Constants.getInitializedValue());
+        for (int i = 2; i < 8; i++) {
+            node newNode = new node(0, Activation.sigmoid, Constants.getInitializedValue());
             newNode.x = 0.5;
-            newNode.y = (i-1.0)/7;
-            Network.nodes.add(i,newNode);
+            newNode.y = (i - 1.0) / 7;
+            Network.nodes.add(i, newNode);
         }
         for (int i = 0; i < 2; i++)
             for (int j = 2; j < 8; j++) {
@@ -146,30 +149,180 @@ public class ForwardBackwardTest {
             double[] testOutput = new double[2];
             testOutput[testInput[0] == 1 && testInput[1] == 1 ? 1 : 0] = 1;
 
-            NN.learn(Network, 0.3, 0.9,0.9, 1e-4,new double[][]{testInput}, new double[][]{testOutput});
+            NN.learn(Network, 0.3, 0.9, 0.9, 1e-4, new double[][]{testInput}, new double[][]{testOutput});
 
-            if (isCorrect(new double[][]{{1, 0}, {1, 0}, {1, 0}, {0, 1}},new double[][]{
+            if (isCorrect(new double[][]{{1, 0}, {1, 0}, {1, 0}, {0, 1}}, new double[][]{
                     Network.calculateWeightedOutput(new double[]{0, 0}),
                     Network.calculateWeightedOutput(new double[]{0, 1}),
                     Network.calculateWeightedOutput(new double[]{1, 0}),
-                    Network.calculateWeightedOutput(new double[]{1, 1})},1e-2)) break;
+                    Network.calculateWeightedOutput(new double[]{1, 1})}, 1e-2)) break;
         }
 
-        assertTrue(isCorrect(new double[][]{{1, 0}, {1, 0}, {1, 0}, {0, 1}},new double[][]{
+        assertTrue(isCorrect(new double[][]{{1, 0}, {1, 0}, {1, 0}, {0, 1}}, new double[][]{
                 Network.calculateWeightedOutput(new double[]{0, 0}),
                 Network.calculateWeightedOutput(new double[]{0, 1}),
                 Network.calculateWeightedOutput(new double[]{1, 0}),
-                Network.calculateWeightedOutput(new double[]{1, 1})},1e-2));
+                Network.calculateWeightedOutput(new double[]{1, 1})}, 1e-2));
     }
 
     /** Test Procedure: When input is 0, predict 1. When input is 1, predict 0 */
     @Test
     void trainNOTNeuralNetwork() {
         final Evolution agentFactory = new EvolutionBuilder().setInputNum(1).setOutputNum(2)
-                .setDefaultHiddenAF(Activation.ReLU).setOutputAF(Activation.arrays.softmax)
+                .setDefaultHiddenAF(Activation.reLU).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
         final int trainingIterations = 1000;
 
+        Consumer<NN> trainAgents = agentGenome -> {
+            int testInput = (int) Math.round(Math.random());
+            double[] testOutput = new double[2];
+            testOutput[testInput == 1 ? 0 : 1] = 1;
+
+            NN.learn(agentGenome, 0.5, 0.9, 0.9, 1e-8, new double[][]{{testInput}}, new double[][]{testOutput});
+        };
+
+        Function<NN, Double> evaluateScore =
+                agentGenome -> -Math.log(evaluate(agentGenome,
+                        new double[][]{{1}, {0}},
+                        new double[][]{{1, 0}, {0, 1}})) + 5;
+
+        Function<NN, Boolean> evaluateCorrectness = agentGenome -> isCorrect(
+                new double[][]{{0, 1}, {1, 0}}, new double[][]{
+                        agentGenome.calculateWeightedOutput(new double[]{0}),
+                        agentGenome.calculateWeightedOutput(new double[]{1})}, 1e-2);
+
+        Consumer<NN> print = agentGenome -> {
+            System.out.println("Output of 0: " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0})));
+            System.out.println("Output of 1: " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1})));
+        };
+
+        trainNeuralNetwork(agentFactory, trainingIterations, trainAgents, evaluateScore, evaluateCorrectness, print);
+    }
+
+    /** Test Procedure: AND. When input is both 1, predict 1, otherwise predict 0 */
+    @Test
+    void trainANDNeuralNetwork() {
+        final Evolution agentFactory = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
+                .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
+        agentFactory.Constants.mutationSynapseProbability = 0.1;
+        final int trainingIterations = 1000;
+
+        Consumer<NN> trainAgents = agentGenome -> {
+            double[] testInput = new double[]{Math.round(Math.random()), Math.round(Math.random())};
+            double[] testOutput = new double[2];
+            testOutput[testInput[0] == 1 && testInput[1] == 1 ? 1 : 0] = 1;
+
+            NN.learn(agentGenome, 0.6, 0.9, 0.9, 1e-8, new double[][]{testInput}, new double[][]{testOutput});
+        };
+
+        Function<NN, Double> evaluateScore =
+                agentGenome -> -Math.log(evaluate(agentGenome,
+                        new double[][]{{0, 0}, {0, 1}, {1, 0}, {1, 1}},
+                        new double[][]{{1, 0}, {1, 0}, {1, 0}, {0, 1}})) + 5;
+
+        Function<NN, Boolean> evaluateCorrectness = agentGenome -> isCorrect(
+                new double[][]{{1, 0}, {1, 0}, {1, 0}, {0, 1}}, new double[][]{
+                        agentGenome.calculateWeightedOutput(new double[]{0, 0}),
+                        agentGenome.calculateWeightedOutput(new double[]{0, 1}),
+                        agentGenome.calculateWeightedOutput(new double[]{1, 0}),
+                        agentGenome.calculateWeightedOutput(new double[]{1, 1})}, 1e-2);
+
+        Consumer<NN> print = agentGenome -> {
+            System.out.println("Output of (0,0): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0, 0})));
+            System.out.println("Output of (0,1): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0, 1})));
+            System.out.println("Output of (1,0): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1, 0})));
+            System.out.println("Output of (1,1): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1, 1})));
+        };
+
+        trainNeuralNetwork(agentFactory, trainingIterations, trainAgents, evaluateScore, evaluateCorrectness, print);
+
+    }
+
+    /** Test Procedure: OR. When either input is 1, predict 1, otherwise predict 0 */
+    @Test
+    void trainORNeuralNetwork() {
+        final Evolution agentFactory = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
+                .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
+        final int trainingIterations = 1000;
+
+        Consumer<NN> trainAgents = agentGenome -> {
+            double[] testInput = new double[]{Math.round(Math.random()), Math.round(Math.random())};
+            double[] testOutput = new double[2];
+            testOutput[testInput[0] == 1 || testInput[1] == 1 ? 1 : 0] = 1;
+
+            NN.learn(agentGenome, 0.4, 0.8, 0.9, 1e-4, new double[][]{testInput}, new double[][]{testOutput});
+        };
+
+        Function<NN, Double> evaluateScore =
+                agentGenome -> -Math.log(evaluate(agentGenome,
+                        new double[][]{{0, 0}, {0, 1}, {1, 0}, {1, 1}},
+                        new double[][]{{1, 0}, {0, 1}, {0, 1}, {0, 1}})) + 5;
+
+        Function<NN, Boolean> evaluateCorrectness = agentGenome -> isCorrect(
+                new double[][]{{1, 0}, {0, 1}, {0, 1}, {0, 1}}, new double[][]{
+                        agentGenome.calculateWeightedOutput(new double[]{0, 0}),
+                        agentGenome.calculateWeightedOutput(new double[]{0, 1}),
+                        agentGenome.calculateWeightedOutput(new double[]{1, 0}),
+                        agentGenome.calculateWeightedOutput(new double[]{1, 1})}, 1e-2);
+
+        Consumer<NN> print = agentGenome -> {
+            System.out.println("Output of (0,0): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0, 0})));
+            System.out.println("Output of (0,1): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0, 1})));
+            System.out.println("Output of (1,0): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1, 0})));
+            System.out.println("Output of (1,1): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1, 1})));
+        };
+
+        trainNeuralNetwork(agentFactory, trainingIterations, trainAgents, evaluateScore, evaluateCorrectness, print);
+    }
+
+    /** Test Procedure: XOR. When both inputs are 1,1 or 0,0 predict 0, otherwise predict 1 */
+    @Test
+    void trainXORNeuralNetwork() {
+        final Evolution agentFactory = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
+                .setDefaultHiddenAF(Activation.tanh).setOutputAF(Activation.arrays.softmax)
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
+        agentFactory.Constants.mutationSynapseProbability = 0.1;
+        final int trainingIterations = 100;
+
+        Consumer<NN> trainAgents = agentGenome -> {
+            double[] testInput = new double[]{Math.round(Math.random()), Math.round(Math.random())};
+            double[] testOutput = new double[2];
+            testOutput[testInput[0] == testInput[1] ? 0 : 1] = 1;
+
+            NN.learn(agentGenome, 0.4, 0.96, 0.9, 1e-4, new double[][]{testInput}, new double[][]{testOutput});
+        };
+
+        Function<NN, Double> evaluateScore =
+                agentGenome -> -Math.log(evaluate(agentGenome,
+                        new double[][]{{0, 0}, {0, 1}, {1, 0}, {1, 1}},
+                        new double[][]{{1, 0}, {0, 1}, {0, 1}, {1, 0}})) + 5;
+
+        Function<NN, Boolean> evaluateCorrectness = agentGenome -> isCorrect(
+                new double[][]{{1, 0}, {0, 1}, {0, 1}, {1, 0}}, new double[][]{
+                        agentGenome.calculateWeightedOutput(new double[]{0, 0}),
+                        agentGenome.calculateWeightedOutput(new double[]{0, 1}),
+                        agentGenome.calculateWeightedOutput(new double[]{1, 0}),
+                        agentGenome.calculateWeightedOutput(new double[]{1, 1})}, 1e-2);
+
+        Consumer<NN> print = agentGenome -> {
+            System.out.println("Output of (0,0): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0, 0})));
+            System.out.println("Output of (0,1): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0, 1})));
+            System.out.println("Output of (1,0): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1, 0})));
+            System.out.println("Output of (1,1): " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1, 1})));
+        };
+
+        trainNeuralNetwork(agentFactory, trainingIterations, trainAgents, evaluateScore, evaluateCorrectness, print);
+    }
+
+    /**
+     * A Helper Function that greatly reduces repetitive code by
+     * forming the outlines of the training regiment every agentFactory goes through.
+     */
+    private void trainNeuralNetwork(Evolution agentFactory, int trainingIterations, Consumer<NN> trainAgent,
+                                    Function<NN, Double> evaluateScore, Function<NN, Boolean> evaluateCorrectness,
+                                    Consumer<NN> printWhenCorrect) {
         Thread[] workerThreads = new Thread[agentFactory.agents.length];
         while (true) {
             for (int i = 0; i < workerThreads.length; i++) {
@@ -177,20 +330,14 @@ public class ForwardBackwardTest {
                 final NN agentGenome = agent.getGenomeClone();
                 workerThreads[i] = new Thread(null, () -> {
                     for (int j = 0; j < trainingIterations; j++) {
-                        int testInput = (int) Math.round(Math.random());
-                        double[] testOutput = new double[2];
-                        testOutput[testInput == 1 ? 0 : 1] = 1;
-
-                        NN.learn(agentGenome, 0.5, 0.9, 0.9, 1e-8, new double[][]{{testInput}}, new double[][]{testOutput});
+                        trainAgent.accept(agentGenome);
                     }
-                    agent.setScore(-Math.log(evaluate(agentGenome,
-                            new double[][]{{1}, {0}},
-                            new double[][]{{1, 0}, {0, 1}})) + 5);
-                    if (isCorrect(new double[][]{{1, 0}, {0, 1}}, new double[][]{
-                            agentGenome.calculateWeightedOutput(new double[]{0}),
-                            agentGenome.calculateWeightedOutput(new double[]{1})}, 1e-2)) {
-                        System.out.println("Output of 0: " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0})));
-                        System.out.println("Output of 1: " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1})));
+                    agent.setScore(evaluateScore.apply(agentGenome));
+                    if (evaluateCorrectness.apply(agentGenome)) {
+                        printWhenCorrect.accept(agentGenome);
+                        System.out.println("Agent has passed the test, score of " + agent.getScore());
+                        agent.setScore(Double.POSITIVE_INFINITY);
+                        System.out.println("\n" + agentGenome + "\n\n\n\n\n\n");
                     }
                 }, "Worker Thread " + i);
                 workerThreads[i].start();
@@ -213,110 +360,10 @@ public class ForwardBackwardTest {
         }
     }
 
-    /** Test Procedure: AND. When input is both 1, predict 1, otherwise predict 0 */
-    @Test
-    void trainANDNeuralNetwork() {
-        final Evolution agentFactory = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
-                .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
-        final int trainingIterations = 1000;
-
-        Thread[] workerThreads = new Thread[agentFactory.agents.length];
-        while (true) {
-            for (int i = 0; i < workerThreads.length; i++) {
-                final Agent agent = agentFactory.agents[i];
-                final NN agentGenome = agent.getGenomeClone();
-                workerThreads[i] = new Thread(null, () -> {
-                    for (int j = 0; j < trainingIterations; j++) {
-                        double[] testInput = new double[]{Math.round(Math.random()), Math.round(Math.random())};
-                        double[] testOutput = new double[2];
-                        testOutput[testInput[0] == 1 && testInput[1] == 1 ? 1 : 0] = 1;
-
-                        NN.learn(agentGenome, 0.3, 0.9, 0.9, 1e-8, new double[][]{testInput}, new double[][]{testOutput});
-                    }
-                    agent.setScore(evaluate(agentGenome,
-                            new double[][]{{0, 0}, {0, 1}, {1, 0}, {1, 1}},
-                            new double[][]{{0, 1}, {0, 1}, {0, 1}, {1, 0}}));
-                    if (isCorrect(new double[][]{{1, 0}, {1, 0}, {1, 0}, {0, 1}}, new double[][]{
-                            agentGenome.calculateWeightedOutput(new double[]{0, 0}),
-                            agentGenome.calculateWeightedOutput(new double[]{0, 1}),
-                            agentGenome.calculateWeightedOutput(new double[]{1, 0}),
-                            agentGenome.calculateWeightedOutput(new double[]{1, 1})}, 0.1)) {
-                        System.out.println("Output of 0: " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{0})));
-                        System.out.println("Output of 1: " + Arrays.toString(agentGenome.calculateWeightedOutput(new double[]{1})));
-                    }
-                }, "Worker Thread " + i);
-                workerThreads[i].start();
-            }
-
-            for (Thread t : workerThreads) {
-                try {
-                    t.join();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            agentFactory.nextGen();
-        }
-    }
-//
-//    /** Test Procedure: OR. When either input is 1, predict 1, otherwise predict 0 */
-//    @Test
-//    void trainORNeuralNetwork() {
-//        final NN linearNN = new NN(Activation.sigmoid, Activation.softmax, Cost.crossEntropy, 2, 4, 2);
-//        final int iterations = 1000;
-//
-//        for (int i = 0; i < iterations; i++) {
-//            double[] testInput = new double[]{Math.round(Math.random()), Math.round(Math.random())};
-//            double[] testOutput = new double[2];
-//            testOutput[testInput[0] == 1 || testInput[1] == 1 ? 1 : 0] = 1;
-//
-//            NN.learn(linearNN, 0.4, 0.8,0.9, 1e-4,new double[][]{testInput}, new double[][]{testOutput});
-//
-//            if (evaluate(1e-2, new double[][]{{1, 0}, {0, 1}, {0, 1}, {0, 1}},
-//                    linearNN.calculateOutput(new double[]{0, 0}),
-//                    linearNN.calculateOutput(new double[]{0, 1}),
-//                    linearNN.calculateOutput(new double[]{1, 0}),
-//                    linearNN.calculateOutput(new double[]{1, 1}))) break;
-//        }
-//
-//        assertTrue(evaluate(1e-2, new double[][]{{1, 0}, {0, 1}, {0, 1}, {0, 1}},
-//                linearNN.calculateOutput(new double[]{0, 0}),
-//                linearNN.calculateOutput(new double[]{0, 1}),
-//                linearNN.calculateOutput(new double[]{1, 0}),
-//                linearNN.calculateOutput(new double[]{1, 1})));
-//    }
-//
-//    /** Test Procedure: XOR. When both inputs are 1,1 or 0,0 predict 0, otherwise predict 1 */
-//    @Test
-//    void trainXORNeuralNetwork() {
-//        final NN semiComplexNN = new NN(Activation.tanh, Activation.softmax, Cost.crossEntropy, 2, 8, 2);
-//        final int iterations = 1000;
-//
-//        for (int i = 0; i < iterations; i++) {
-//            double[] testInput = new double[]{Math.round(Math.random()), Math.round(Math.random())};
-//            double[] testOutput = new double[2];
-//            testOutput[testInput[0] == testInput[1] ? 0 : 1] = 1;
-////            System.out.println(Arrays.toString(testInput));
-//
-//            NN.learn(semiComplexNN, 0.015, 0.96,0.9, 1e-4,new double[][]{testInput}, new double[][]{testOutput});
-//
-//            if (evaluate(1e-2, new double[][]{{1, 0}, {1, 0}, {0, 1}, {0, 1}},
-//                    semiComplexNN.calculateOutput(new double[]{1, 1}),
-//                    semiComplexNN.calculateOutput(new double[]{0, 0}),
-//                    semiComplexNN.calculateOutput(new double[]{0, 1}),
-//                    semiComplexNN.calculateOutput(new double[]{1, 0}))) break;
-//        }
-////        System.out.println();
-//
-//        assertTrue(evaluate(1e-2, new double[][]{{1, 0}, {1, 0}, {0, 1}, {0, 1}},
-//                semiComplexNN.calculateOutput(new double[]{1, 1}),
-//                semiComplexNN.calculateOutput(new double[]{0, 0}),
-//                semiComplexNN.calculateOutput(new double[]{0, 1}),
-//                semiComplexNN.calculateOutput(new double[]{1, 0})));
-//    }
-
+    /**
+     * Returns the cost of {@code genome} on the inputs and expectedOutputs,
+     * <br>Lower the cost, better the performance
+     */
     private double evaluate(NN genome, double[][] inputs, double[][] expectedOutputs) {
         assert inputs.length == expectedOutputs.length;
 
@@ -334,7 +381,7 @@ public class ForwardBackwardTest {
         for (int i = 0; i < expectedOutputs.length; i++) {
             for (int j = 0; j < expectedOutputs[i].length; j++) {
                 if (Math.abs(expectedOutputs[i][j] - actualOutputs[i][j]) > delta) {
-                    System.err.println("expected: " + expectedOutputs[i][j] + " but was: " + actualOutputs[i][j]);
+//                    System.err.println("expected: " + expectedOutputs[i][j] + " but was: " + actualOutputs[i][j]);
                     return false;
                 }
             }

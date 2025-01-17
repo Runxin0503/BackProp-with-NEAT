@@ -14,14 +14,14 @@ public class edge extends Gene {
      * - index of previous and next node in topological order
      */
 
-    /** The weight of this edge, used in {@link Gene#calculateOutput} */
-    private double weight;
+    /** The weight of this edge */
+    double weight;
 
     /**
-     * If false, this synapse will always return 0 when {@link Gene#calculateOutput} is called.
+     * If false, this synapse should not be considered in forward-feeding / back-propagation calculations.
      * <br>This synapse can also not be split to make new nodes if false.
      */
-    private boolean enabled;
+    boolean enabled;
 
     /** The local indices of the previous and next node */
     public int prevIndex, nextIndex;
@@ -70,13 +70,6 @@ public class edge extends Gene {
         return nextIID;
     }
 
-    /** Applies the weight of this edge to the given {@code input} */
-    @Override
-    double calculateOutput(double input) {
-        if (enabled) return input * weight;
-        return 0;
-    }
-
     @Override
     protected void addValue(double deltaValue) {
         this.weight += deltaValue;
@@ -100,14 +93,6 @@ public class edge extends Gene {
         if (!enabled) return false;
         this.weight = mutationWeightRandomStrength * (Math.random() * 2 - 1);
         return true;
-    }
-
-    /**
-     * Disables this synapse from the calculation process
-     * <br> Returns false if it was already disabled, true otherwise
-     */
-    void disable() {
-        enabled = false;
     }
 
     public edge clone(List<node> nodes) {

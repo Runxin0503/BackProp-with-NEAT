@@ -11,8 +11,20 @@ public enum Activation {
     none(
             input -> input,
             (input, gradient) -> gradient
+    ),square(
+            input -> input * input,
+            (input, gradient) -> gradient * 2 * input
+    ),sin(
+            Math::sin,
+            (input, gradient) -> gradient * Math.cos(input)
+    ),cos(
+            Math::cos,
+            (input, gradient) -> gradient * -Math.sin(input)
+    ),abs(
+            Math::abs,
+            (input, gradient) -> gradient * Math.signum(input)
     ),
-    ReLU(
+    reLU(
             input -> Math.max(0, input),
             (input, gradient) -> input > 0 ? gradient : 0
     ),
@@ -28,7 +40,7 @@ public enum Activation {
                 double tanhValue = Math.tanh(input);
                 return gradient * (1 - tanhValue * tanhValue);
             }),
-    LeakyReLU(
+    leakyReLU(
             input -> input > 0 ? input : 0.1 * input,
             (input, gradient) -> input > 0 ? gradient : 0.1 * gradient
     );
@@ -67,12 +79,16 @@ public enum Activation {
 
     /** Returns the weights and bias initializer supplier best associated with {@code AF} function */
     public static Supplier<Double> getInitializer(Activation AF, int inputNum, int outputNum) {
-        if (AF.equals(ReLU) || AF.equals(LeakyReLU)) return () -> HE_Initialization.apply(inputNum, outputNum);
+        if (AF.equals(reLU) || AF.equals(leakyReLU)) return () -> HE_Initialization.apply(inputNum, outputNum);
         else return () -> XAVIER_Initialization.apply(inputNum, outputNum);
     }
 
     public enum arrays {
         none,
+        square,
+        sin,
+        cos,
+        abs,
         ReLU,
         sigmoid,
         tanh,
@@ -82,7 +98,7 @@ public enum Activation {
             double latestInputSum = 0, max = Double.MIN_VALUE;
             for (double num : input) max = Math.max(max, num);
             for (double num : input) latestInputSum += Math.exp(num - max);
-            for (int i = 0; i < input.length; i++) output[i] = Math.clamp(Math.exp(input[i] - max) / latestInputSum,1e-32,1-1e-8);
+            for (int i = 0; i < input.length; i++) output[i] = Math.exp(input[i] - max) / latestInputSum;
             return output;
         }, (input, gradient) -> {
             double[] output = new double[input.length];
@@ -91,7 +107,7 @@ public enum Activation {
             for (double num : input) max = Math.max(max, num);
             for (double num : input) latestInputSum += Math.exp(num - max);
             for (int i = 0; i < input.length; i++)
-                softmaxOutput[i] = Math.clamp(Math.exp(input[i] - max) / latestInputSum,1e-32,1-1e-8);
+                softmaxOutput[i] = Math.exp(input[i] - max) / latestInputSum;
 
             // Compute the gradient using the vectorized form
             double dotProduct = 0.0;

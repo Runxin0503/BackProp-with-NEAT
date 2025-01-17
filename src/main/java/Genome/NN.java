@@ -190,14 +190,15 @@ public class NN {
             //if calculator array doesn't have any value at that node,
             //the node doesn't have an active incoming edge, so ignore that node
             if (Double.isNaN(calculator[i])) continue;
+            node n = nodes.get(i);
 
-            calculator[i] = nodes.get(i).calculateOutput(calculator[i]);
-            for (int j : nodes.get(i).getOutgoingEdgeIndices()) {
+            calculator[i] = n.activationFunction.calculate(n.bias + calculator[i]);
+            for (int j : n.getOutgoingEdgeIndices()) {
                 edge e = genome.get(j);
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
-                if (Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.calculateOutput(calculator[i]);
-                else calculator[targetIndex] += e.calculateOutput(calculator[i]);
+                if (Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.weight * calculator[i];
+                else calculator[targetIndex] += e.weight * calculator[i];
             }
         }
 
@@ -239,15 +240,16 @@ public class NN {
             //if calculator array doesn't have any value at that node,
             //the node doesn't have an active incoming edge, so ignore that node
             if (Double.isNaN(a[i])) continue;
+            node n = nodes.get(i);
 
-            z[i] = a[i];
-            a[i] = nodes.get(i).calculateOutput(a[i]);
+            z[i] = a[i] + n.bias;
+            a[i] = n.activationFunction.calculate(z[i]);
             for (int j : nodes.get(i).getOutgoingEdgeIndices()) {
                 edge e = genome.get(j);
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
-                if (Double.isNaN(a[targetIndex])) a[targetIndex] = e.calculateOutput(a[i]);
-                else a[targetIndex] += e.calculateOutput(a[i]);
+                if (Double.isNaN(a[targetIndex])) a[targetIndex] = e.weight * a[i];
+                else a[targetIndex] += e.weight * a[i];
             }
         }
 
@@ -305,8 +307,8 @@ public class NN {
      * Applies the {@link Gene}'s gradient to all nodes and edges in this Neural Network
      */
     private void applyGradient(double adjustedLearningRate, double momentum, double beta, double epsilon) {
-        double correctionMomentum = 1 / (1 - Math.pow(momentum, t));
-        double correctionBeta = 1 / (1 - Math.pow(beta, t));
+        double correctionMomentum = 1 - Math.pow(momentum, t);
+        double correctionBeta = 1 - Math.pow(beta, t);
         for (node n : nodes)
             n.applyGradient(adjustedLearningRate, momentum, correctionMomentum, beta, correctionBeta, epsilon);
         for (edge e : genome)
@@ -359,6 +361,7 @@ public class NN {
         }
         if (Math.random() < Constants.mutationBiasShiftProbability) Mutation.shiftBias(this);
         if (Math.random() < Constants.mutationSynapseProbability) Mutation.mutateSynapse(this);
+        if (Math.random() < Constants.mutationChangeAFProbability) Mutation.changeAF(this);
     }
 
     @Override

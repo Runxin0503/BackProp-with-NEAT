@@ -18,7 +18,7 @@ public class Agent implements WeightedRandom {
     public Agent(Constants Constants) {
         this.score = 0;
         this.genome = NN.getDefaultNeuralNet(Constants);
-//        for(int i=0;i<10;i++) genome.mutate(); //todo commented out for testing purposes
+        for(int i=0;i<10;i++) genome.mutate();
     }
 
     /** Resets the score of this Agent */
@@ -34,6 +34,7 @@ public class Agent implements WeightedRandom {
 
     /** Sets the score of this Agent */
     public void setScore(double newScore) {
+        if(Double.isNaN(newScore)) throw new RuntimeException("Attempt to set invalid score {"+newScore+"}");
         score = Math.max(0,newScore);
     }
 
