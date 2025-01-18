@@ -1,10 +1,6 @@
-import Evolution.Agent;
 import Evolution.Constants;
 import Evolution.Evolution;
-import Genome.Innovation;
-import Genome.Mutation;
-import Genome.NN;
-import Genome.edge;
+import Genome.*;
 import Genome.enums.Activation;
 import Genome.enums.Cost;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,18 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MutationTest {
 
     private static final Constants Constants;
-    private static final Agent agent;
 
     static {
         Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(4).setOutputNum(3)
                 .setDefaultHiddenAF(Activation.reLU).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
-        agent = agentFactory.agents[0];
         Constants = agentFactory.Constants;
     }
 
     @BeforeEach
-    void resetInnovation(){
+    void resetInnovation() {
         Innovation.reset();
     }
 
@@ -55,9 +49,7 @@ public class MutationTest {
     @Test
     void testShiftWeights1Edge() {
         NN Network = NN.getDefaultNeuralNet(Constants);
-        Network.genome.add(new edge(0, 1, true, 3, 4, -4, -3));
-        Network.nodes.get(3).addOutgoingEdgeIndex(0);
-        Network.nodes.get(4).addIncomingEdgeIndex(0);
+        Modifier.addEdge(Network, 1, 3, 4);
         NN Compare = (NN) Network.clone();
         Mutation.shiftWeights(Network);
 
@@ -78,10 +70,7 @@ public class MutationTest {
         int edgeCounts = new Random().nextInt(1, edgePairs.size());
         for (int i = 0; i < edgeCounts; i++) {
             int[] edgePair = edgePairs.remove((int) (Math.random() * edgePairs.size()));
-            Network.nodes.get(edgePair[0]).addOutgoingEdgeIndex(Network.genome.size());
-            Network.nodes.get(edgePair[1]).addIncomingEdgeIndex(Network.genome.size());
-            Network.genome.add(new edge(i, 1, true,
-                    edgePair[0], edgePair[1], edgePair[0] - 7, edgePair[1] - 7));
+            Modifier.addEdge(Network, 1, edgePair[0], edgePair[1]);
         }
         assertTrue(Network.classInv());
 
@@ -109,9 +98,7 @@ public class MutationTest {
     @Test
     void testRandomWeights1Edge() {
         NN Network = NN.getDefaultNeuralNet(Constants);
-        Network.genome.add(new edge(0, new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), true, 3, 4, -4, -3));
-        Network.nodes.get(3).addOutgoingEdgeIndex(0);
-        Network.nodes.get(4).addIncomingEdgeIndex(0);
+        Modifier.addEdge(Network, new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), 3, 4);
         NN Compare = (NN) Network.clone();
         Mutation.randomWeights(Network);
 
@@ -132,10 +119,7 @@ public class MutationTest {
         int edgeCounts = new Random().nextInt(1, edgePairs.size());
         for (int i = 0; i < edgeCounts; i++) {
             int[] edgePair = edgePairs.remove((int) (Math.random() * edgePairs.size()));
-            Network.nodes.get(edgePair[0]).addOutgoingEdgeIndex(Network.genome.size());
-            Network.nodes.get(edgePair[1]).addIncomingEdgeIndex(Network.genome.size());
-            Network.genome.add(new edge(i, new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), true,
-                    edgePair[0], edgePair[1], edgePair[0] - 7, edgePair[1] - 7));
+            Modifier.addEdge(Network, new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), edgePair[0], edgePair[1]);
         }
         assertTrue(Network.classInv());
 
@@ -160,13 +144,13 @@ public class MutationTest {
 
         assertNotEquals(Network, Compare);
         int difference = 0;
-        for(int i = 0; i < Network.nodes.size(); i++) {
-            if(Network.nodes.get(i).bias != Compare.nodes.get(i).bias) {
+        for (int i = 0; i < Network.nodes.size(); i++)
+            if (Network.nodes.get(i).bias != Compare.nodes.get(i).bias) {
                 assertEquals(Compare.nodes.get(i).bias, Network.nodes.get(i).bias, Constants.mutationBiasShiftStrength);
                 difference++;
             }
-        }
-        assertEquals(1,difference);
+
+        assertEquals(1, difference);
     }
 
     @Test
@@ -178,12 +162,12 @@ public class MutationTest {
         assertTrue(Network.classInv());
         assertNotEquals(Compare, Network);
         int count = 0;
-        for (int i = 0; i < Network.nodes.size(); i++) {
+        for (int i = 0; i < Network.nodes.size(); i++)
             if (Network.nodes.get(i).bias != Compare.nodes.get(i).bias) {
                 assertEquals(Compare.nodes.get(i).bias, Network.nodes.get(i).bias, Constants.mutationBiasShiftStrength);
                 count++;
             }
-        }
+
         assertEquals(1, count);
     }
 
@@ -203,21 +187,21 @@ public class MutationTest {
 
         assertNotEquals(Compare, Network);
         int count = 0;
-        for (int i = 0; i < Network.nodes.size(); i++) {
+        for (int i = 0; i < Network.nodes.size(); i++)
             if (Network.nodes.get(i).bias != Compare.nodes.get(i).bias) {
                 assertEquals(Compare.nodes.get(i).bias, Network.nodes.get(i).bias, Constants.mutationBiasShiftStrength);
                 count++;
             }
-        }
+
         assertEquals(1, count);
     }
 
     @Test
     void testMutateSynapseNoHiddenNodes() {
         NN Network = NN.getDefaultNeuralNet(Constants);
-        for(int i=0;i<1000;i++){
+        for (int i = 0; i < 1000; i++) {
             Mutation.mutateSynapse(Network);
-            assertEquals(Math.min(i+1,Constants.getInputNum()*Constants.getOutputNum()),Network.genome.size());
+            assertEquals(Math.min(i + 1, Constants.getInputNum() * Constants.getOutputNum()), Network.genome.size());
             Network.genome.forEach(e -> {
                 assertTrue(e.getPreviousIID() < -Constants.getOutputNum());
                 assertTrue(e.getNextIID() < 0 && e.getNextIID() >= -Constants.getOutputNum());
@@ -232,17 +216,17 @@ public class MutationTest {
         Mutation.mutateNode(Network);
         Mutation.mutateNode(Network);
 
-        assertEquals(5,Network.genome.size());
+        assertEquals(5, Network.genome.size());
         assertTrue(Network.genome.get(0).isDisabled());
         assertTrue(Network.genome.get(1).isDisabled() == !Network.genome.get(2).isDisabled());
         assertFalse(Network.genome.get(3).isDisabled());
         assertFalse(Network.genome.get(4).isDisabled());
         assertTrue(Network.classInv());
 
-        for(int i=0;i<1000;i++)
+        for (int i = 0; i < 1000; i++)
             Mutation.mutateSynapse(Network);
 
-        assertEquals(27,Network.genome.size());
+        assertEquals(27, Network.genome.size());
         assertTrue(Network.classInv());
         Network.genome.forEach(e -> assertFalse(e.isDisabled()));
     }
@@ -257,9 +241,7 @@ public class MutationTest {
     @Test
     void testMutateNode1Edge() {
         NN Network = NN.getDefaultNeuralNet(Constants), Compare = (NN) Network.clone();
-        Network.genome.add(new edge(Innovation.getEdgeInnovationID(-4, -3), new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), true, 3, 4, -4, -3));
-        Network.nodes.get(3).addOutgoingEdgeIndex(0);
-        Network.nodes.get(4).addIncomingEdgeIndex(0);
+        Modifier.addEdge(Network, new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), 3, 4);
         Mutation.mutateNode(Network);
 
         assertNotEquals(Network, Compare);
@@ -282,24 +264,21 @@ public class MutationTest {
         int edgeCounts = new Random().nextInt(1, edgePairs.size());
         for (int i = 0; i < edgeCounts; i++) {
             int[] edgePair = edgePairs.remove((int) (Math.random() * edgePairs.size()));
-            Network.nodes.get(edgePair[0]).addOutgoingEdgeIndex(Network.genome.size());
-            Network.nodes.get(edgePair[1]).addIncomingEdgeIndex(Network.genome.size());
-            Network.genome.add(new edge(Innovation.getEdgeInnovationID(edgePair[0] - 7, edgePair[1] - 7), new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), true,
-                    edgePair[0], edgePair[1], edgePair[0] - 7, edgePair[1] - 7));
+            Modifier.addEdge(Network, new Random().nextDouble(Double.MIN_VALUE, Double.MAX_VALUE), edgePair[0], edgePair[1]);
         }
         NN Compare = (NN) Network.clone();
         Mutation.mutateNode(Network);
 
         assertNotEquals(Network, Compare);
-        assertEquals(Compare.genome.size()+2,Network.genome.size());
+        assertEquals(Compare.genome.size() + 2, Network.genome.size());
 
-        int newNodeIID = Network.nodes.get(4).innovationID,prevCount = 0,nextCount = 0;
-        for(edge e : Network.genome) {
-            if(e.getPreviousIID()==newNodeIID) prevCount++;
-            else if(e.getNextIID()==newNodeIID) nextCount++;
+        int newNodeIID = Network.nodes.get(4).innovationID, prevCount = 0, nextCount = 0;
+        for (edge e : Network.genome) {
+            if (e.getPreviousIID() == newNodeIID) prevCount++;
+            else if (e.getNextIID() == newNodeIID) nextCount++;
         }
-        assertEquals(1,prevCount);
-        assertEquals(1,nextCount);
+        assertEquals(1, prevCount);
+        assertEquals(1, nextCount);
     }
 
     @Test
@@ -317,7 +296,7 @@ public class MutationTest {
         while (randomMutation-- > 0) parent1.mutate();
 
         randomMutation = new Random().nextInt(1, 1000);
-            while (randomMutation-- > 0) parent2.mutate();
+        while (randomMutation-- > 0) parent2.mutate();
 
         assertTrue(parent1.classInv());
         assertTrue(parent2.classInv());

@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="backPropTrainingTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-01-18T15:47:14" hostname="LEOQIAN" time="93.66">
+  <properties/>
+  <testcase name="trainXORNeuralNetworkMiniBatch()" classname="backPropTrainingTest" time="18.058"/>
+  <testcase name="trainNOTNeuralNetwork()" classname="backPropTrainingTest" time="11.068"/>
+  <testcase name="trainANDNeuralNetworkMiniBatch()" classname="backPropTrainingTest" time="8.149"/>
+  <testcase name="trainXORNeuralNetwork()" classname="backPropTrainingTest" time="12.694"/>
+  <testcase name="trainANDNeuralNetwork()" classname="backPropTrainingTest" time="9.832"/>
+  <testcase name="trainNOTNeuralNetworkMiniBatch()" classname="backPropTrainingTest" time="20.717"/>
+  <testcase name="trainORNeuralNetwork()" classname="backPropTrainingTest" time="10.369"/>
+  <testcase name="trainORNeuralNetworkMiniBatch()" classname="backPropTrainingTest" time="2.766"/>
+  <system-out><![CDATA[Generation score: 164.66365544868907
+Generation score: 164.65748824900396
+Generation score: 164.65979600519222
+Generation score: 164.65845779239532
+Generation score: 166.29029641021083
+Generation score: 166.3172169458963
+Generation score: 167.3835107788184
+Generation score: 169.36769758129668
+Generation score: 169.48439704895824
+Output of (0,0): [0.9999649631194518, 3.503688054808238E-5]
+Output of (0,1): [4.565993114589965E-4, 0.9995434006885411]
+Output of (1,0): [1.9873166961902235E-5, 0.999980126833038]
+Output of (1,1): [0.9986485834714574, 0.0013514165285425787]
+Agent has passed the test, score of 10.591912911103394
+
+[0]Input Node (-4,none):	0.00,0.33
+			Incoming indices - []
+			Outgoing indices - [8, 11]
+[1]Input Node (-3,none):	0.00,0.67
+			Incoming indices - []
+			Outgoing indices - [0, 1, 3, 9]
+[2]Hidden Node (34,tanh):	0.17,0.50
+			Incoming indices - [9, 11]
+			Outgoing indices - [10]
+[3]Hidden Node (7,tanh):	0.33,0.67
+			Incoming indices - [3]
+			Outgoing indices - [4, 5, 7, 12]
+[4]Hidden Node (46,tanh):	0.50,0.50
+			Incoming indices - [12]
+			Outgoing indices - [13]
+[5]Hidden Node (8,tanh):	0.67,0.67
+			Incoming indices - [5, 8]
+			Outgoing indices - [6]
+[6]Hidden Node (6,tanh):	0.83,0.67
+			Incoming indices - [1, 4, 6, 10]
+			Outgoing indices - [2]
+[7]Output Node (-2,abs):	1.00,0.33
+			Incoming indices - [7, 13]
+			Outgoing indices - []
+[8]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0, 2]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.67) to (1.00,0.67), or -3 -> -1
+[1]edge (17) from (0.00,0.67) to (0.83,0.67), or -3 -> 6
+[2]edge (18) from (0.83,0.67) to (1.00,0.67), or 6 -> -1
+[3]edge (19) from (0.00,0.67) to (0.33,0.67), or -3 -> 7
+[4]edge (20) from (0.33,0.67) to (0.83,0.67), or 7 -> 6
+[5]edge (21) from (0.33,0.67) to (0.67,0.67), or 7 -> 8
+[6]edge (22) from (0.67,0.67) to (0.83,0.67), or 8 -> 6
+[7]edge (43) from (0.33,0.67) to (1.00,0.33), or 7 -> -2
+[8]edge (63) from (0.00,0.33) to (0.67,0.67), or -4 -> 8
+[9]edge (99) from (0.00,0.67) to (0.17,0.50), or -3 -> 34
+[10]edge (100) from (0.17,0.50) to (0.83,0.67), or 34 -> 6
+[11]edge (101) from (0.00,0.33) to (0.17,0.50), or -4 -> 34
+[12]edge (137) from (0.33,0.67) to (0.50,0.50), or 7 -> 46
+[13]edge (138) from (0.50,0.50) to (1.00,0.33), or 46 -> -2
+
+
+
+
+
+
+
+Agent Score: Infinity
+Output of 0: [5.420960106821104E-7, 0.9999994579039894]
+Output of 1: [0.9999995347507349, 4.6524926510411697E-7]
+Agent has passed the test, score of 18.115044693513944
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0, 1, 3]
+[1]Hidden Node (0,reLU):	0.50,0.42
+			Incoming indices - [1]
+			Outgoing indices - [2]
+[2]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0, 2]
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (6) from (0.00,0.50) to (0.50,0.42), or -3 -> 0
+[2]edge (7) from (0.50,0.42) to (1.00,0.33), or 0 -> -2
+[3]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.764104095227738E-7, 0.9999993235895904]
+Output of 1: [0.9999995504398431, 4.495601569244582E-7]
+Agent has passed the test, score of 18.003717695028797
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.726063024875568E-7, 0.9999993273936975]
+Output of 1: [0.9999995834068086, 4.1659319140156644E-7]
+Agent has passed the test, score of 18.036920072867694
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [6.608703901458592E-7, 0.9999993391296098]
+Output of 1: [0.9999995589140329, 4.410859670561687E-7]
+Agent has passed the test, score of 18.02527598420889
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [2.2446885413469128E-7, 0.9999997755311458]
+Output of 1: [1.0, 4.247589500592597E-31]
+Agent has passed the test, score of 19.61638158079989
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0, 1, 3]
+[1]Hidden Node (4,reLU):	0.33,0.50
+			Incoming indices - [3]
+			Outgoing indices - [4]
+[2]Hidden Node (0,reLU):	0.67,0.33
+			Incoming indices - [1, 4]
+			Outgoing indices - [2]
+[3]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0, 2]
+			Outgoing indices - []
+[4]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (6) from (0.00,0.50) to (0.67,0.33), or -3 -> 0
+[2]edge (7) from (0.67,0.33) to (1.00,0.33), or 0 -> -2
+[3]edge (65) from (0.00,0.50) to (0.33,0.50), or -3 -> 4
+[4]edge (66) from (0.33,0.50) to (0.67,0.33), or 4 -> 0
+
+
+
+
+
+
+
+Output of 0: [6.768744511544879E-7, 0.999999323125549]
+Output of 1: [0.9999995959013973, 4.040986027159549E-7]
+Agent has passed the test, score of 18.044501478719347
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [6.663992266717868E-7, 0.9999993336007733]
+Output of 1: [0.9999995606023372, 4.393976627961004E-7]
+Agent has passed the test, score of 18.021796847282964
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [3.126841641922571E-7, 0.9999996873158358]
+Output of 1: [0.9999997743069576, 2.256930423403715E-7]
+Agent has passed the test, score of 18.74155907629389
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [1, 0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [1]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.054074394385028E-7, 0.9999993945925606]
+Output of 1: [0.9999995115696833, 4.884303167585601E-7]
+Agent has passed the test, score of 18.03267071115219
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [4.833584931434316E-7, 0.9999995166415068]
+Output of 1: [0.9999993551657532, 6.448342466352438E-7]
+Agent has passed the test, score of 18.001746082396107
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [1, 0]
+[1]Hidden Node (5,sigmoid):	0.50,0.58
+			Incoming indices - [0]
+			Outgoing indices - [2]
+[2]Output Node (-2,abs):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [1, 2]
+			Outgoing indices - []
+[0]edge (13) from (0.00,0.50) to (0.50,0.58), or -3 -> 5
+[1]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[2]edge (23) from (0.50,0.58) to (1.00,0.67), or 5 -> -1
+
+
+
+
+
+
+
+Output of 0: [5.74351045741484E-7, 0.9999994256489543]
+Output of 1: [0.9999995771817869, 4.2281821314120224E-7]
+Agent has passed the test, score of 18.125197877648226
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [2, 1, 0]
+[1]Hidden Node (5,reLU):	0.50,0.58
+			Incoming indices - [1]
+			Outgoing indices - [3]
+[2]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [2, 3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (13) from (0.00,0.50) to (0.50,0.58), or -3 -> 5
+[2]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[3]edge (23) from (0.50,0.58) to (1.00,0.67), or 5 -> -1
+
+
+
+
+
+
+
+Output of 0: [5.9816462895268495E-9, 0.9999999940183537]
+Output of 1: [0.9999997790438062, 2.2095619390643528E-7]
+Agent has passed the test, score of 19.605442400781207
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [1, 0]
+[1]Hidden Node (5,reLU):	0.50,0.58
+			Incoming indices - [0]
+			Outgoing indices - [2]
+[2]Output Node (-2,none):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [1, 2]
+			Outgoing indices - []
+[0]edge (13) from (0.00,0.50) to (0.50,0.58), or -3 -> 5
+[1]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[2]edge (23) from (0.50,0.58) to (1.00,0.67), or 5 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.24913116628353E-7, 0.9999993750868833]
+Output of 1: [0.9999995076357113, 4.923642886603128E-7]
+Agent has passed the test, score of 18.011468256362956
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [7.374377767415E-7, 0.9999992625622232]
+Output of 1: [0.9999996295822497, 3.7041775032834633E-7]
+Agent has passed the test, score of 18.019936880929038
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Agent Score: Infinity
+Generation score: 347.82262930948934
+Output of (0,0): [0.9999999999991398, 8.602579776394822E-13]
+Output of (0,1): [0.99716723208606, 0.002832767913940032]
+Output of (1,0): [0.9999998808993027, 1.1910069723034403E-7]
+Output of (1,1): [0.0025361126393044866, 0.9974638873606956]
+Agent has passed the test, score of 9.532618682857322
+
+[0]Input Node (-4,none):	0.00,0.33
+			Incoming indices - []
+			Outgoing indices - [3]
+[1]Input Node (-3,none):	0.00,0.67
+			Incoming indices - []
+			Outgoing indices - [0, 1, 4]
+[2]Hidden Node (4,sigmoid):	0.33,0.67
+			Incoming indices - [4]
+			Outgoing indices - [5]
+[3]Hidden Node (0,none):	0.67,0.33
+			Incoming indices - [1, 5]
+			Outgoing indices - [2]
+[4]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0, 2]
+			Outgoing indices - []
+[5]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.67) to (1.00,0.33), or -3 -> -2
+[1]edge (6) from (0.00,0.67) to (0.67,0.33), or -3 -> 0
+[2]edge (7) from (0.67,0.33) to (1.00,0.33), or 0 -> -2
+[3]edge (10) from (0.00,0.33) to (1.00,0.67), or -4 -> -1
+[4]edge (65) from (0.00,0.67) to (0.33,0.67), or -3 -> 4
+[5]edge (66) from (0.33,0.67) to (0.67,0.33), or 4 -> 0
+
+
+
+
+
+
+
+Agent Score: Infinity
+Generation score: 321.4687014538489
+Generation score: 324.58302797086816
+Generation score: 316.43899327642083
+Generation score: 313.1397060043922
+Generation score: 309.1237822631738
+Generation score: 307.62051368765117
+Generation score: 309.33493882036845
+Generation score: 315.0539775065854
+Generation score: 305.4209331671675
+Generation score: 316.6096067241566
+Generation score: 308.46885195446555
+Generation score: 306.5623677904321
+Generation score: 301.5290387515037
+Output of (0,0): [0.9994936256067716, 5.063743932283564E-4]
+Output of (0,1): [1.2858125553146845E-10, 0.9999999998714189]
+Output of (1,0): [6.350450910974257E-10, 0.9999999993649549]
+Output of (1,1): [0.999997335728636, 2.6642713639367782E-6]
+Agent has passed the test, score of 11.889585979785434
+
+[0]Input Node (-4,none):	0.00,0.33
+			Incoming indices - []
+			Outgoing indices - [4, 8, 9, 11]
+[1]Input Node (-3,none):	0.00,0.67
+			Incoming indices - []
+			Outgoing indices - [0, 1, 6, 12]
+[2]Hidden Node (42,tanh):	0.17,0.33
+			Incoming indices - [9]
+			Outgoing indices - [10]
+[3]Hidden Node (49,tanh):	0.33,0.67
+			Incoming indices - [12]
+			Outgoing indices - [13, 14]
+[4]Hidden Node (4,tanh):	0.50,0.58
+			Incoming indices - [6, 13]
+			Outgoing indices - [3, 7]
+[5]Hidden Node (9,tanh):	0.67,0.33
+			Incoming indices - [8, 10, 14]
+			Outgoing indices - [5]
+[6]Hidden Node (0,cos):	0.83,0.33
+			Incoming indices - [1, 7, 11]
+			Outgoing indices - [2]
+[7]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0, 2, 4, 5]
+			Outgoing indices - []
+[8]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.67) to (1.00,0.33), or -3 -> -2
+[1]edge (6) from (0.00,0.67) to (0.83,0.33), or -3 -> 0
+[2]edge (7) from (0.83,0.33) to (1.00,0.33), or 0 -> -2
+[3]edge (12) from (0.50,0.58) to (1.00,0.67), or 4 -> -1
+[4]edge (15) from (0.00,0.33) to (1.00,0.33), or -4 -> -2
+[5]edge (51) from (0.67,0.33) to (1.00,0.33), or 9 -> -2
+[6]edge (65) from (0.00,0.67) to (0.50,0.58), or -3 -> 4
+[7]edge (66) from (0.50,0.58) to (0.83,0.33), or 4 -> 0
+[8]edge (80) from (0.00,0.33) to (0.67,0.33), or -4 -> 9
+[9]edge (126) from (0.00,0.33) to (0.17,0.33), or -4 -> 42
+[10]edge (162) from (0.17,0.33) to (0.67,0.33), or 42 -> 9
+[11]edge (205) from (0.00,0.33) to (0.83,0.33), or -4 -> 0
+[12]edge (211) from (0.00,0.67) to (0.33,0.67), or -3 -> 49
+[13]edge (212) from (0.33,0.67) to (0.50,0.58), or 49 -> 4
+[14]edge (246) from (0.33,0.67) to (0.67,0.33), or 49 -> 9
+
+
+
+
+
+
+
+Output of (0,0): [0.9999999578659504, 4.213404949215039E-8]
+Output of (0,1): [6.144995091812759E-4, 0.9993855004908186]
+Output of (1,0): [4.577792620981497E-4, 0.9995422207379019]
+Output of (1,1): [0.9999999154079511, 8.459204895308053E-8]
+Agent has passed the test, score of 11.144430016571398
+
+[0]Input Node (-4,none):	0.00,0.33
+			Incoming indices - []
+			Outgoing indices - [9, 4]
+[1]Input Node (-3,none):	0.00,0.67
+			Incoming indices - []
+			Outgoing indices - [0, 2, 5, 1, 12]
+[2]Hidden Node (4,tanh):	0.20,0.67
+			Incoming indices - [5]
+			Outgoing indices - [6]
+[3]Hidden Node (0,cos):	0.40,0.56
+			Incoming indices - [2, 6, 9]
+			Outgoing indices - [3, 7, 10]
+[4]Hidden Node (66,tanh):	0.60,0.33
+			Incoming indices - [10, 12]
+			Outgoing indices - [11]
+[5]Hidden Node (2,tanh):	0.80,0.33
+			Incoming indices - [7, 1, 11]
+			Outgoing indices - [8]
+[6]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0, 3, 8]
+			Outgoing indices - []
+[7]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [4]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.67) to (1.00,0.33), or -3 -> -2
+[1]edge (3) from (0.00,0.67) to (0.80,0.33), or -3 -> 2
+[2]edge (6) from (0.00,0.67) to (0.40,0.56), or -3 -> 0
+[3]edge (7) from (0.40,0.56) to (1.00,0.33), or 0 -> -2
+[4]edge (10) from (0.00,0.33) to (1.00,0.67), or -4 -> -1
+[5]edge (65) from (0.00,0.67) to (0.20,0.67), or -3 -> 4
+[6]edge (66) from (0.20,0.67) to (0.40,0.56), or 4 -> 0
+[7]edge (109) from (0.40,0.56) to (0.80,0.33), or 0 -> 2
+[8]edge (110) from (0.80,0.33) to (1.00,0.33), or 2 -> -2
+[9]edge (205) from (0.00,0.33) to (0.40,0.56), or -4 -> 0
+[10]edge (217) from (0.40,0.56) to (0.60,0.33), or 0 -> 66
+[11]edge (218) from (0.60,0.33) to (0.80,0.33), or 66 -> 2
+[12]edge (293) from (0.00,0.67) to (0.60,0.33), or -3 -> 66
+
+
+
+
+
+
+
+Agent Score: Infinity
+Output of (0,0): [1.0, 1.2039678926967803E-18]
+Output of (0,1): [0.9999994017396352, 5.982603648573282E-7]
+Output of (1,0): [0.999998901324134, 1.0986758660799985E-6]
+Output of (1,1): [1.8316966732130935E-6, 0.9999981683033268]
+Agent has passed the test, score of 16.861452163609766
+
+[0]Input Node (-4,none):	0.00,0.33
+			Incoming indices - []
+			Outgoing indices - [1, 3]
+[1]Input Node (-3,none):	0.00,0.67
+			Incoming indices - []
+			Outgoing indices - [0]
+[2]Hidden Node (9,sigmoid):	0.50,0.33
+			Incoming indices - [3]
+			Outgoing indices - [2]
+[3]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [1, 0, 2]
+			Outgoing indices - []
+[4]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.67) to (1.00,0.33), or -3 -> -2
+[1]edge (15) from (0.00,0.33) to (1.00,0.33), or -4 -> -2
+[2]edge (51) from (0.50,0.33) to (1.00,0.33), or 9 -> -2
+[3]edge (80) from (0.00,0.33) to (0.50,0.33), or -4 -> 9
+
+
+
+
+
+
+
+Agent Score: Infinity
+Output of 0: [1.1237426744599526E-8, 0.9999999887625733]
+Output of 1: [0.9999999180212719, 8.197872826476205E-8]
+Agent has passed the test, score of 20.495197577088195
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0, 2, 1]
+[1]Hidden Node (5,reLU):	0.50,0.58
+			Incoming indices - [1]
+			Outgoing indices - [3]
+[2]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [2, 3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (13) from (0.00,0.50) to (0.50,0.58), or -3 -> 5
+[2]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[3]edge (23) from (0.50,0.58) to (1.00,0.67), or 5 -> -1
+
+
+
+
+
+
+
+Output of 0: [8.905361458970084E-10, 0.9999999991094639]
+Output of 1: [0.9999999269050035, 7.309499655583813E-8]
+Agent has passed the test, score of 20.72624905023239
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [2, 0, 1]
+[1]Hidden Node (5,reLU):	0.50,0.58
+			Incoming indices - [1]
+			Outgoing indices - [3]
+[2]Output Node (-2,reLU):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [2, 3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (13) from (0.00,0.50) to (0.50,0.58), or -3 -> 5
+[2]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[3]edge (23) from (0.50,0.58) to (1.00,0.67), or 5 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.761691880142217E-7, 0.999999323830812]
+Output of 1: [0.9999995492139133, 4.5078608673154055E-7]
+Agent has passed the test, score of 18.002843535436973
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,reLU):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [3.3109794276255114E-7, 0.9999996689020573]
+Output of 1: [0.9999997792672771, 2.2073272286171472E-7]
+Agent has passed the test, score of 18.716877278899968
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0, 2, 1]
+[1]Hidden Node (5,reLU):	0.50,0.58
+			Incoming indices - [1]
+			Outgoing indices - [3]
+[2]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [2, 3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (13) from (0.00,0.50) to (0.50,0.58), or -3 -> 5
+[2]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[3]edge (23) from (0.50,0.58) to (1.00,0.67), or 5 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.722681060129445E-7, 0.999999327731894]
+Output of 1: [0.9999995518147412, 4.4818525873256597E-7]
+Agent has passed the test, score of 18.00862969277457
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0, 1, 3]
+[1]Hidden Node (0,reLU):	0.50,0.50
+			Incoming indices - [1]
+			Outgoing indices - [2, 4]
+[2]Output Node (-2,sin):	1.00,0.33
+			Incoming indices - [0, 2]
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [4, 3]
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (6) from (0.00,0.50) to (0.50,0.50), or -3 -> 0
+[2]edge (7) from (0.50,0.50) to (1.00,0.33), or 0 -> -2
+[3]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[4]edge (145) from (0.50,0.50) to (1.00,0.67), or 0 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.741328417280024E-7, 0.9999993258671583]
+Output of 1: [0.9999995505715372, 4.4942846273725637E-7]
+Agent has passed the test, score of 18.00585970848619
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,abs):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.666224303611413E-7, 0.9999993333775697]
+Output of 1: [0.9999995555786957, 4.444213043389766E-7]
+Agent has passed the test, score of 18.017063213551822
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [6.7476417972791E-7, 0.9999993252358202]
+Output of 1: [0.9999995501506268, 4.4984937325675763E-7]
+Agent has passed the test, score of 18.004923616801506
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [6.702370478726979E-7, 0.9999993297629521]
+Output of 1: [0.9999995531688466, 4.468311533842035E-7]
+Agent has passed the test, score of 18.011655511203536
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0, 1]
+[1]Hidden Node (0,reLU):	0.50,0.42
+			Incoming indices - [1]
+			Outgoing indices - [2]
+[2]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0, 2]
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+[1]edge (6) from (0.00,0.50) to (0.50,0.42), or -3 -> 0
+[2]edge (7) from (0.50,0.42) to (1.00,0.33), or 0 -> -2
+
+
+
+
+
+
+
+Output of 0: [6.820575552287799E-7, 0.9999993179424447]
+Output of 1: [0.99999954528816, 4.547118399134112E-7]
+Agent has passed the test, score of 17.994172706269012
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [6.738623324891236E-7, 0.9999993261376674]
+Output of 1: [0.9999995507518846, 4.4924811532888634E-7]
+Agent has passed the test, score of 18.006261063701118
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.707244494968324E-7, 0.9999993292755505]
+Output of 1: [0.999999552843898, 4.4715610194378235E-7]
+Agent has passed the test, score of 18.010928558951576
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.705060071911548E-7, 0.9999993294939927]
+Output of 1: [0.9999995529895327, 4.470104674128176E-7]
+Agent has passed the test, score of 18.011254297100137
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,cos):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [0]
+			Outgoing indices - []
+[0]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Output of 0: [6.774322924639659E-7, 0.9999993225677075]
+Output of 1: [0.9999995483718064, 4.516281936805957E-7]
+Agent has passed the test, score of 18.000977225129965
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [0]
+			Outgoing indices - []
+[2]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.50) to (1.00,0.33), or -3 -> -2
+
+
+
+
+
+
+
+Output of 0: [8.38930799510866E-9, 0.999999991610692]
+Output of 1: [0.9999997711128656, 2.2888713445351072E-7]
+Agent has passed the test, score of 19.56089266065819
+
+[0]Input Node (-3,none):	0.00,0.50
+			Incoming indices - []
+			Outgoing indices - [1, 0]
+[1]Hidden Node (5,reLU):	0.50,0.58
+			Incoming indices - [0]
+			Outgoing indices - [2]
+[2]Output Node (-2,cos):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [1, 2]
+			Outgoing indices - []
+[0]edge (13) from (0.00,0.50) to (0.50,0.58), or -3 -> 5
+[1]edge (16) from (0.00,0.50) to (1.00,0.67), or -3 -> -1
+[2]edge (23) from (0.50,0.58) to (1.00,0.67), or 5 -> -1
+
+
+
+
+
+
+
+Agent Score: Infinity
+Output of (0,0): [0.9997412941198169, 2.587058801831761E-4]
+Output of (0,1): [1.0067097802305753E-4, 0.999899329021977]
+Output of (1,0): [1.0357775043428026E-4, 0.9998964222495659]
+Output of (1,1): [2.698846225145536E-12, 0.999999999997301]
+Agent has passed the test, score of 11.98463953350289
+
+[0]Input Node (-4,none):	0.00,0.33
+			Incoming indices - []
+			Outgoing indices - [0]
+[1]Input Node (-3,none):	0.00,0.67
+			Incoming indices - []
+			Outgoing indices - [1]
+[2]Output Node (-2,none):	1.00,0.33
+			Incoming indices - []
+			Outgoing indices - []
+[3]Output Node (-1,none):	1.00,0.67
+			Incoming indices - [1, 0]
+			Outgoing indices - []
+[0]edge (10) from (0.00,0.33) to (1.00,0.67), or -4 -> -1
+[1]edge (16) from (0.00,0.67) to (1.00,0.67), or -3 -> -1
+
+
+
+
+
+
+
+Agent Score: Infinity
+Output of (0,0): [0.9986344112271348, 0.0013655887728651452]
+Output of (0,1): [2.187989719989228E-4, 0.9997812010280009]
+Output of (1,0): [0.006039525389002971, 0.9939604746109969]
+Output of (1,1): [1.0228075827543127E-4, 0.9998977192417244]
+Agent has passed the test, score of 9.167500196520598
+
+[0]Input Node (-4,none):	0.00,0.33
+			Incoming indices - []
+			Outgoing indices - [1, 4]
+[1]Input Node (-3,none):	0.00,0.67
+			Incoming indices - []
+			Outgoing indices - [0, 2]
+[2]Hidden Node (9,sigmoid):	0.33,0.50
+			Incoming indices - [4, 2]
+			Outgoing indices - [3, 6]
+[3]Hidden Node (24,leakyReLU):	0.67,0.33
+			Incoming indices - [6]
+			Outgoing indices - [5]
+[4]Output Node (-2,none):	1.00,0.33
+			Incoming indices - [1, 3, 0, 5]
+			Outgoing indices - []
+[5]Output Node (-1,none):	1.00,0.67
+			Incoming indices - []
+			Outgoing indices - []
+[0]edge (0) from (0.00,0.67) to (1.00,0.33), or -3 -> -2
+[1]edge (15) from (0.00,0.33) to (1.00,0.33), or -4 -> -2
+[2]edge (24) from (0.00,0.67) to (0.33,0.50), or -3 -> 9
+[3]edge (51) from (0.33,0.50) to (1.00,0.33), or 9 -> -2
+[4]edge (80) from (0.00,0.33) to (0.33,0.50), or -4 -> 9
+[5]edge (102) from (0.67,0.33) to (1.00,0.33), or 24 -> -2
+[6]edge (146) from (0.33,0.50) to (0.67,0.33), or 9 -> 24
+
+
+
+
+
+
+
+Agent Score: Infinity
+]]></system-out>
+  <system-err><![CDATA[Exception in thread "Worker Thread 70" java.lang.AssertionError: Loss Function returning invalid values [6.134872835075615E-75, 1.0]
+	at Genome.enums.Cost.calculate(Cost.java:42)
+	at Genome.NN.calculateCost(NN.java:221)
+	at backPropTrainingTest.evaluate(backPropTrainingTest.java:368)
+	at backPropTrainingTest.lambda$trainXORNeuralNetwork$13(backPropTrainingTest.java:145)
+	at backPropTrainingTest.lambda$trainNeuralNetwork$32(backPropTrainingTest.java:330)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Exception in thread "Worker Thread 49" java.lang.AssertionError: Loss Function returning invalid values [9.432335585603413E-25, 1.0]
+	at Genome.enums.Cost.calculate(Cost.java:42)
+	at Genome.NN.calculateCost(NN.java:221)
+	at backPropTrainingTest.evaluate(backPropTrainingTest.java:368)
+	at backPropTrainingTest.lambda$trainXORNeuralNetwork$13(backPropTrainingTest.java:145)
+	at backPropTrainingTest.lambda$trainNeuralNetwork$32(backPropTrainingTest.java:330)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Exception in thread "Worker Thread 70" java.lang.AssertionError: Loss Function returning invalid values [3.421633714200444E-48, 1.0]
+	at Genome.enums.Cost.calculate(Cost.java:42)
+	at Genome.NN.calculateCost(NN.java:221)
+	at backPropTrainingTest.evaluate(backPropTrainingTest.java:368)
+	at backPropTrainingTest.lambda$trainXORNeuralNetwork$13(backPropTrainingTest.java:145)
+	at backPropTrainingTest.lambda$trainNeuralNetwork$32(backPropTrainingTest.java:330)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Exception in thread "Worker Thread 70" java.lang.AssertionError: Loss Function returning invalid values [0.0, 1.0]
+	at Genome.enums.Cost.calculate(Cost.java:42)
+	at Genome.NN.calculateCost(NN.java:221)
+	at backPropTrainingTest.evaluate(backPropTrainingTest.java:368)
+	at backPropTrainingTest.lambda$trainXORNeuralNetwork$13(backPropTrainingTest.java:145)
+	at backPropTrainingTest.lambda$trainNeuralNetwork$32(backPropTrainingTest.java:330)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Exception in thread "Worker Thread 70" java.lang.AssertionError: Loss Function returning invalid values [2.3017037550361765E-22, 1.0]
+	at Genome.enums.Cost.calculate(Cost.java:42)
+	at Genome.NN.calculateCost(NN.java:221)
+	at backPropTrainingTest.evaluate(backPropTrainingTest.java:368)
+	at backPropTrainingTest.lambda$trainXORNeuralNetwork$13(backPropTrainingTest.java:145)
+	at backPropTrainingTest.lambda$trainNeuralNetwork$32(backPropTrainingTest.java:330)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+]]></system-err>
+</testsuite>

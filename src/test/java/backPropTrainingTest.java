@@ -3,6 +3,7 @@ import Evolution.Evolution;
 import Genome.NN;
 import Genome.enums.Activation;
 import Genome.enums.Cost;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -129,7 +130,7 @@ public class backPropTrainingTest {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.tanh).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
-        agentFactory.Constants.mutationSynapseProbability = 0.1;
+        agentFactory.Constants.mutationSynapseProbability = 0.15;
         final int trainingIterations = 100;
 
         Consumer<NN> trainAgents = agentGenome -> {
@@ -202,7 +203,7 @@ public class backPropTrainingTest {
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
         agentFactory.Constants.mutationSynapseProbability = 0.1;
-        final int trainingIterations = 1000;
+        final int trainingIterations = 100;
 
         Consumer<NN> trainAgents = agentGenome -> {
             double[][] testInputs = new double[][]{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
@@ -239,8 +240,9 @@ public class backPropTrainingTest {
     void trainORNeuralNetworkMiniBatch() {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
-        final int trainingIterations = 1000;
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(75).build();
+        agentFactory.Constants.mutationSynapseProbability = 0.15;
+        final int trainingIterations = 100;
 
         Consumer<NN> trainAgents = agentGenome -> {
             double[][] testInputs = new double[][]{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
@@ -276,8 +278,8 @@ public class backPropTrainingTest {
     void trainXORNeuralNetworkMiniBatch() {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.tanh).setOutputAF(Activation.arrays.softmax)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
-        agentFactory.Constants.mutationSynapseProbability = 0.1;
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(50).build();
+        agentFactory.Constants.mutationSynapseProbability = 0.15;
         final int trainingIterations = 100;
 
         Consumer<NN> trainAgents = agentGenome -> {
