@@ -70,23 +70,24 @@ public class Innovation {
             front.x = (i - inputNum + 1) / (nodesNum - inputNum - outputNum + 1.0);
             back.x = (j - inputNum + 1) / (nodesNum - inputNum - outputNum + 1.0);
             if (i == j) {
+                assert front == back;
                 //middle node, y = avg of all prev and next connected nodes
                 double y = 0;
-                for (int edge : front.getIncomingEdgeIndices())
-                    y += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
-                for (int edge : front.getOutgoingEdgeIndices())
-                    y += nn.nodes.get(nn.genome.get(edge).nextIndex).y;
-                y /= front.getIncomingEdgeIndices().size() + front.getOutgoingEdgeIndices().size();
+                for (edge e : front.getIncomingEdges())
+                    y += nn.nodes.get(e.prevIndex).y;
+                for (edge e : front.getOutgoingEdges())
+                    y += nn.nodes.get(e.nextIndex).y;
+                y /= front.getIncomingEdges().size() + front.getOutgoingEdges().size();
                 front.y = y;
             } else {
                 //1 sided node, y = avg of either prev or next connected nodes
                 double frontY = 0, backY = 0;
-                for (int edge : front.getIncomingEdgeIndices())
-                    frontY += nn.nodes.get(nn.genome.get(edge).prevIndex).y;
-                for (int edge : back.getOutgoingEdgeIndices())
-                    backY += nn.nodes.get(nn.genome.get(edge).nextIndex).y;
-                frontY /= front.getIncomingEdgeIndices().size();
-                backY /= back.getOutgoingEdgeIndices().size();
+                for (edge e : front.getIncomingEdges())
+                    frontY += nn.nodes.get(e.prevIndex).y;
+                for (edge e : back.getOutgoingEdges())
+                    backY += nn.nodes.get(e.nextIndex).y;
+                frontY /= front.getIncomingEdges().size();
+                backY /= back.getOutgoingEdges().size();
                 front.y = frontY;
                 back.y = backY;
             }
@@ -107,20 +108,21 @@ public class Innovation {
             nodes.add(dominantNodes.get(dominantNodes.size() + i).clone());
 
         // Step 1:
-        for (int i = 0; i < genome.size(); i++) {
-            node u = getNodeByInnovationID(genome.get(i).getPreviousIID(), dominantNodes, submissiveNodes), v = getNodeByInnovationID(genome.get(i).getNextIID(), dominantNodes, submissiveNodes);
+        for (edge e : genome) {
+            node u = getNodeByInnovationID(e.getPreviousIID(), dominantNodes, submissiveNodes),
+                    v = getNodeByInnovationID(e.getNextIID(), dominantNodes, submissiveNodes);
 
             //puts u and v inside map. sets u and v to appropriate object
             int uIndex = nodes.indexOf(u);
-            if (uIndex == -1) nodes.add(Constants.getInputNum(),u = u.clone());
+            if (uIndex == -1) nodes.add(Constants.getInputNum(), u = u.clone());
             else u = nodes.get(uIndex);
 
             int vIndex = nodes.indexOf(v);
-            if (vIndex == -1) nodes.add(Constants.getInputNum(),v = v.clone());
+            if (vIndex == -1) nodes.add(Constants.getInputNum(), v = v.clone());
             else v = nodes.get(vIndex);
 
-            u.addOutgoingEdgeIndex(i);
-            v.addIncomingEdgeIndex(i);
+            u.addOutgoingEdge(e);
+            v.addIncomingEdge(e);
         }
 
         for(int i=-Constants.getOutputNum();i<0;i++) assert nodes.get(nodes.size() + i).innovationID < 0 && nodes.get(nodes.size() + i).innovationID >= -Constants.getOutputNum();
@@ -142,7 +144,7 @@ public class Innovation {
         Map<Integer, node> innovationIDtoNode = new HashMap<>();
 
         nodes.forEach(n -> {
-            indegree.put(n.innovationID, new AtomicInteger(n.getIncomingEdgeIndices().size()));
+            indegree.put(n.innovationID, new AtomicInteger(n.getIncomingEdges().size()));
             innovationIDtoNode.put(n.innovationID, n);
         });
 
@@ -160,8 +162,8 @@ public class Innovation {
             topologicalOrder.add(n);
 
             // For each neighbor, reduce the indegree and add to queue if it becomes 0
-            for (int edgeIndex : n.getOutgoingEdgeIndices()) {
-                node nextNode = innovationIDtoNode.get(genome.get(edgeIndex).getNextIID());
+            for (edge e : n.getOutgoingEdges()) {
+                node nextNode = innovationIDtoNode.get(e.getNextIID());
                 if (indegree.get(nextNode.innovationID).decrementAndGet() <= 0) {
                     //add only hidden nodes to queue
                     if (nextNode.innovationID >= 0)

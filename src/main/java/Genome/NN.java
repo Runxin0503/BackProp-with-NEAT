@@ -193,8 +193,7 @@ public class NN {
             node n = nodes.get(i);
 
             calculator[i] = n.activationFunction.calculate(n.bias + calculator[i]);
-            for (int j : n.getOutgoingEdgeIndices()) {
-                edge e = genome.get(j);
+            for (edge e : n.getOutgoingEdges()) {
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
                 if (Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.weight * calculator[i];
@@ -244,8 +243,7 @@ public class NN {
 
             z[i] = a[i] + n.bias;
             a[i] = n.activationFunction.calculate(z[i]);
-            for (int j : nodes.get(i).getOutgoingEdgeIndices()) {
-                edge e = genome.get(j);
+            for (edge e : nodes.get(i).getOutgoingEdges()) {
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
                 if (Double.isNaN(a[targetIndex])) a[targetIndex] = e.weight * a[i];
@@ -284,8 +282,7 @@ public class NN {
             //db_dC = dz_dC since z = wx + b
             n.addGradient(dz_dC);
 
-            for (int edgeIndex : n.getIncomingEdgeIndices()) {
-                edge e = genome.get(edgeIndex);
+            for (edge e : n.getIncomingEdges()) {
                 if (e.isDisabled()) continue;
                 //dw_dC = dz_dC * x since z = w*x + b and x = a (prev node output)
                 e.addGradient(dz_dC * a[e.prevIndex]);
@@ -368,18 +365,18 @@ public class NN {
     public Object clone() {
         ArrayList<node> newNodes = new ArrayList<>(nodes.size());
         ArrayList<edge> newGenome = new ArrayList<>(genome.size());
-        nodes.forEach(node -> {
-            node newNode = node.clone();
-            newNode.getIncomingEdgeIndices().addAll(node.getIncomingEdgeIndices());
-            newNode.getOutgoingEdgeIndices().addAll(node.getOutgoingEdgeIndices());
-            newNodes.add(newNode);
-        });
-        genome.forEach(edge -> {
-            edge newEdge = edge.clone(nodes);
-            newEdge.prevIndex = edge.prevIndex;
-            newEdge.nextIndex = edge.nextIndex;
+        for(edge e : genome) {
+            edge newEdge = e.clone(nodes);
+            newEdge.prevIndex = e.prevIndex;
+            newEdge.nextIndex = e.nextIndex;
             newGenome.add(newEdge);
-        });
+        }
+        for(node n : nodes) {
+            node newNode = n.clone();
+            for(edge e : n.getIncomingEdges()) newNode.getIncomingEdges().add(newGenome.get(genome.indexOf(e)));
+            for(edge e : n.getOutgoingEdges()) newNode.getOutgoingEdges().add(newGenome.get(genome.indexOf(e)));
+            newNodes.add(newNode);
+        }
         NN clone = new NN(newNodes, newGenome, Constants);
         Innovation.resetNodeCoords(clone);
         return clone;
@@ -411,12 +408,23 @@ public class NN {
             if (nodes.get(e.prevIndex).innovationID != e.getPreviousIID() || nodes.get(e.nextIndex).innovationID != e.getNextIID())
                 return false;
         for (node n : nodes) {
-            for (int i : n.getIncomingEdgeIndices())
-                if (genome.get(i).getNextIID() != n.innovationID)
+            for (edge e : n.getIncomingEdges()) {
+                if(genome.get(genome.indexOf(e)) != e)
                     return false;
-            for (int i : n.getOutgoingEdgeIndices())
-                if (genome.get(i).getPreviousIID() != n.innovationID)
+                node prevNode = nodes.get(e.prevIndex);
+                if (e.getNextIID() != n.innovationID || !prevNode.getOutgoingEdges().contains(e) ||
+                        prevNode.getOutgoingEdges().get(
+                                prevNode.getOutgoingEdges().indexOf(e)) != e)
                     return false;
+            }
+            for (edge e : n.getOutgoingEdges()) {
+                if(genome.get(genome.indexOf(e)) != e)
+                    return false;
+                node nextNode = nodes.get(e.nextIndex);
+                if (e.getPreviousIID() != n.innovationID || !nextNode.getIncomingEdges().contains(e) ||
+                        nextNode.getIncomingEdges().get(nextNode.getIncomingEdges().indexOf(e)) != e)
+                    return false;
+            }
         }
 
         //checks validity of nodes in sorted topological order
@@ -439,8 +447,10 @@ public class NN {
             else sb.append("Hidden Node (");
             sb.append(n.innovationID).append(",").append(n.activationFunction).append("):\t");
             sb.append(String.format("%.2f", n.x)).append(',').append(String.format("%.2f", n.y));
-            sb.append("\n\t\t\tIncoming indices - ").append(Arrays.toString(n.getIncomingEdgeIndices().toArray()));
-            sb.append("\n\t\t\tOutgoing indices - ").append(Arrays.toString(n.getOutgoingEdgeIndices().toArray()));
+            sb.append("\n\t\t\tIncoming node indices - ");
+            n.getIncomingEdges().forEach(e -> sb.append(e.prevIndex).append(','));
+            sb.append("\n\t\t\tOutgoing node indices - ");
+            n.getOutgoingEdges().forEach(e -> sb.append(e.nextIndex).append(','));
             sb.append('\n');
         });
 

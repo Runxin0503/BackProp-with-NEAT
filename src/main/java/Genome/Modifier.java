@@ -80,10 +80,6 @@ public class Modifier {
             if (e.prevIndex >= newNodeIndex) e.prevIndex++;
             if (e.nextIndex >= newNodeIndex) e.nextIndex++;
         }
-        newNode.getIncomingEdgeIndices().clear();
-        newNode.addIncomingEdgeIndex(nn.genome.indexOf(edge1));
-        newNode.getOutgoingEdgeIndices().clear();
-        newNode.addOutgoingEdgeIndex(nn.genome.indexOf(edge2));
         nn.nodes.add(newNodeIndex, newNode);
 
         edge1.prevIndex = edge.prevIndex;
@@ -116,23 +112,16 @@ public class Modifier {
                 //replace disabled edges with new edge
                 if (nn.genome.get(edgeIndex).isDisabled()) {
                     nn.genome.set(edgeIndex, newEdge);
+                    n1.getOutgoingEdges().set(n1.getOutgoingEdges().indexOf(newEdge), newEdge);
+                    n2.getIncomingEdges().set(n2.getIncomingEdges().indexOf(newEdge), newEdge);
                     return true;
                 } else return false;
             } else if (nn.genome.get(edgeIndex).innovationID > newEdge.innovationID) break;
         }
-
-        for (node n : nn.nodes) {
-            for (int i = 0; i < n.getIncomingEdgeIndices().size(); i++)
-                if (n.getIncomingEdgeIndices().get(i) >= edgeIndex)
-                    n.getIncomingEdgeIndices().set(i, n.getIncomingEdgeIndices().get(i) + 1);
-            for (int i = 0; i < n.getOutgoingEdgeIndices().size(); i++)
-                if (n.getOutgoingEdgeIndices().get(i) >= edgeIndex)
-                    n.getOutgoingEdgeIndices().set(i, n.getOutgoingEdgeIndices().get(i) + 1);
-        }
         nn.genome.add(edgeIndex, newEdge);
 
-        n1.addOutgoingEdgeIndex(edgeIndex);
-        n2.addIncomingEdgeIndex(edgeIndex);
+        n1.addOutgoingEdge(newEdge);
+        n2.addIncomingEdge(newEdge);
         return true;
     }
 
@@ -144,8 +133,8 @@ public class Modifier {
         visitedNodes.add(newEdgeNodeIndex);
         while (!queue.isEmpty()) {
             int nodeIndex = queue.remove();
-            for (int edgeIndex : nn.nodes.get(nodeIndex).getOutgoingEdgeIndices()) {
-                int nextNode = nn.genome.get(edgeIndex).nextIndex;
+            for (edge e : nn.nodes.get(nodeIndex).getOutgoingEdges()) {
+                int nextNode = e.nextIndex;
                 if (nextNode == rootNodeIndex) return true;
                 if (!visitedNodes.contains(nextNode)) queue.add(nextNode);
             }

@@ -270,9 +270,9 @@ public class Renderer extends Application implements Initializable {
         for (node n : agentGenome.nodes) {
             double x = n.x * width + padding, y = n.y * height + padding;
 
-            for (int edge : n.getOutgoingEdgeIndices()) {
-                if(agentGenome.genome.get(edge).isDisabled()) continue;
-                node nextNode = agentGenome.nodes.get(agentGenome.genome.get(edge).nextIndex);
+            for (edge e : n.getOutgoingEdges()) {
+                if(e.isDisabled()) continue;
+                node nextNode = agentGenome.nodes.get(e.nextIndex);
                 double nextX = nextNode.x * width + padding, nextY = nextNode.y * height + padding;
                 if (canvasCameraBoundingBox.intersects(x, Math.min(y, nextY), nextX - x, Math.abs(y - nextY))) {
                     gc.setStroke(Color.GRAY);
@@ -303,7 +303,7 @@ public class Renderer extends Application implements Initializable {
 
                     double midX = (clampedNextX + clampedX) / 2,midY = (clampedNextY + clampedY) / 2;
                     gc.setFill(Color.RED);
-                    gc.fillText(String.format("%.2f",agentGenome.genome.get(edge).getWeight()),midX - adjustedRadius,midY - adjustedRadius * 0.65);
+                    gc.fillText(String.format("%.2f",e.getWeight()),midX - adjustedRadius,midY - adjustedRadius * 0.65);
                 }
             }
             if (canvasCameraBoundingBox.intersects(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2)) {

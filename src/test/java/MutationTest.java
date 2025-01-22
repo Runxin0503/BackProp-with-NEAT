@@ -35,7 +35,9 @@ public class MutationTest {
         for (int i = 0; i < 1_000; i++) {
             Network.mutate();
             assertTrue(Network.classInv());
-            assertEquals(Network, Network.clone());
+            NN clone = (NN) Network.clone();
+            assertTrue(Network.classInv());
+            assertEquals(Network, clone);
         }
     }
 
@@ -172,7 +174,7 @@ public class MutationTest {
     }
 
     @RepeatedTest(10)
-    void testShiftBiasHiddenNodes() {
+    void testShiftBiasHiddenNodes() { // infinite loop
         NN Network = NN.getDefaultNeuralNet(Constants);
 
         int edgeCounts = new Random().nextInt(1, 10000);

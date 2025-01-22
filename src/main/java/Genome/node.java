@@ -38,7 +38,7 @@ public class node extends Gene {
     private boolean activated;
 
     /** A list of local indices of incoming/outgoing edges to this node */
-    private final List<Integer> incomingConnections = new ArrayList<>(),
+    private final List<edge> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
     //todo made x and y public for testing purposes
@@ -63,7 +63,7 @@ public class node extends Gene {
      * Returns the local indices of all edges pointing into this node.
      * <br>Used for calculating derivative terms in back-propagation
      */
-    List<Integer> getIncomingEdgeIndices() {
+    List<edge> getIncomingEdges() {
         return incomingConnections;
     }
 
@@ -71,7 +71,7 @@ public class node extends Gene {
      * Returns the local indices of all edges pointing out from this node.
      * <br>Used for feed-forward calculation
      */
-    List<Integer> getOutgoingEdgeIndices() {
+    List<edge> getOutgoingEdges() {
         return outgoingConnections;
     }
 
@@ -80,9 +80,9 @@ public class node extends Gene {
      * Doesn't do anything if the array already contains the index
      */
 //todo made public for testing
-    public void addOutgoingEdgeIndex(int index) {
-        if (outgoingConnections.contains(index)) return;
-        outgoingConnections.add(index);
+    public void addOutgoingEdge(edge e) {
+        if (outgoingConnections.contains(e)) return;
+        outgoingConnections.add(e);
     }
 
     /**
@@ -90,9 +90,9 @@ public class node extends Gene {
      * Doesn't do anything if the array already contains the index
      */
 //todo made public for testing
-    public void addIncomingEdgeIndex(int index) {
-        if (incomingConnections.contains(index)) return;
-        incomingConnections.add(index);
+    public void addIncomingEdge(edge e) {
+        if (incomingConnections.contains(e)) return;
+        incomingConnections.add(e);
     }
 
     /** Returns the bias of this node */
