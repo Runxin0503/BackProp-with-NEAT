@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" afterDir="false" />
@@ -14,29 +13,47 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Modifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Modifier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/MutationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/MutationTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/backPropTrainingTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Agent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder$MissingInformation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Species.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/WeightedRandom.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Gene.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/edge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/enums/Activation$arrays.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/enums/Activation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/enums/Cost.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ForwardBackwardTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/IrisDatasetTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/MutationTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/backPropTrainingTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/IrisDatasetTest.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-backPropTrainingTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/Visualizer.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/test/iris.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-IrisDatasetTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/backPropTrainingTest.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/IrisDatasetTest.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ForwardBackwardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ForwardBackwardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/MutationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MutationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/backPropTrainingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/backPropTrainingTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,67 +121,66 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.Renderer.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.ForwardBackwardTest.calculateTest1.executor": "Run",
-    "Gradle.ForwardBackwardTest.calculateTest2.executor": "Run",
-    "Gradle.ForwardBackwardTest.calculateTest3.executor": "Run",
-    "Gradle.ForwardBackwardTest.executor": "Run",
-    "Gradle.ForwardBackwardTest.testBackPropagateANDNetwork.executor": "Run",
-    "Gradle.ForwardBackwardTest.testBackPropagateNotNetwork.executor": "Run",
-    "Gradle.ForwardBackwardTest.trainANDNeuralNetwork.executor": "Run",
-    "Gradle.ForwardBackwardTest.trainNOTNeuralNetwork.executor": "Run",
-    "Gradle.ForwardBackwardTest.trainORNeuralNetwork.executor": "Run",
-    "Gradle.ForwardBackwardTest.trainXORNeuralNetwork.executor": "Run",
-    "Gradle.IrisDatasetTest.executor": "Run",
-    "Gradle.IrisDatasetTest.testDataset.executor": "Run",
-    "Gradle.MutationTest.executor": "Run",
-    "Gradle.MutationTest.testCrossoverEmptyGenome.executor": "Run",
-    "Gradle.MutationTest.testEquals.executor": "Run",
-    "Gradle.MutationTest.testMutateNode1Edge.executor": "Run",
-    "Gradle.MutationTest.testMutateNodeGeneralizedEdge.executor": "Run",
-    "Gradle.MutationTest.testMutateNodeOneSynapse.executor": "Run",
-    "Gradle.MutationTest.testMutateSynapse2HiddenNodes.executor": "Run",
-    "Gradle.MutationTest.testMutateSynapseNoHiddenNodes.executor": "Run",
-    "Gradle.MutationTest.testMutateSynapseSize.executor": "Run",
-    "Gradle.MutationTest.testRandomCrossoverClassInv.executor": "Run",
-    "Gradle.MutationTest.testShiftBias.executor": "Run",
-    "Gradle.MutationTest.testShiftBiasHiddenNodes (1).executor": "Debug",
-    "Gradle.MutationTest.testShiftBiasHiddenNodes.executor": "Debug",
-    "Gradle.MutationTest.testShiftBiasNoEdge.executor": "Run",
-    "Gradle.MutationTest.testShiftWeights1Edge.executor": "Run",
-    "Gradle.MutationTest.testShiftWeightsGeneralizedEdge.executor": "Run",
-    "Gradle.MutationTest.testShiftWeightsNoEdge.executor": "Run",
-    "Gradle.SGD BackProp with NEAT [run].executor": "Run",
-    "Gradle.Tests in 'demo.test'.executor": "Run",
-    "Gradle.backPropTrainingTest.executor": "Run",
-    "Gradle.backPropTrainingTest.trainANDNeuralNetworkMiniBatch.executor": "Run",
-    "Gradle.backPropTrainingTest.trainORNeuralNetworkMiniBatch.executor": "Run",
-    "Gradle.backPropTrainingTest.trainXORNeuralNetwork.executor": "Run",
-    "Gradle.backPropTrainingTest.trainXORNeuralNetworkMiniBatch.executor": "Run",
-    "JUnit.IrisDatasetTest.testDataset.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "directEdgeReference",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD BackProp with NEAT",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.general",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Renderer.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.calculateTest1.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.calculateTest2.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.calculateTest3.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.testBackPropagateANDNetwork.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.testBackPropagateNotNetwork.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.trainANDNeuralNetwork.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.trainNOTNeuralNetwork.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.trainORNeuralNetwork.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ForwardBackwardTest.trainXORNeuralNetwork.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.IrisDatasetTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.IrisDatasetTest.testDataset.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testCrossoverEmptyGenome.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testEquals.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testMutateNode1Edge.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testMutateNodeGeneralizedEdge.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testMutateNodeOneSynapse.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testMutateSynapse2HiddenNodes.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testMutateSynapseNoHiddenNodes.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testMutateSynapseSize.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testRandomCrossoverClassInv.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testShiftBias.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testShiftBiasHiddenNodes.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testShiftBiasNoEdge.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testShiftWeights1Edge.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testShiftWeightsGeneralizedEdge.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MutationTest.testShiftWeightsNoEdge.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SGD BackProp with NEAT [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'demo.test'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.backPropTrainingTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.backPropTrainingTest.trainANDNeuralNetworkMiniBatch.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.backPropTrainingTest.trainORNeuralNetworkMiniBatch.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.backPropTrainingTest.trainXORNeuralNetwork.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.backPropTrainingTest.trainXORNeuralNetworkMiniBatch.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IrisDatasetTest.testDataset.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/OneDrive/Desktop/Java Stuff/neural network fun/SGD BackProp with NEAT&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\OneDrive\Desktop\Java Stuff\neural network fun\SGD BackProp with NEAT\src\main\resources\Genome\Render" />
@@ -182,7 +198,7 @@
       <command value="gradle run" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.MutationTest.testShiftBiasHiddenNodes">
+  <component name="RunManager" selected="Gradle.backPropTrainingTest">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
       <module name="SGD BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -197,7 +213,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MutationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ForwardBackwardTest.trainNOTNeuralNetwork" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -210,7 +226,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MutationTest&quot;" />
+            <option value="&quot;ForwardBackwardTest.trainNOTNeuralNetwork&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -221,7 +237,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="MutationTest.testEquals" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="backPropTrainingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -234,31 +250,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MutationTest.testEquals&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" value="-ea" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="MutationTest.testShiftBiasHiddenNodes (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;MutationTest.testShiftBiasHiddenNodes[1]&quot;" />
+            <option value="&quot;backPropTrainingTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -269,7 +261,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="MutationTest.testShiftBiasHiddenNodes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="backPropTrainingTest.trainANDNeuralNetworkMiniBatch" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -282,7 +274,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;MutationTest.testShiftBiasHiddenNodes&quot;" />
+            <option value="&quot;backPropTrainingTest.trainANDNeuralNetworkMiniBatch&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -293,7 +285,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="Tests in 'demo.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="backPropTrainingTest.trainORNeuralNetworkMiniBatch" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -305,6 +297,56 @@
         <option name="taskNames">
           <list>
             <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;backPropTrainingTest.trainORNeuralNetworkMiniBatch&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="backPropTrainingTest.trainXORNeuralNetwork" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;backPropTrainingTest.trainXORNeuralNetwork&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="backPropTrainingTest.trainXORNeuralNetworkMiniBatch" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;backPropTrainingTest.trainXORNeuralNetworkMiniBatch&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -316,19 +358,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes" />
-      <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes (1)" />
-      <item itemvalue="Gradle.MutationTest" />
-      <item itemvalue="Gradle.MutationTest.testEquals" />
-      <item itemvalue="Gradle.Tests in 'demo.test'" />
+      <item itemvalue="Gradle.ForwardBackwardTest.trainNOTNeuralNetwork" />
+      <item itemvalue="Gradle.backPropTrainingTest" />
+      <item itemvalue="Gradle.backPropTrainingTest.trainANDNeuralNetworkMiniBatch" />
+      <item itemvalue="Gradle.backPropTrainingTest.trainORNeuralNetworkMiniBatch" />
+      <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetwork" />
+      <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetworkMiniBatch" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes" />
-        <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes (1)" />
-        <item itemvalue="Gradle.Tests in 'demo.test'" />
-        <item itemvalue="Gradle.MutationTest.testEquals" />
-        <item itemvalue="Gradle.MutationTest" />
+        <item itemvalue="Gradle.backPropTrainingTest" />
+        <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetworkMiniBatch" />
+        <item itemvalue="Gradle.backPropTrainingTest.trainORNeuralNetworkMiniBatch" />
+        <item itemvalue="Gradle.backPropTrainingTest.trainANDNeuralNetworkMiniBatch" />
+        <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetwork" />
       </list>
     </recent_temporary>
   </component>
@@ -459,8 +502,6 @@
       <workItem from="1737061525150" duration="2438000" />
       <workItem from="1737068202364" duration="16563000" />
       <workItem from="1737159476445" duration="13543000" />
-      <workItem from="1737507414033" duration="1401000" />
-      <workItem from="1737509469837" duration="332000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -483,6 +524,56 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>400</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>403</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>407</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>411</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>415</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>418</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>424</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>396</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>392</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
+          <line>233</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="15" />
@@ -491,60 +582,6 @@
           <properties class="java.lang.AssertionError" package="java.lang" />
           <option name="timeStamp" value="19" />
         </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
-          <option name="timeStamp" value="81" />
-        </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>425</line>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>417</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>408</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>404</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>389</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>393</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>397</line>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>400</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>421</line>
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>412</line>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
