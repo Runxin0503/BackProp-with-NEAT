@@ -17,7 +17,6 @@ public class Constants {
     Activation defaultHiddenAF = Activation.none;
     Supplier<Double> defaultValueInitializer;
     Cost CostFunction = null;
-    boolean batchNormalizeLayer = false;//todo implement
 
     public double
             weightedExcess = 1,

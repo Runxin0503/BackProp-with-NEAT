@@ -58,7 +58,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Runxin0503/SGD-BackProp-with-NEAT.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/Runxin0503/BackProp-with-NEAT.git&quot;,
     &quot;accountId&quot;: &quot;143dbc00-99c6-4b1d-ba51-0d2491e16e33&quot;
   }
 }</component>
@@ -78,6 +78,7 @@
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.Renderer.executor&quot;: &quot;Run&quot;,
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.BackProp with NEAT [run].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.ForwardBackwardTest.calculateTest1.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.ForwardBackwardTest.calculateTest2.executor&quot;: &quot;Run&quot;,
@@ -150,14 +151,7 @@
       <command value="gradle run" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.backPropTrainingTest">
-    <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <module name="SGD BackProp with NEAT" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.BackProp with NEAT [run]">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
       <module name="BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -165,7 +159,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForwardBackwardTest.trainNOTNeuralNetwork" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration default="true" type="Application" factoryName="Application" singleton="false">
+      <module name="SGD BackProp with NEAT" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BackProp with NEAT [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -176,17 +177,15 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;ForwardBackwardTest.trainNOTNeuralNetwork&quot;" />
+            <option value="run" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="backPropTrainingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -261,30 +260,6 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="backPropTrainingTest.trainXORNeuralNetwork" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;backPropTrainingTest.trainXORNeuralNetwork&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="backPropTrainingTest.trainXORNeuralNetworkMiniBatch" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -310,20 +285,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.ForwardBackwardTest.trainNOTNeuralNetwork" />
+      <item itemvalue="Gradle.BackProp with NEAT [run]" />
       <item itemvalue="Gradle.backPropTrainingTest" />
       <item itemvalue="Gradle.backPropTrainingTest.trainANDNeuralNetworkMiniBatch" />
       <item itemvalue="Gradle.backPropTrainingTest.trainORNeuralNetworkMiniBatch" />
-      <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetwork" />
       <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetworkMiniBatch" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.BackProp with NEAT [run]" />
         <item itemvalue="Gradle.backPropTrainingTest" />
         <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetworkMiniBatch" />
         <item itemvalue="Gradle.backPropTrainingTest.trainORNeuralNetworkMiniBatch" />
         <item itemvalue="Gradle.backPropTrainingTest.trainANDNeuralNetworkMiniBatch" />
-        <item itemvalue="Gradle.backPropTrainingTest.trainXORNeuralNetwork" />
       </list>
     </recent_temporary>
   </component>
@@ -454,6 +428,14 @@
       <workItem from="1737061525150" duration="2438000" />
       <workItem from="1737068202364" duration="16563000" />
       <workItem from="1737159476445" duration="13543000" />
+      <workItem from="1737670024882" duration="16000" />
+      <workItem from="1738681738107" duration="3000" />
+      <workItem from="1738793825794" duration="60000" />
+      <workItem from="1738796366346" duration="4000" />
+      <workItem from="1739495028411" duration="11000" />
+      <workItem from="1742945424201" duration="332000" />
+      <workItem from="1742945767512" duration="6000" />
+      <workItem from="1742946746819" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

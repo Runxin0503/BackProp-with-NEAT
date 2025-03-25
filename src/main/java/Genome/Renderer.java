@@ -96,7 +96,7 @@ public class Renderer extends Application implements Initializable {
             final Parent node = FXMLLoader.load(r);
             final Scene scene = new Scene(node);
             stage.setScene(scene);
-            stage.setTitle("Neural agentGenome Visualizer");
+            stage.setTitle("Neural Network Visualizer");
             stage.setResizable(false);
             stage.show();
         } catch (final IOException ioe) {
