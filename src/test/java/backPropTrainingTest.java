@@ -1,9 +1,8 @@
 import Evolution.Agent;
 import Evolution.Evolution;
 import Genome.NN;
-import Genome.enums.Activation;
-import Genome.enums.Cost;
-import org.junit.jupiter.api.RepeatedTest;
+import Genome.Activation;
+import Genome.Cost;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

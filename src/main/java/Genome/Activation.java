@@ -1,4 +1,4 @@
-package Genome.enums;
+package Genome;
 
 import java.util.Arrays;
 import java.util.Random;

@@ -2,8 +2,8 @@ import Evolution.Agent;
 import Evolution.Evolution;
 import Evolution.Evolution.EvolutionBuilder;
 import Genome.NN;
-import Genome.enums.Activation;
-import Genome.enums.Cost;
+import Genome.Activation;
+import Genome.Cost;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;

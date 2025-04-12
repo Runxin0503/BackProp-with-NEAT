@@ -11,9 +11,6 @@ class Species implements WeightedRandom {
     /** The representative of this species. Used during species identification and randomly chosen every new generation */
     private Agent representative;
 
-    /** The age of this species. Sometimes used in the NEAT algorithm calculation */
-    private int age = 0;
-
     /** Represents how stagnant this species is at improving. The higher the value, the more competitive this species is */
     private int stag = 0;
 

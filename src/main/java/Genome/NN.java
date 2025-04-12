@@ -2,7 +2,6 @@ package Genome;
 
 
 import Evolution.Constants;
-import Genome.enums.Activation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

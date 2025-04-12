@@ -1,7 +1,7 @@
 package Evolution;
 
-import Genome.enums.Activation;
-import Genome.enums.Cost;
+import Genome.Activation;
+import Genome.Cost;
 
 import java.util.function.Supplier;
 

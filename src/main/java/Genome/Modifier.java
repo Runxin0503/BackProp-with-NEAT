@@ -1,7 +1,5 @@
 package Genome;
 
-import Genome.enums.Activation;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
