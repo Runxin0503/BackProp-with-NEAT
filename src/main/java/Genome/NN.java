@@ -384,7 +384,6 @@ public class NN {
     /** Returns true if the class invariant of this instance is satisfied, false otherwise.
      * Very expensive computation */
     public boolean classInv() {
-        System.out.println("classsInv running");
         if (genome == null || nodes == null || nodes.isEmpty() ||
                 nodes.size() < Constants.getInputNum() + Constants.getOutputNum() ||
                 Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0)
