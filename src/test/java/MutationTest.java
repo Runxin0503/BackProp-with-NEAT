@@ -26,7 +26,7 @@ public class MutationTest {
 
     @BeforeEach
     void resetInnovation() {
-        Innovation.reset();
+        Constants.getInnovation().reset();
     }
 
     @RepeatedTest(100)

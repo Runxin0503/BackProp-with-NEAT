@@ -16,15 +16,15 @@ public class Innovation {
      */
 
     /** Used to obtain the innovationID of the two nodes of any given synapse innovationID */
-    private static final HashMap<intPairs, Integer> nodePairsToEdge = new HashMap<>();
+    private final HashMap<intPairs, Integer> nodePairsToEdge = new HashMap<>();
 
     /** Used to obtain the node Innovation ID when split from a synapse */
-    private static final HashMap<Integer,ArrayList<Integer>> edgeToSplitNode = new HashMap<>();
+    private final HashMap<Integer,ArrayList<Integer>> edgeToSplitNode = new HashMap<>();
 
-    private static int splitNodeInnovation = 0;
+    private int splitNodeInnovation = 0;
 
     //todo created for testing purposes
-    public static void reset(){
+    public void reset(){
         nodePairsToEdge.clear();
         edgeToSplitNode.clear();
         splitNodeInnovation = 0;
@@ -33,7 +33,7 @@ public class Innovation {
     /**
      * Returns the Innovation ID of the edge connecting {@code node1IID} and {@code node2IID}
      */
-    public static int getEdgeInnovationID(int node1IID, int node2IID) {
+    public int getEdgeInnovationID(int node1IID, int node2IID) {
         intPairs pair = new intPairs(node1IID, node2IID);
         Integer edgeIID = nodePairsToEdge.get(pair);
         if (edgeIID != null) return edgeIID;
@@ -42,7 +42,7 @@ public class Innovation {
         return nodePairsToEdge.size() - 1;
     }
 
-    public static int getSplitNodeInnovationID(int edgeIID,List<node> nodes) {
+    public int getSplitNodeInnovationID(int edgeIID,List<node> nodes) {
         edgeToSplitNode.putIfAbsent(edgeIID, new ArrayList<>());
         for (int i : edgeToSplitNode.get(edgeIID)) {
             if(!nodes.contains(new node(i,null,-1))){

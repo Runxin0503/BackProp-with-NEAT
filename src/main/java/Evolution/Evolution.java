@@ -2,6 +2,7 @@ package Evolution;
 
 import Genome.Activation;
 import Genome.Cost;
+import Genome.Innovation;
 
 import java.util.ArrayList;
 

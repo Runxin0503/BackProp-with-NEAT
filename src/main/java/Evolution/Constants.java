@@ -2,6 +2,7 @@ package Evolution;
 
 import Genome.Activation;
 import Genome.Cost;
+import Genome.Innovation;
 
 import java.util.function.Supplier;
 
@@ -17,6 +18,8 @@ public class Constants {
     Activation defaultHiddenAF = Activation.none;
     Supplier<Double> defaultValueInitializer;
     Cost CostFunction = null;
+
+    Innovation Innovation = new Innovation();
 
     public double
             weightedExcess = 1,
@@ -57,5 +60,9 @@ public class Constants {
 
     public Activation.arrays getOutputAF() {
         return outputAF;
+    }
+
+    public Innovation getInnovation(){
+        return Innovation;
     }
 }

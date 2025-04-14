@@ -25,13 +25,14 @@ public class Modifier {
             return false;
 
         node n1 = nn.nodes.get(i1), n2 = nn.nodes.get(i2);
-        int edgeIID = Innovation.getEdgeInnovationID(n1.getInnovationID(), n2.getInnovationID());
+        int edgeIID = nn.Constants.getInnovation().getEdgeInnovationID(n1.getInnovationID(), n2.getInnovationID());
 
         edge newEdge = new edge(edgeIID, weight, true, n1.getInnovationID(), n2.getInnovationID());
         newEdge.prevIndex = i1;
         newEdge.nextIndex = i2;
 
-        if (!addEdge(nn, newEdge, n1, n2)) return false;
+        if (!addEdge(nn, newEdge, n1, n2))
+            return false;
 
         // if i1 > i2, topologically sort the entire NN
         // if i1 < i2 no sorting required
@@ -55,14 +56,15 @@ public class Modifier {
      */
     public static boolean splitEdge(NN nn, double bias, Activation AF, int edgeIndex) {
         edge edge = nn.genome.get(edgeIndex);
-        if (edge.isDisabled()) return false;
+        if (edge.isDisabled())
+            return false;
 
-        node newNode = new node(Innovation.getSplitNodeInnovationID(edge.innovationID, nn.nodes), AF, bias);
+        node newNode = new node(nn.Constants.getInnovation().getSplitNodeInnovationID(edge.innovationID, nn.nodes), AF, bias);
 
         node prevNode = nn.nodes.get(edge.prevIndex), nextNode = nn.nodes.get(edge.nextIndex);
         int prevIID = prevNode.getInnovationID(), midIID = newNode.getInnovationID(), nextIID = nextNode.getInnovationID();
-        edge edge1 = new edge(Innovation.getEdgeInnovationID(prevIID, midIID), edge.getWeight(), true, prevIID, midIID);
-        edge edge2 = new edge(Innovation.getEdgeInnovationID(midIID, nextIID), 1, true, midIID, nextIID);
+        edge edge1 = new edge(nn.Constants.getInnovation().getEdgeInnovationID(prevIID, midIID), edge.getWeight(), true, prevIID, midIID);
+        edge edge2 = new edge(nn.Constants.getInnovation().getEdgeInnovationID(midIID, nextIID), 1, true, midIID, nextIID);
 
         //add edges to genome
         if (!addEdge(nn, edge1, prevNode, newNode) || !addEdge(nn, edge2, newNode, nextNode))
