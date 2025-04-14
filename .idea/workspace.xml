@@ -11,8 +11,6 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Agent.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Constants.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder$MissingInformation.class" beforeDir="false" />
@@ -37,7 +35,7 @@
       <change beforePath="$PROJECT_DIR$/build/classes/java/test/MutationTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/test/backPropTrainingTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/test/speedTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/ForwardBackwardTest.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/MutationTest.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" />
@@ -45,10 +43,24 @@
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/Visualizer.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/test/iris.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-ForwardBackwardTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-MutationTest.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Modifier.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Mutation.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Agent.class.uniqueId5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Constants.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Evolution$EvolutionBuilder$MissingInformation.class.uniqueId6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Evolution$EvolutionBuilder.class.uniqueId8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Evolution.class.uniqueId9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Innovation$intPairs.class.uniqueId11" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Innovation.class.uniqueId10" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Modifier.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Mutation.class.uniqueId13" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/NN.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Renderer.class.uniqueId7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Species.class.uniqueId12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/edge.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/node.class.uniqueId1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/ForwardBackwardTest.class.uniqueId3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/IrisDatasetTest.class.uniqueId4" beforeDir="false" />
@@ -56,10 +68,6 @@
       <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/backPropTrainingTest.class.uniqueId0" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/speedTests.class.uniqueId2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ForwardBackwardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ForwardBackwardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/MutationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MutationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -158,7 +166,8 @@
     "Gradle.MutationTest.testMutateSynapseSize.executor": "Run",
     "Gradle.MutationTest.testRandomCrossoverClassInv.executor": "Run",
     "Gradle.MutationTest.testShiftBias.executor": "Run",
-    "Gradle.MutationTest.testShiftBiasHiddenNodes.executor": "Run",
+    "Gradle.MutationTest.testShiftBiasHiddenNodes (1).executor": "Profiler#1",
+    "Gradle.MutationTest.testShiftBiasHiddenNodes.executor": "Profiler#1",
     "Gradle.MutationTest.testShiftBiasNoEdge.executor": "Run",
     "Gradle.MutationTest.testShiftWeights1Edge.executor": "Run",
     "Gradle.MutationTest.testShiftWeightsGeneralizedEdge.executor": "Run",
@@ -206,7 +215,7 @@
       <command value="gradle run" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.MutationTest">
+  <component name="RunManager" selected="Gradle.MutationTest.testShiftBiasHiddenNodes">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
       <module name="SGD BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -235,30 +244,6 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;ForwardBackwardTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="ForwardBackwardTest.testBackPropagateANDNetwork" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;ForwardBackwardTest.testBackPropagateANDNetwork&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -317,7 +302,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="backPropTrainingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MutationTest.testShiftBiasHiddenNodes (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -330,7 +315,31 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;backPropTrainingTest&quot;" />
+            <option value="&quot;MutationTest.testShiftBiasHiddenNodes[3]&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="MutationTest.testShiftBiasHiddenNodes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;MutationTest.testShiftBiasHiddenNodes&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -343,18 +352,18 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.MutationTest" />
-      <item itemvalue="Gradle.ForwardBackwardTest.testBackPropagateANDNetwork" />
+      <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes" />
+      <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes (1)" />
       <item itemvalue="Gradle.IrisDatasetTest" />
       <item itemvalue="Gradle.ForwardBackwardTest" />
-      <item itemvalue="Gradle.backPropTrainingTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes" />
+        <item itemvalue="Gradle.MutationTest.testShiftBiasHiddenNodes (1)" />
         <item itemvalue="Gradle.MutationTest" />
         <item itemvalue="Gradle.IrisDatasetTest" />
         <item itemvalue="Gradle.ForwardBackwardTest" />
-        <item itemvalue="Gradle.ForwardBackwardTest.testBackPropagateANDNetwork" />
-        <item itemvalue="Gradle.backPropTrainingTest" />
       </list>
     </recent_temporary>
   </component>
@@ -520,21 +529,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
           <line>399</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/Modifier.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/Modifier.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Genome/Modifier.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/Modifier.java</url>
