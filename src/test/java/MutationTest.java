@@ -173,11 +173,11 @@ public class MutationTest {
         assertEquals(1, count);
     }
 
-    @RepeatedTest(10) //runs really slowly
+    @RepeatedTest(10) //runs really slowly with assert statements turned on
     void testShiftBiasHiddenNodes() {
         NN Network = NN.getDefaultNeuralNet(Constants);
 
-        int edgeCounts = new Random().nextInt(1, 3000);
+        int edgeCounts = new Random().nextInt(1, 10000);
         for (int i = 0; i < edgeCounts; i++) {
             Mutation.mutateSynapse(Network);
             Mutation.mutateNode(Network);
