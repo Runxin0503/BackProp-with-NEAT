@@ -458,7 +458,7 @@ public class NN {
             sb.append("[").append(count.getAndIncrement()).append("]");
             sb.append("edge (").append(e.getInnovationID()).append(") from (").append(String.format("%.2f", nodes.get(e.prevIndex).x)).append(',').append(String.format("%.2f", nodes.get(e.prevIndex).y)).append(") to (");
             sb.append(String.format("%.2f", nodes.get(e.nextIndex).x)).append(',').append(String.format("%.2f", nodes.get(e.nextIndex).y)).append("), or ");
-            sb.append(e.getPreviousIID()).append(" -> ").append(e.getNextIID()).append('\n');
+            sb.append(e.getPreviousIID()).append(" -> ").append(e.getNextIID()).append(". ").append(e.isDisabled() ? "Disabled" : "Enabled").append('\n');
         });
 
         return sb.toString();

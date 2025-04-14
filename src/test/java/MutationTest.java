@@ -174,7 +174,7 @@ public class MutationTest {
     }
 
     @RepeatedTest(10)
-    void testShiftBiasHiddenNodes() { // infinite loop
+    void testShiftBiasHiddenNodes() { // TODO: infinite loop
         NN Network = NN.getDefaultNeuralNet(Constants);
 
         int edgeCounts = new Random().nextInt(1, 10000);

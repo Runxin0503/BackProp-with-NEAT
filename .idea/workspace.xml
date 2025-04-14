@@ -11,40 +11,55 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Evolution/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder$MissingInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder$MissingInformation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Species.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Evolution/Species.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Modifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Modifier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/enums/Activation$arrays.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/enums/Activation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/enums/Cost.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ForwardBackwardTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/ForwardBackwardTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/IrisDatasetTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/IrisDatasetTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/MutationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/MutationTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/backPropTrainingTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/backPropTrainingTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/speedTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/speedTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/IrisDatasetTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/Visualizer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/Visualizer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-IrisDatasetTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Agent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder$MissingInformation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution$EvolutionBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Evolution.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/Species.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Evolution/WeightedRandom.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Activation$arrays.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Activation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Cost.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Gene.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation$intPairs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Innovation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Modifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Mutation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/NN.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/Renderer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/edge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Genome/node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ForwardBackwardTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/IrisDatasetTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/MutationTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/backPropTrainingTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/speedTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/ForwardBackwardTest.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/Visualizer.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/test/iris.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-ForwardBackwardTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Modifier.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Mutation.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/ForwardBackwardTest.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/IrisDatasetTest.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/MutationTest.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/backPropTrainingTest.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/speedTests.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ForwardBackwardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ForwardBackwardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/MutationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MutationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +139,7 @@
     "Gradle.ForwardBackwardTest.calculateTest2.executor": "Run",
     "Gradle.ForwardBackwardTest.calculateTest3.executor": "Run",
     "Gradle.ForwardBackwardTest.executor": "Run",
-    "Gradle.ForwardBackwardTest.testBackPropagateANDNetwork.executor": "Debug",
+    "Gradle.ForwardBackwardTest.testBackPropagateANDNetwork.executor": "Run",
     "Gradle.ForwardBackwardTest.testBackPropagateNotNetwork.executor": "Run",
     "Gradle.ForwardBackwardTest.trainANDNeuralNetwork.executor": "Run",
     "Gradle.ForwardBackwardTest.trainNOTNeuralNetwork.executor": "Run",
@@ -191,14 +206,7 @@
       <command value="gradle run" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.ForwardBackwardTest.testBackPropagateANDNetwork">
-    <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <module name="BackProp with NEAT" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.MutationTest">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
       <module name="SGD BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -206,27 +214,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BackProp with NEAT [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="run" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
+    <configuration default="true" type="Application" factoryName="Application" singleton="false">
+      <module name="BackProp with NEAT" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="ForwardBackwardTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -300,6 +293,30 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="MutationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;MutationTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="backPropTrainingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -325,19 +342,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Gradle.MutationTest" />
       <item itemvalue="Gradle.ForwardBackwardTest.testBackPropagateANDNetwork" />
       <item itemvalue="Gradle.IrisDatasetTest" />
       <item itemvalue="Gradle.ForwardBackwardTest" />
-      <item itemvalue="Gradle.BackProp with NEAT [run]" />
       <item itemvalue="Gradle.backPropTrainingTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ForwardBackwardTest.testBackPropagateANDNetwork" />
+        <item itemvalue="Gradle.MutationTest" />
         <item itemvalue="Gradle.IrisDatasetTest" />
         <item itemvalue="Gradle.ForwardBackwardTest" />
+        <item itemvalue="Gradle.ForwardBackwardTest.testBackPropagateANDNetwork" />
         <item itemvalue="Gradle.backPropTrainingTest" />
-        <item itemvalue="Gradle.BackProp with NEAT [run]" />
       </list>
     </recent_temporary>
   </component>
@@ -571,6 +588,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.AssertionError" package="java.lang" />
           <option name="timeStamp" value="19" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="83" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

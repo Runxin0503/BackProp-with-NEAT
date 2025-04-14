@@ -15,10 +15,10 @@ public class Agent implements WeightedRandom {
      */
     private double score;
 
-    public Agent(Constants Constants) {
+    public Agent(Constants Constants, int initialMutation) {
         this.score = 0;
         this.genome = NN.getDefaultNeuralNet(Constants);
-        for(int i=0;i<10;i++) genome.mutate();
+        for(int i=0;i<initialMutation;i++) genome.mutate();
     }
 
     /** Resets the score of this Agent */

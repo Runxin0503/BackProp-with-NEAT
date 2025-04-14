@@ -22,7 +22,7 @@ public class ForwardBackwardTest {
     static {
         Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(4).setOutputNum(3)
                 .setDefaultHiddenAF(Activation.none).setOutputAF(Activation.arrays.none)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build();
         Constants = agentFactory.Constants;
         defaultNN = NN.getDefaultNeuralNet(Constants);
         defaultNN.nodes.forEach(n -> n.bias = 0);
@@ -102,17 +102,17 @@ public class ForwardBackwardTest {
     void testBackPropagateANDNetwork() {
         Constants Constants = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build().Constants;
+                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build().Constants;
         NN Network = NN.getDefaultNeuralNet(Constants);
 
         for (int i = 0; i < 6; i++) {
             Modifier.addEdge(Network, Constants.getInitializedValue(), 0, 2 + i);
             Modifier.splitEdge(Network, Constants.getInitializedValue(), Constants.getDefaultHiddenAF(), 0);
         }
-
-        for (int i : new int[]{1, 3})
-            for (int j = 2; j < 8; j++)
-                Modifier.addEdge(Network, Constants.getInitializedValue(), i, j);
+        for (int j = 2; j < 8; j++)
+            Modifier.addEdge(Network, Constants.getInitializedValue(), 1, j);
+        for (int i = 2; i < 8; i++)
+            Modifier.addEdge(Network, Constants.getInitializedValue(), i, 9);
 
         final int iterations = 1000;
         for (int i = 0; i < iterations; i++) {

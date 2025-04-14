@@ -2,7 +2,6 @@ package Evolution;
 
 import Genome.Activation;
 import Genome.Cost;
-import Genome.Innovation;
 
 import java.util.ArrayList;
 
@@ -12,14 +11,14 @@ public class Evolution {
 
     public Constants Constants;
 
-    private Evolution(Constants Constants) {
+    private Evolution(Constants Constants, int initialMutation) {
         this.Constants = Constants;
-        Agent first = new Agent(Constants);
+        Agent first = new Agent(Constants, initialMutation);
         agents = new Agent[Constants.numSimulated];
         agents[0] = first;
         species.add(new Species(first, Constants));
         for (int i = 1; i < Constants.numSimulated; i++) {
-            Agent temp = new Agent(Constants);
+            Agent temp = new Agent(Constants, initialMutation);
             species.getFirst().add(temp);
             agents[i] = temp;
         }
@@ -29,7 +28,7 @@ public class Evolution {
     public void nextGen() {
         double populationScore = 0;
         for (Agent agent : agents) {
-            populationScore+=agent.getScore();
+            populationScore += agent.getScore();
         }
         System.out.println("Generation score: " + populationScore);
 
@@ -89,6 +88,7 @@ public class Evolution {
      */
     public static class EvolutionBuilder {
         private final Constants Constants = new Constants();
+        private int initialMutation = 10;
 
         public EvolutionBuilder setNumSimulated(int numSimulated) {
             Constants.numSimulated = numSimulated;
@@ -102,6 +102,11 @@ public class Evolution {
 
         public EvolutionBuilder setOutputNum(int outputNum) {
             Constants.outputNum = outputNum;
+            return this;
+        }
+
+        public EvolutionBuilder setInitialMutation(int initialMutation) {
+            this.initialMutation = initialMutation;
             return this;
         }
 
@@ -124,7 +129,7 @@ public class Evolution {
             if (Constants.inputNum == -1 || Constants.outputNum == -1 || Constants.numSimulated == -1 || Constants.outputAF == null || Constants.CostFunction == null)
                 throw new MissingInformation();
             Constants.defaultValueInitializer = Activation.getInitializer(Constants.defaultHiddenAF, Constants.inputNum, Constants.outputNum);
-            return new Evolution(Constants);
+            return new Evolution(Constants,initialMutation);
         }
 
         public static class MissingInformation extends RuntimeException {
