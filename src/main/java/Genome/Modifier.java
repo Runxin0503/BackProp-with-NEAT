@@ -27,7 +27,7 @@ public class Modifier {
         node n1 = nn.nodes.get(i1), n2 = nn.nodes.get(i2);
         int edgeIID = nn.Constants.getInnovation().getEdgeInnovationID(n1.getInnovationID(), n2.getInnovationID());
 
-        edge newEdge = new edge(edgeIID, weight, true, n1.getInnovationID(), n2.getInnovationID());
+        edge newEdge = new edge(edgeIID, weight, true, n1.getInnovationID(), n2.getInnovationID(),nn.Constants.getOptimizer());
         newEdge.prevIndex = i1;
         newEdge.nextIndex = i2;
 
@@ -59,12 +59,12 @@ public class Modifier {
         if (edge.isDisabled())
             return false;
 
-        node newNode = new node(nn.Constants.getInnovation().getSplitNodeInnovationID(edge.innovationID, nn.nodes), AF, bias);
+        node newNode = new node(nn.Constants.getInnovation().getSplitNodeInnovationID(edge.innovationID, nn.nodes), AF, bias, nn.Constants.getOptimizer());
 
         node prevNode = nn.nodes.get(edge.prevIndex), nextNode = nn.nodes.get(edge.nextIndex);
         int prevIID = prevNode.getInnovationID(), midIID = newNode.getInnovationID(), nextIID = nextNode.getInnovationID();
-        edge edge1 = new edge(nn.Constants.getInnovation().getEdgeInnovationID(prevIID, midIID), edge.getWeight(), true, prevIID, midIID);
-        edge edge2 = new edge(nn.Constants.getInnovation().getEdgeInnovationID(midIID, nextIID), 1, true, midIID, nextIID);
+        edge edge1 = new edge(nn.Constants.getInnovation().getEdgeInnovationID(prevIID, midIID), edge.getWeight(), true, prevIID, midIID,nn.Constants.getOptimizer());
+        edge edge2 = new edge(nn.Constants.getInnovation().getEdgeInnovationID(midIID, nextIID), 1, true, midIID, nextIID,nn.Constants.getOptimizer());
 
         //add edges to genome
         if (!addEdge(nn, edge1, prevNode, newNode) || !addEdge(nn, edge2, newNode, nextNode))

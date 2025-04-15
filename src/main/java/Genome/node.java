@@ -24,7 +24,7 @@ public class node extends Gene {
      */
 
     /** The Activation Function of this neuron */
-    Activation activationFunction;
+    private Activation activationFunction;
 
     /** The bias value of this neuron */
     //todo made public for testing purposes
@@ -40,11 +40,11 @@ public class node extends Gene {
     private final List<edge> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
-    //todo made x and y public for testing purposes
-    public double x;
-    public double y;
+    /** TODO */
+    double x, y;
 
-    public node(int innovationID, Activation activationFunction, double bias) {
+    public node(int innovationID, Activation activationFunction, double bias, Optimizer optimizer) {
+        super(optimizer);
         this.innovationID = innovationID;
         this.activationFunction = activationFunction;
         this.bias = bias;
@@ -59,7 +59,7 @@ public class node extends Gene {
     }
 
     /**
-     * Returns the local indices of all edges pointing into this node.
+     * Returns the direct reference to all edges pointing into this node.
      * <br>Used for calculating derivative terms in back-propagation
      */
     List<edge> getIncomingEdges() {
@@ -67,7 +67,7 @@ public class node extends Gene {
     }
 
     /**
-     * Returns the local indices of all edges pointing out from this node.
+     * Returns the direct reference to all edges pointing out from this node.
      * <br>Used for feed-forward calculation
      */
     List<edge> getOutgoingEdges() {
@@ -75,42 +75,45 @@ public class node extends Gene {
     }
 
     /**
-     * Attempts to add {@code index} to the array of outgoing edge indices.
-     * Doesn't do anything if the array already contains the index
+     * Attempts to add {@code e} to the array of outgoing edges.
+     * Doesn't do anything if the array already contains the edge
      */
-//todo made public for testing
-    public void addOutgoingEdge(edge e) {
+    void addOutgoingEdge(edge e) {
         if (outgoingConnections.contains(e)) return;
         outgoingConnections.add(e);
     }
 
     /**
-     * Attempts to add {@code index} to the array of incoming edge indices.
-     * Doesn't do anything if the array already contains the index
+     * Attempts to add {@code e} to the array of incoming edges.
+     * Doesn't do anything if the array already contains the edge
      */
-//todo made public for testing
-    public void addIncomingEdge(edge e) {
+    void addIncomingEdge(edge e) {
         if (incomingConnections.contains(e)) return;
         incomingConnections.add(e);
     }
 
     /** Returns the bias of this node */
-    double getBias(){return bias;}
+    double getBias() {
+        return bias;
+    }
 
-    /**
-     * Shifts the Bias of this node by a random amount
-     */
-    public void shiftBias(Constants Constants) {
+    /** TODO */
+    Activation getActivationFunction() {
+        return activationFunction;
+    }
+
+    /** Shifts the Bias of this node by a random amount. */
+    void shiftBias(Constants Constants) {
         this.bias += Constants.mutationBiasShiftStrength * (Math.random() * 2 - 1);
     }
 
+    /** TODO */
     void changeAF() {
         this.activationFunction = Activation.values()[(int) (Math.random() * Activation.values().length)];
     }
 
-    @Override
-    public node clone() {
-        return new node(innovationID, activationFunction, bias);
+    public node clone(Optimizer optimizer) {
+        return new node(innovationID, activationFunction, bias, optimizer);
     }
 
     @Override
@@ -118,7 +121,8 @@ public class node extends Gene {
         return obj instanceof node && ((node) obj).innovationID == innovationID;
     }
 
-    boolean identical(node other){
+    /** TODO */
+    boolean identical(node other) {
         return other.innovationID == innovationID && other.activationFunction == activationFunction &&
                 other.activated == activated && other.x == x && other.y == y &&
                 other.bias == bias && other.incomingConnections.equals(incomingConnections) &&

@@ -3,6 +3,7 @@ package Evolution;
 import Genome.Activation;
 import Genome.Cost;
 import Genome.Innovation;
+import Genome.Optimizer;
 
 import java.util.function.Supplier;
 
@@ -18,6 +19,7 @@ public class Constants {
     Activation defaultHiddenAF = Activation.none;
     Supplier<Double> defaultValueInitializer;
     Cost CostFunction = null;
+    Optimizer optimizer = Optimizer.ADAM;
 
     Innovation Innovation = new Innovation();
 
@@ -64,5 +66,9 @@ public class Constants {
 
     public Innovation getInnovation(){
         return Innovation;
+    }
+
+    public Optimizer getOptimizer() {
+        return optimizer;
     }
 }

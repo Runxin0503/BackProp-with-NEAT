@@ -45,7 +45,7 @@ public class Innovation {
     public int getSplitNodeInnovationID(int edgeIID,List<node> nodes) {
         edgeToSplitNode.putIfAbsent(edgeIID, new ArrayList<>());
         for (int i : edgeToSplitNode.get(edgeIID)) {
-            if(!nodes.contains(new node(i,null,-1))){
+            if(!nodes.contains(new node(i,null,-1,null))){
                 return i;
             }
         }
@@ -103,9 +103,9 @@ public class Innovation {
     public static ArrayList<node> constructNetworkFromGenome(ArrayList<edge> genome, ArrayList<node> dominantNodes, ArrayList<node> submissiveNodes, Constants Constants) {
         ArrayList<node> nodes = new ArrayList<>();
         for (int i = 0; i < Constants.getInputNum(); i++)
-            nodes.add(dominantNodes.get(i).clone());
+            nodes.add(dominantNodes.get(i).clone(Constants.getOptimizer()));
         for (int i = -Constants.getOutputNum(); i < 0; i++)
-            nodes.add(dominantNodes.get(dominantNodes.size() + i).clone());
+            nodes.add(dominantNodes.get(dominantNodes.size() + i).clone(Constants.getOptimizer()));
 
         // Step 1:
         for (edge e : genome) {
@@ -114,11 +114,11 @@ public class Innovation {
 
             //puts u and v inside map. sets u and v to appropriate object
             int uIndex = nodes.indexOf(u);
-            if (uIndex == -1) nodes.add(Constants.getInputNum(), u = u.clone());
+            if (uIndex == -1) nodes.add(Constants.getInputNum(), u = u.clone(Constants.getOptimizer()));
             else u = nodes.get(uIndex);
 
             int vIndex = nodes.indexOf(v);
-            if (vIndex == -1) nodes.add(Constants.getInputNum(), v = v.clone());
+            if (vIndex == -1) nodes.add(Constants.getInputNum(), v = v.clone(Constants.getOptimizer()));
             else v = nodes.get(vIndex);
 
             u.addOutgoingEdge(e);
@@ -136,7 +136,6 @@ public class Innovation {
      * also requires input nodes to be first, then hidden nodes, and lastly output nodes in {@code nodes}
      * @param genome has to have correct innovationID references to their connected nodes
      * @param nodes has to have correct indices references to their outgoing edges in {@code genome}
-     * @return
      */
     public static ArrayList<node> topologicalSort(List<node> nodes, List<edge> genome, Constants Constants) {
         // Maps Nodes to the number of incoming edges (for topological sorted orders)

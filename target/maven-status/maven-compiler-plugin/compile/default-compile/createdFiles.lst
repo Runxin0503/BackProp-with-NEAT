@@ -6,6 +6,7 @@ Genome\Modifier.class
 Evolution\WeightedRandom.class
 Genome\Activation.class
 Genome\node.class
+Genome\Optimizer.class
 Genome\Innovation$intPairs.class
 Genome\NN.class
 Genome\Activation$arrays.class

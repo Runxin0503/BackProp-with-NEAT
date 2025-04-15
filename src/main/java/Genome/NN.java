@@ -26,7 +26,7 @@ public class NN {
      */ //todo made public for testing
     public final ArrayList<node> nodes;
 
-    /** The number of input & output neurons in this Neural Network */
+    /** TODO */
     final Constants Constants;
 
     /** The amount of times this Neural Network has been trained */
@@ -44,16 +44,17 @@ public class NN {
         this.Constants = Constants;
     }
 
+    /** TODO write documentation, expose this to outside */
     public static NN getDefaultNeuralNet(Constants Constants) {
         ArrayList<node> nodes = new ArrayList<>();
 
         //input nodes don't have biases or Activation Functions
         //output nodes don't have their own Activation Function because they have a global outputAF
         for (int i = -Constants.getInputNum() - Constants.getOutputNum(); i < -Constants.getOutputNum(); i++)
-            nodes.add(new node(i, Activation.none, 0));
+            nodes.add(new node(i, Activation.none, 0, Constants.getOptimizer()));
         for (int i = -Constants.getOutputNum(); i < 0; i++)
             //output nodes only use outputAF and not their own Activation Function
-            nodes.add(new node(i, Activation.none, Constants.getInitializedValue()));
+            nodes.add(new node(i, Activation.none, Constants.getInitializedValue(), Constants.getOptimizer()));
 
         NN nn = new NN(nodes, Constants);
         Innovation.resetNodeCoords(nn);
@@ -63,17 +64,21 @@ public class NN {
     }
 
     /**
-     * Returns a positive value denoting how similar the Genomes of both Neural Networks are<br>
-     * Should be the same for if either Neural Network ran this method on each other<br>
-     * EX: genome n1,n2; n1.compare(n2) == n2.compare(n1);
+     * Returns a non-negative value denoting how similar the {@link #genome} of both Neural Networks are.<br>
+     * The ordering of {@code o1} or {@code o2} is unrelated to the final result. <br>
+     * EX: n1.compare(n2) == n2.compare(n1);
+     * @apiNote All static methods in {@link NN} assumes that the Neural Network
+     * originated from the same {@link Evolution} object,
+     * i.e. {@code o1.}{@link #Constants}{@code ==o2.}{@link #Constants}.
      */
-    public double compare(NN other) {
-        if (this.genome.isEmpty() && other.genome.isEmpty()) return 0;
-        List<edge> maxInnoGenome = this.genome;
-        List<edge> minInnoGenome = other.genome;
+    public static double compare(NN o1, NN o2) {
+        assert o1.Constants == o2.Constants;
+        if (o1.genome.isEmpty() && o2.genome.isEmpty()) return 0;
+        List<edge> maxInnoGenome = o1.genome;
+        List<edge> minInnoGenome = o2.genome;
         if (maxInnoGenome.isEmpty() || (!minInnoGenome.isEmpty() && minInnoGenome.getLast().getInnovationID() > maxInnoGenome.getLast().getInnovationID())) {
-            maxInnoGenome = other.genome;
-            minInnoGenome = this.genome;
+            maxInnoGenome = o2.genome;
+            minInnoGenome = o1.genome;
         }
 
         int index1 = 0, index2 = 0;
@@ -113,8 +118,7 @@ public class NN {
         double N = Math.max(maxInnoGenome.size(), minInnoGenome.size());
         if (N < 20) N = 1;
 
-        return Constants.weightedDisjoints * disjoint / N + Constants.weightedExcess * excess / N + Constants.weightedWeights * weight_diff;
-
+        return o1.Constants.weightedDisjoints * disjoint / N + o1.Constants.weightedExcess * excess / N + o1.Constants.weightedWeights * weight_diff;
     }
 
     /**
@@ -142,7 +146,7 @@ public class NN {
             int secondInnovationID = gene2.getInnovationID();
 
             if (firstInnovationID == secondInnovationID) {
-                newGenome.add(Math.random() > 0.5 ? gene1.clone(dominant.nodes) : gene2.clone(submissive.nodes));
+                newGenome.add(Math.random() > 0.5 ? gene1.clone(dominant.nodes,parent1.Constants.getOptimizer()) : gene2.clone(submissive.nodes,parent1.Constants.getOptimizer()));
                 index1++;
                 index2++;
             } else if (firstInnovationID > secondInnovationID) {
@@ -150,7 +154,7 @@ public class NN {
                 index2++;
             } else {
                 //disjoint gene of a
-                newGenome.add(gene1.clone(dominant.nodes));
+                newGenome.add(gene1.clone(dominant.nodes,parent1.Constants.getOptimizer()));
                 index1++;
             }
         }
@@ -161,7 +165,7 @@ public class NN {
             //so newGenome shouldn't have gene1 from dominant, and newGenome shouldn't be in submissive since
             //submissive's max innovationID should be less than gene1's innovationID
             assert !newGenome.contains(gene1);
-            newGenome.add(gene1.clone(dominant.nodes));
+            newGenome.add(gene1.clone(dominant.nodes,parent1.Constants.getOptimizer()));
             index1++;
         }
         //newGenome must be sorted by Innovation ID since they were inserted in order from smallest to biggest
@@ -191,7 +195,7 @@ public class NN {
             if (Double.isNaN(calculator[i])) continue;
             node n = nodes.get(i);
 
-            calculator[i] = n.activationFunction.calculate(n.bias + calculator[i]);
+            calculator[i] = n.getActivationFunction().calculate(n.bias + calculator[i]);
             for (edge e : n.getOutgoingEdges()) {
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
@@ -241,7 +245,7 @@ public class NN {
             node n = nodes.get(i);
 
             z[i] = a[i] + n.bias;
-            a[i] = n.activationFunction.calculate(z[i]);
+            a[i] = n.getActivationFunction().calculate(z[i]);
             for (edge e : nodes.get(i).getOutgoingEdges()) {
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
@@ -277,7 +281,7 @@ public class NN {
             //skip all nodes that has only disconnected descendents
             if (Double.isNaN(a[i]) || Double.isNaN(da_dCs[i])) continue;
             //convert nodeGradient(da_dC) to dz_dC
-            double dz_dC = n.activationFunction.derivative(z[i], da_dCs[i]);
+            double dz_dC = n.getActivationFunction().derivative(z[i], da_dCs[i]);
             //db_dC = dz_dC since z = wx + b
             n.addGradient(dz_dC);
 
@@ -299,22 +303,24 @@ public class NN {
         for (edge e : genome) e.clearGradient();
     }
 
-    /**
-     * Applies the {@link Gene}'s gradient to all nodes and edges in this Neural Network
-     */
+    /** Applies the {@link Gene}'s gradient to all nodes and edges in this Neural Network */
     private void applyGradient(double adjustedLearningRate, double momentum, double beta, double epsilon) {
         double correctionMomentum = 1 - Math.pow(momentum, t);
         double correctionBeta = 1 - Math.pow(beta, t);
         for (node n : nodes)
-            n.applyGradient(adjustedLearningRate, momentum, correctionMomentum, beta, correctionBeta, epsilon);
+            n.applyGradient(adjustedLearningRate, momentum, correctionMomentum, beta, correctionBeta, epsilon, Constants.getOptimizer());
         for (edge e : genome)
-            e.applyGradient(adjustedLearningRate, momentum, correctionMomentum, beta, correctionBeta, epsilon);
+            e.applyGradient(adjustedLearningRate, momentum, correctionMomentum, beta, correctionBeta, epsilon, Constants.getOptimizer());
         t++;
     }
 
     /**
-     * "Trains" the given Neural Network class using the given inputs and expected outputs.
-     * <br>Uses RMS-Prop as training algorithm, requires Learning Rate, beta, and epsilon hyper-parameter.
+     * "Trains" the given Neural Network class using the given batches of input and expected output.
+     * <br>Depending on the {@link Optimizer}, this function requires different parameters:
+     * <br>-{@link Optimizer#SGD}: Learning Rate
+     * <br>-{@link Optimizer#SGD_MOMENTUM}: Learning Rate, momentum
+     * <br>-{@link Optimizer#RMS_PROP}: Learning Rate, beta, and epsilon
+     * <br>-{@link Optimizer#ADAM}: Learning Rate, momentum, beta, and epsilon
      * @param learningRate a hyper-parameter dictating how fast this Neural Network 'learn' from the given inputs
      * @param momentum a hyper-parameter dictating how much of the previous SGD velocity to keep. [0~1]
      * @param beta a hyper-parameter dictating how much of the previous RMS-Prop velocity to keep. [0~1]
@@ -364,16 +370,16 @@ public class NN {
     public Object clone() {
         ArrayList<node> newNodes = new ArrayList<>(nodes.size());
         ArrayList<edge> newGenome = new ArrayList<>(genome.size());
-        for(edge e : genome) {
-            edge newEdge = e.clone(nodes);
+        for (edge e : genome) {
+            edge newEdge = e.clone(nodes,Constants.getOptimizer());
             newEdge.prevIndex = e.prevIndex;
             newEdge.nextIndex = e.nextIndex;
             newGenome.add(newEdge);
         }
-        for(node n : nodes) {
-            node newNode = n.clone();
-            for(edge e : n.getIncomingEdges()) newNode.getIncomingEdges().add(newGenome.get(genome.indexOf(e)));
-            for(edge e : n.getOutgoingEdges()) newNode.getOutgoingEdges().add(newGenome.get(genome.indexOf(e)));
+        for (node n : nodes) {
+            node newNode = n.clone(Constants.getOptimizer());
+            for (edge e : n.getIncomingEdges()) newNode.getIncomingEdges().add(newGenome.get(genome.indexOf(e)));
+            for (edge e : n.getOutgoingEdges()) newNode.getOutgoingEdges().add(newGenome.get(genome.indexOf(e)));
             newNodes.add(newNode);
         }
         NN clone = new NN(newNodes, newGenome, Constants);
@@ -382,7 +388,7 @@ public class NN {
     }
 
     /** Returns true if the class invariant of this instance is satisfied, false otherwise.
-     * Very expensive computation */
+     * Very expensive computation. */
     public boolean classInv() {
         if (genome == null || nodes == null || nodes.isEmpty() ||
                 nodes.size() < Constants.getInputNum() + Constants.getOutputNum() ||
@@ -409,7 +415,7 @@ public class NN {
                 return false;
         for (node n : nodes) {
             for (edge e : n.getIncomingEdges()) {
-                if(genome.get(genome.indexOf(e)) != e)
+                if (genome.get(genome.indexOf(e)) != e)
                     return false;
                 node prevNode = nodes.get(e.prevIndex);
                 if (e.getNextIID() != n.innovationID || !prevNode.getOutgoingEdges().contains(e) ||
@@ -418,7 +424,7 @@ public class NN {
                     return false;
             }
             for (edge e : n.getOutgoingEdges()) {
-                if(genome.get(genome.indexOf(e)) != e)
+                if (genome.get(genome.indexOf(e)) != e)
                     return false;
                 node nextNode = nodes.get(e.nextIndex);
                 if (e.getPreviousIID() != n.innovationID || !nextNode.getIncomingEdges().contains(e) ||
@@ -445,7 +451,7 @@ public class NN {
             if (n.innovationID < -Constants.getOutputNum()) sb.append("Input Node (");
             else if (n.innovationID < 0) sb.append("Output Node (");
             else sb.append("Hidden Node (");
-            sb.append(n.innovationID).append(",").append(n.activationFunction).append("):\t");
+            sb.append(n.innovationID).append(",").append(n.getActivationFunction()).append("):\t");
             sb.append(String.format("%.2f", n.x)).append(',').append(String.format("%.2f", n.y));
             sb.append("\n\t\t\tIncoming node indices - ");
             n.getIncomingEdges().forEach(e -> sb.append(e.prevIndex).append(','));

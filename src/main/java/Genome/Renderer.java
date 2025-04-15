@@ -307,7 +307,7 @@ public class Renderer extends Application implements Initializable {
                 gc.setFill(Color.GRAY);
                 gc.fillOval(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2);
                 gc.setFill(Color.BLACK);
-                gc.fillText(n.activationFunction + "", x - adjustedRadius, y - adjustedRadius * 1.2);
+                gc.fillText(n.getActivationFunction() + "", x - adjustedRadius, y - adjustedRadius * 1.2);
                 gc.fillText(String.format("%.2f", n.getBias()), x - adjustedRadius * 0.8, y + adjustedRadius * 1.9);
             }
         }

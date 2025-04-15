@@ -10,8 +10,8 @@ public class Agent implements WeightedRandom {
     private NN genome;
 
     /**
-     * The score of this Agent
-     * <br> Evaluates the performance of this Agent and its genome
+     * The score of this Agent.
+     * <br> Evaluates the performance of this Agent and its genome.
      */
     private double score;
 
@@ -48,8 +48,8 @@ public class Agent implements WeightedRandom {
     }
 
     /**
-     * Repopulates the current Agent's genome with the crossover result of {@code parent1} and {@code parent2}
-     * @throws RuntimeException if parent 1 or 2 are missing genome or child already has genome
+     * Replaces {@code child} Agent's genome with the crossover result of {@code parent1} and {@code parent2}
+     * @throws RuntimeException if parent 1 or 2 are missing their genome or if child already has a genome
      */
     public static void crossover(Agent parent1, Agent parent2, Agent child) {
         if (!parent1.hasGenome() || !parent2.hasGenome() || child.hasGenome())
@@ -74,12 +74,11 @@ public class Agent implements WeightedRandom {
      */
     public double compare(Agent newAgent) {
         if (!hasGenome() || !newAgent.hasGenome()) throw new RuntimeException("Genome Exception");
-        return genome.compare(newAgent.genome);
+        return NN.compare(genome,newAgent.genome);
     }
 
     @Override
     public String toString() {
         return genome.toString();
     }
-
 }

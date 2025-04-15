@@ -3,7 +3,7 @@ package Evolution;
 import java.util.List;
 
 @FunctionalInterface
-public interface WeightedRandom {
+interface WeightedRandom {
     double getScore();
 
     static <T extends WeightedRandom> T getRandom(List<T> list) {

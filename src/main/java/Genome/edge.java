@@ -29,7 +29,8 @@ public class edge extends Gene {
     /** The absolute Innovation ID of the previous and next node */
     private final int previousIID, nextIID;
 
-    edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID) {
+    edge(int innovationID, double weight, boolean enabled, int previousIID, int nextIID, Optimizer optimizer) {
+        super(optimizer);
         this.innovationID = innovationID;
         this.weight = weight;
         this.previousIID = previousIID;
@@ -38,7 +39,8 @@ public class edge extends Gene {
     }
 
     //todo made public for testing
-    public edge(int innovationID, double weight, boolean enabled, int prevIndex, int nextIndex, int previousIID, int nextIID) {
+    public edge(int innovationID, double weight, boolean enabled, int prevIndex, int nextIndex, int previousIID, int nextIID, Optimizer optimizer) {
+        super(optimizer);
         this.innovationID = innovationID;
         this.weight = weight;
         this.prevIndex = prevIndex;
@@ -95,8 +97,8 @@ public class edge extends Gene {
         return true;
     }
 
-    public edge clone(List<node> nodes) {
-        return new edge(innovationID, weight, enabled, nodes.get(prevIndex).innovationID, nodes.get(nextIndex).innovationID);
+    public edge clone(List<node> nodes,Optimizer optimizer) {
+        return new edge(innovationID, weight, enabled, nodes.get(prevIndex).innovationID, nodes.get(nextIndex).innovationID,optimizer);
     }
 
     @Override
