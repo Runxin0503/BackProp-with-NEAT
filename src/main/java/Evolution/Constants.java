@@ -21,7 +21,7 @@ public class Constants {
     Cost CostFunction = null;
     Optimizer optimizer = Optimizer.ADAM;
 
-    Innovation Innovation = new Innovation();
+    private final Innovation Innovation = new Innovation();
 
     public double
             weightedExcess = 1,

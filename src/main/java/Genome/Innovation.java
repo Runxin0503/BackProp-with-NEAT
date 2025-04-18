@@ -5,10 +5,7 @@ import Evolution.Constants;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * A Static class containing mappings between node and synapses using their InnovationIDs
- */
-//todo made public for testing purposes
+/** A class containing mappings between node and synapses using their InnovationIDs. */
 public class Innovation {
     /*
      * Must contain:
@@ -24,7 +21,7 @@ public class Innovation {
     private int splitNodeInnovation = 0;
 
     //todo created for testing purposes
-    public void reset(){
+    void reset(){
         nodePairsToEdge.clear();
         edgeToSplitNode.clear();
         splitNodeInnovation = 0;
@@ -33,7 +30,7 @@ public class Innovation {
     /**
      * Returns the Innovation ID of the edge connecting {@code node1IID} and {@code node2IID}
      */
-    public int getEdgeInnovationID(int node1IID, int node2IID) {
+    int getEdgeInnovationID(int node1IID, int node2IID) {
         intPairs pair = new intPairs(node1IID, node2IID);
         Integer edgeIID = nodePairsToEdge.get(pair);
         if (edgeIID != null) return edgeIID;
@@ -42,7 +39,8 @@ public class Innovation {
         return nodePairsToEdge.size() - 1;
     }
 
-    public int getSplitNodeInnovationID(int edgeIID,List<node> nodes) {
+    /** TODO */
+    int getSplitNodeInnovationID(int edgeIID,List<node> nodes) {
         edgeToSplitNode.putIfAbsent(edgeIID, new ArrayList<>());
         for (int i : edgeToSplitNode.get(edgeIID)) {
             if(!nodes.contains(new node(i,null,-1,null))){
@@ -54,7 +52,7 @@ public class Innovation {
     }
 
     /** Re-initializes all hidden nodes to its appropriate values */
-    public static void resetNodeCoords(NN nn) {
+    static void resetNodeCoords(NN nn) {
         int inputNum = nn.Constants.getInputNum(), outputNum = nn.Constants.getOutputNum(), nodesNum = nn.nodes.size();
         for (int i = 0; i < inputNum; i++) {
             nn.nodes.get(i).x = 0;
@@ -100,7 +98,7 @@ public class Innovation {
      * <br>The nodes should contain identical input/output nodes from {@code dominantNodes}
      * <br>It should also bind all node IDs in edges to the local node Index.
      */
-    public static ArrayList<node> constructNetworkFromGenome(ArrayList<edge> genome, ArrayList<node> dominantNodes, ArrayList<node> submissiveNodes, Constants Constants) {
+    static ArrayList<node> constructNetworkFromGenome(ArrayList<edge> genome, ArrayList<node> dominantNodes, ArrayList<node> submissiveNodes, Constants Constants) {
         ArrayList<node> nodes = new ArrayList<>();
         for (int i = 0; i < Constants.getInputNum(); i++)
             nodes.add(dominantNodes.get(i).clone(Constants.getOptimizer()));
@@ -132,12 +130,13 @@ public class Innovation {
 
     /**
      * Topologically sorts the {@code nodes} arrayList and returns the result.
+     * Sets / Populates the {@link edge#prevIndex} and {@link edge#nextIndex} of each edge
      * <br>Requires: each node in {@code nodes} have correct references to their connected edges and vice versa,
      * also requires input nodes to be first, then hidden nodes, and lastly output nodes in {@code nodes}
      * @param genome has to have correct innovationID references to their connected nodes
      * @param nodes has to have correct indices references to their outgoing edges in {@code genome}
      */
-    public static ArrayList<node> topologicalSort(List<node> nodes, List<edge> genome, Constants Constants) {
+    static ArrayList<node> topologicalSort(List<node> nodes, List<edge> genome, Constants Constants) {
         // Maps Nodes to the number of incoming edges (for topological sorted orders)
         Map<Integer, AtomicInteger> indegree = new HashMap<>();
         Map<Integer, node> innovationIDtoNode = new HashMap<>();
@@ -209,23 +208,28 @@ public class Innovation {
     private static class intPairs {
         private final long combined;
 
+        /** TODO */
         private intPairs(int num1, int num2) {
             this.combined = ((long) num1 << 32) | (num2 & 0xFFFFFFFFL);
         }
 
+        /** TODO */
         private int first() {
             return (int) (combined >> 32);
         }
 
+        /** TODO */
         private int second() {
             return (int) combined;
         }
 
+        /** TODO */
         @Override
         public int hashCode() {
             return Long.hashCode(combined);
         }
 
+        /** TODO */
         @Override
         public boolean equals(Object obj) {
             return obj instanceof intPairs && combined == ((intPairs) obj).combined;

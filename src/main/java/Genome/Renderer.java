@@ -62,18 +62,33 @@ public class Renderer extends Application implements Initializable {
     @FXML
     private AnchorPane canvasScroller;
 
+    /** TODO */
     private Affine canvasTransform;
 
+    /** TODO */
     private Evolution agentFactory;
+    /** TODO */
     private Agent agent;
+    /** TODO */
     private NN agentGenome;
 
-    private final double radius = 10;
-    private final double padding = 5 + radius;
-    private final double MAX_FPS = 120;
-    private final double MIN_ZOOM = 0;
-    private final double MAX_ZOOM = 10;
-    private boolean redrawCanvas;
+    /** TODO */
+    private static final double radius = 10;
+
+    /** TODO */
+    private static final double padding = 5 + radius;
+
+    /** TODO */
+    private static final double MAX_FPS = 120;
+
+    /** TODO */
+    private static final double MIN_ZOOM = 0;
+
+    /** TODO */
+    private static final double MAX_ZOOM = 10;
+
+    /** TODO */
+    private static boolean redrawCanvas;
 
     public static void main(String[] args) {
         launch(args);
@@ -221,6 +236,7 @@ public class Renderer extends Application implements Initializable {
         updateCanvasPeriodically.play();
     }
 
+    /** TODO */
     private void drawCanvas() {
         assert agentGenome.classInv();
 
@@ -308,7 +324,7 @@ public class Renderer extends Application implements Initializable {
                 gc.fillOval(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2);
                 gc.setFill(Color.BLACK);
                 gc.fillText(n.getActivationFunction() + "", x - adjustedRadius, y - adjustedRadius * 1.2);
-                gc.fillText(String.format("%.2f", n.getBias()), x - adjustedRadius * 0.8, y + adjustedRadius * 1.9);
+                gc.fillText(String.format("%.2f", n.bias), x - adjustedRadius * 0.8, y + adjustedRadius * 1.9);
             }
         }
 

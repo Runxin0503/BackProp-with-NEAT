@@ -6,33 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** The Genome representation of a node */
-//todo made public for testing
-public class node extends Gene {
-    /*
-     * must contain:
-     * - innovation number:
-     *      - should be the same as synapse split if hidden node ( >= 0)
-     *      - if input/output node, should range from -(inputNum+outputNum) to -1
-     * - ActivationFunction enum:
-     *      - should be null if it's input or output
-     *      - can be any hiddenAF enums if its hidden, outputAF are reserved to used in Constants file
-     *      - if input/output node, CANNOT have an ActivationFunction enum other than Activation.none
-     * - bias
-     * - boolean activated: true if this node's output is > 0, false otherwise
-     * - int array of outgoing connections (index of edges)
-     * - int array of incoming connections (index of edges)
-     */
+class node extends Gene {
 
     /** The Activation Function of this neuron */
     private Activation activationFunction;
 
     /** The bias value of this neuron */
-    //todo made public for testing purposes
-    public double bias;
+    double bias;
 
     /**
      * True if neuron's output is > 0, false otherwise.
      * <br>Used in visualizing individual neuron firing
+     * TODO actually update this
      */
     private boolean activated;
 
@@ -43,7 +28,7 @@ public class node extends Gene {
     /** TODO */
     double x, y;
 
-    public node(int innovationID, Activation activationFunction, double bias, Optimizer optimizer) {
+    node(int innovationID, Activation activationFunction, double bias, Optimizer optimizer) {
         super(optimizer);
         this.innovationID = innovationID;
         this.activationFunction = activationFunction;
@@ -54,7 +39,7 @@ public class node extends Gene {
     }
 
     /** Returns true if the last output of this neuron is > 0, false otherwise */
-    public boolean isActivated() {
+    boolean isActivated() {
         return activated;
     }
 
@@ -92,11 +77,6 @@ public class node extends Gene {
         incomingConnections.add(e);
     }
 
-    /** Returns the bias of this node */
-    double getBias() {
-        return bias;
-    }
-
     /** TODO */
     Activation getActivationFunction() {
         return activationFunction;
@@ -112,6 +92,7 @@ public class node extends Gene {
         this.activationFunction = Activation.values()[(int) (Math.random() * Activation.values().length)];
     }
 
+    /** TODO */
     public node clone(Optimizer optimizer) {
         return new node(innovationID, activationFunction, bias, optimizer);
     }

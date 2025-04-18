@@ -7,10 +7,16 @@ import Genome.Optimizer;
 import java.util.ArrayList;
 import java.util.function.Function;
 
+/** TODO */
 public class Evolution {
+
+    /** TODO */
     private final ArrayList<Species> species = new ArrayList<>();
+
+    /** TODO */
     public final Agent[] agents;
 
+    /** TODO */
     public Constants Constants;
 
     private Evolution(Constants Constants, Function<Integer, ? extends Agent> agentConstructor) {
@@ -93,51 +99,61 @@ public class Evolution {
         private int initialMutation = 10;
         private Function<Integer, Agent> agentConstructor = i -> new Agent(Constants, initialMutation);
 
+        /** TODO */
         public EvolutionBuilder setNumSimulated(int numSimulated) {
             Constants.numSimulated = numSimulated;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setInputNum(int inputNum) {
             Constants.inputNum = inputNum;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setOutputNum(int outputNum) {
             Constants.outputNum = outputNum;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setInitialMutation(int initialMutation) {
             this.initialMutation = initialMutation;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setOutputAF(Activation.arrays outputAF) {
             Constants.outputAF = outputAF;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setDefaultHiddenAF(Activation defaultHiddenAF) {
             Constants.defaultHiddenAF = defaultHiddenAF;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setCostFunction(Cost CostFunction) {
             Constants.CostFunction = CostFunction;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setAgentConstructor(Function<Integer, Agent> agentConstructor) {
             this.agentConstructor = agentConstructor;
             return this;
         }
 
+        /** TODO */
         public EvolutionBuilder setOptimizer(Optimizer optimizer) {
             this.Constants.optimizer = optimizer;
             return this;
         }
 
+        /** TODO */
         public Evolution build() throws MissingInformation {
             if (Constants.inputNum == -1 || Constants.outputNum == -1 || Constants.numSimulated == -1 || Constants.outputAF == null || Constants.CostFunction == null)
                 throw new MissingInformation();
@@ -145,6 +161,7 @@ public class Evolution {
             return new Evolution(Constants, agentConstructor);
         }
 
+        /** TODO */
         public static class MissingInformation extends RuntimeException {
             @Override
             public String getMessage() {

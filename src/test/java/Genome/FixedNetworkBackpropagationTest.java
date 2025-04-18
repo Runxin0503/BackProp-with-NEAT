@@ -1,6 +1,7 @@
+package Genome;
+
 import Evolution.Constants;
 import Evolution.Evolution;
-import Genome.*;
 import org.junit.jupiter.api.RepeatedTest;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

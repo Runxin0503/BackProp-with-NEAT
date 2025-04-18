@@ -1,9 +1,7 @@
+package Genome;
+
 import Evolution.Constants;
 import Evolution.Evolution;
-import Genome.Mutation;
-import Genome.NN;
-import Genome.Activation;
-import Genome.Cost;
 
 import java.io.FileWriter;
 import java.io.IOException;

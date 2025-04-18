@@ -2,10 +2,13 @@ package Evolution;
 
 import java.util.List;
 
+/** TODO */
 @FunctionalInterface
 interface WeightedRandom {
+    /** TODO */
     double getScore();
 
+    /** TODO */
     static <T extends WeightedRandom> T getRandom(List<T> list) {
         if (list.isEmpty()) throw new IllegalArgumentException("List is empty");
         double totalValue = 0;

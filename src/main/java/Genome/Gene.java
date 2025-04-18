@@ -1,13 +1,12 @@
 package Genome;
 
-//todo made public for testing purposes
-public abstract class Gene {
+abstract class Gene {
 
     /** Identifies the unique ID this gene has.
      * <br>Used for matching nodes against synapses and vice versa.
      * <br>Also used in Neural Network comparisons and crossovers.
-     *///todo made public for testing purposes (was package-private)
-    public int innovationID;
+     */
+    int innovationID;
 
     /** The velocity and squared-velocity used for ADAM optimizer */
     private double velocity, velocitySquared;

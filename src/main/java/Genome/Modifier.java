@@ -6,8 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /** Package-private Static class that adds synapses and nodes to any given {@link NN} */
-//todo made public for testing purposes
-public class Modifier {
+class Modifier {
 
     /**
      * Adds an edge connecting the nodes at index {@code i1} and {@code i2}
@@ -19,7 +18,7 @@ public class Modifier {
      * <br>- this edge introduces a cycle
      * <br>- there is already a non-disabled edge connecting the two nodes
      */
-    public static boolean addEdge(NN nn, double weight, int i1, int i2) {
+    static boolean addEdge(NN nn, double weight, int i1, int i2) {
         if (i2 < nn.Constants.getInputNum() || i1 >= nn.nodes.size() - nn.Constants.getOutputNum() ||
                 i1 == i2 || (i1 > i2 && isLooping(i1, i2, nn)))
             return false;
@@ -54,7 +53,7 @@ public class Modifier {
      * <br>- the selected edge is disabled
      * <br>- the edge split somehow returned a repeated edge that already exists in {@code nn}
      */
-    public static boolean splitEdge(NN nn, double bias, Activation AF, int edgeIndex) {
+    static boolean splitEdge(NN nn, double bias, Activation AF, int edgeIndex) {
         edge edge = nn.genome.get(edgeIndex);
         if (edge.isDisabled())
             return false;

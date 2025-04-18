@@ -5,9 +5,10 @@ import java.util.ArrayList;
 /**
  * Used in a part of the NEAT algorithm to determine if a genome is successful or not based on its species
  * <br>Randomly selects a representative from its population every generation to use as comparison during
- * species identification
+ * species identification.
+ * TODO Make this Overridable in Evolution.
  */
-class Species implements WeightedRandom {
+public class Species implements WeightedRandom {
     /** The representative of this species. Used during species identification and randomly chosen every new generation */
     private Agent representative;
 
@@ -20,9 +21,11 @@ class Species implements WeightedRandom {
     /** Arraylist containing all members of this species */
     private final ArrayList<Agent> population = new ArrayList<Agent>();
 
+    /** TODO */
     private final Constants Constants;
 
-    public Species(Agent representative, Constants Constants) {
+    /** TODO */
+    protected Species(Agent representative, Constants Constants) {
         this.representative = representative;
         this.population.add(representative);
         this.populationScore = representative.getScore();
@@ -32,8 +35,9 @@ class Species implements WeightedRandom {
     /**
      * Attempts to add {@code newAgent} to this species if it's genome is similar enough
      * @return true if successful, false otherwise
+     * TODO add when this method is called in Evolution.nextGen sequence
      */
-    public boolean add(Agent newAgent) {
+    boolean add(Agent newAgent) {
         if (representative.compare(newAgent) < Constants.compatibilityThreshold) {
 
             //keeps score sorted from highest to lowest
@@ -52,8 +56,9 @@ class Species implements WeightedRandom {
         return false;
     }
 
-    /** Calculates the {@link #populationScore} of all members of this species, taking into account {@link #stag} */
-    public void calculateScore() {
+    /** Calculates the {@link #populationScore} of all members of this species, taking into account {@link #stag}
+     * TODO add when this method is called in Evolution.nextGen sequence */
+    protected void calculateScore() {
         populationScore = 0;
         for (Agent agent : population) {
             populationScore += agent.getScore();
@@ -66,8 +71,9 @@ class Species implements WeightedRandom {
      * Updates the {@link #stag} of this species.
      * <br>Stag increases by 1 every time the current generation does worse than the previous
      * <br>Stag decreases by a factor of how much better the current generation does than the previous
+     * TODO add when this method is called in Evolution.nextGen sequence
      */
-    public void updateStag() {
+    protected void updateStag() {
         double count = 0;
         for (Agent agent : population) {
             count += agent.getScore();
@@ -80,16 +86,18 @@ class Species implements WeightedRandom {
     /**
      * Randomly chooses a {@link #representative} from all members of this species and
      * clears the {@link #population} arraylist
+     * TODO add when this method is called in Evolution.nextGen sequence
      */
-    public void reset() {
+    protected void reset() {
         representative = population.get((int) (Math.random() * population.size()));
         population.clear();
     }
 
     /**
      * Effect: A percentage of the worst performing members of this species have their genome removed
+     * TODO add when this method is called in Evolution.nextGen sequence
      */
-    public void cull() {
+    protected void cull() {
         int numSurvived = (int) (Math.round(population.size() * (1 - Constants.perctCull)));
         for (int i = population.size() - 1; i > numSurvived; i--) {
             population.remove(i).removeGenome();
@@ -99,18 +107,22 @@ class Species implements WeightedRandom {
     /**
      * Returns if this species has no current members
      */
-    public boolean isEmpty() {
+    protected boolean isEmpty() {
         return population.isEmpty();
     }
 
-    public void populateGenome(Agent emptyAgent) {
+    /** TODO
+     * TODO add when this method is called in Evolution.nextGen sequence */
+    protected void populateGenome(Agent emptyAgent) {
         Agent first = WeightedRandom.getRandom(population);
         Agent second = WeightedRandom.getRandom(population);
-        Agent.crossover(first, second, emptyAgent);
+        first.crossover(second, emptyAgent);
         emptyAgent.reset();
         population.add(emptyAgent);
     }
 
+    /** TODO
+     * TODO add when this method is called in Evolution.nextGen sequence */
     @Override
     public double getScore() {
         return populationScore;

@@ -16,15 +16,15 @@ public class NN {
      * Stores a list of edges.
      * <br>Cannot ever decrease in size or have any genome removed
      * <br>Class Invariant: Sorted in InnovationID order
-     */ //todo made public for testing
-    public final ArrayList<edge> genome;
+     */
+    final ArrayList<edge> genome;
 
     /**
      * Stores a list of nodes.
      * <br>Cannot ever decrease in size or have any nodes removed.
      * <br>Class Invariant: Sorted in Topological order
-     */ //todo made public for testing
-    public final ArrayList<node> nodes;
+     */
+    final ArrayList<node> nodes;
 
     /** TODO */
     final Constants Constants;
@@ -212,9 +212,7 @@ public class NN {
         return Constants.getOutputAF().calculate(output);
     }
 
-    /**
-     * Returns the loss of this Neural Network, or how far the expected output differs from the actual output.
-     */
+    /** Returns the loss of this Neural Network, or how far the expected output differs from the actual output. */
     public double calculateCost(double[] input, double[] expectedOutputs) {
         double[] output = calculateWeightedOutput(input);
         double sum = 0;
@@ -389,7 +387,7 @@ public class NN {
 
     /** Returns true if the class invariant of this instance is satisfied, false otherwise.
      * Very expensive computation. */
-    public boolean classInv() {
+    boolean classInv() {
         if (genome == null || nodes == null || nodes.isEmpty() ||
                 nodes.size() < Constants.getInputNum() + Constants.getOutputNum() ||
                 Constants.getInputNum() <= 0 || Constants.getOutputNum() <= 0)

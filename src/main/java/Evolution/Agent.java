@@ -2,7 +2,9 @@ package Evolution;
 
 import Genome.NN;
 
+/** TODO */
 public class Agent implements WeightedRandom {
+
     /**
      * The genome of this Agent
      * <br> Can be null if this Agent's genome is currently being repurposed by a better-performing genome
@@ -21,28 +23,33 @@ public class Agent implements WeightedRandom {
         for(int i=0;i<initialMutation;i++) genome.mutate();
     }
 
-    /** Resets the score of this Agent */
+    /** Resets the score of this Agent
+     * TODO add when this method is called in Evolution.nextGen sequence */
     public void reset() {
         score = 0;
     }
 
-    /** Returns the score of this Agent as input to the NEAT algorithm */
+    /** Returns the score of this Agent as input to the NEAT algorithm
+     * TODO add when this method is called in Evolution.nextGen sequence */
     @Override
     public double getScore() {
         return score;
     }
 
-    /** Sets the score of this Agent */
+    /** Sets the score of this Agent
+     * TODO add when this method is called in Evolution.nextGen sequence */
     public void setScore(double newScore) {
         if(Double.isNaN(newScore)) throw new RuntimeException("Attempt to set invalid score {"+newScore+"}");
         score = Math.max(0,newScore);
     }
 
-    /** Returns the clone of this Agent's genome, throws a {@link NullPointerException} if this Agent doesn't have a genome */
+    /** Returns the clone of this Agent's genome, throws a {@link NullPointerException} if this Agent doesn't have a genome
+     * TODO add when this method is called in Evolution.nextGen sequence */
     public NN getGenomeClone(){return (NN) genome.clone();}
 
-    /** Removes the genome of this Agent. */
-    public void removeGenome() {
+    /** Removes the genome of this Agent.
+     * TODO add when this method is called in Evolution.nextGen sequence */
+    protected void removeGenome() {
         assert hasGenome();
         genome = null;
     }
@@ -50,11 +57,12 @@ public class Agent implements WeightedRandom {
     /**
      * Replaces {@code child} Agent's genome with the crossover result of {@code parent1} and {@code parent2}
      * @throws RuntimeException if parent 1 or 2 are missing their genome or if child already has a genome
+     * TODO add when this method is called in Evolution.nextGen sequence
      */
-    public static void crossover(Agent parent1, Agent parent2, Agent child) {
-        if (!parent1.hasGenome() || !parent2.hasGenome() || child.hasGenome())
+    protected void crossover(Agent otherParent, Agent child) {
+        if (!this.hasGenome() || !otherParent.hasGenome() || child.hasGenome())
             throw new RuntimeException("Genome Exception");
-        child.genome = NN.crossover(parent1.genome, parent2.genome, parent1.score, parent2.score);
+        child.genome = NN.crossover(this.genome, otherParent.genome, this.score, otherParent.score);
     }
 
     /** Returns whether this Agent has a genome or not */
@@ -62,8 +70,9 @@ public class Agent implements WeightedRandom {
         return genome != null;
     }
 
-    /** Mutates the genome of this Agent */
-    public void mutate() {
+    /** Mutates the genome of this Agent.
+     * TODO add when this method is called in Evolution.nextGen sequence */
+    protected void mutate() {
         genome.mutate();
     }
 
@@ -72,7 +81,7 @@ public class Agent implements WeightedRandom {
      * @return the value of the comparison
      * @throws RuntimeException when either Agent is missing a genome
      */
-    public double compare(Agent newAgent) {
+    protected double compare(Agent newAgent) {
         if (!hasGenome() || !newAgent.hasGenome()) throw new RuntimeException("Genome Exception");
         return NN.compare(genome,newAgent.genome);
     }
