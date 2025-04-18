@@ -1,6 +1,7 @@
 package Evolution;
 
 import Genome.NN;
+import Genome.Renderer;
 
 /** TODO */
 public class Agent implements WeightedRandom {
@@ -17,51 +18,66 @@ public class Agent implements WeightedRandom {
      */
     private double score;
 
-    public Agent(Constants Constants, int initialMutation) {
+    protected Agent(Constants Constants, int initialMutation) {
         this.score = 0;
         this.genome = NN.getDefaultNeuralNet(Constants);
-        for(int i=0;i<initialMutation;i++) genome.mutate();
+        for (int i = 0; i < initialMutation; i++) genome.mutate();
     }
 
-    /** Resets the score of this Agent
-     * TODO add when this method is called in Evolution.nextGen sequence */
+    /** Resets the score of this Agent.<br>
+     * Called at the end of {@link Evolution#nextGen()} right after {@link Agent#mutate()}.*/
     public void reset() {
         score = 0;
     }
 
-    /** Returns the score of this Agent as input to the NEAT algorithm
-     * TODO add when this method is called in Evolution.nextGen sequence */
+    /** Returns the score of this Agent as input to the NEAT algorithm.<br>
+     * Called multiple times throughout {@link Evolution#nextGen()} to get
+     * the performance of this Agent's Genome. */
     @Override
     public double getScore() {
         return score;
     }
 
-    /** Sets the score of this Agent
-     * TODO add when this method is called in Evolution.nextGen sequence */
+    /** Sets the score of this Agent.<br>
+     * Should be called before {@link Evolution#nextGen()} to set Agent's
+     * score relative to its Genome's performance. */
     public void setScore(double newScore) {
-        if(Double.isNaN(newScore)) throw new RuntimeException("Attempt to set invalid score {"+newScore+"}");
-        score = Math.max(0,newScore);
+        if (Double.isNaN(newScore)) throw new RuntimeException("Attempt to set invalid score {" + newScore + "}");
+        score = Math.max(0, newScore);
     }
 
-    /** Returns the clone of this Agent's genome, throws a {@link NullPointerException} if this Agent doesn't have a genome
-     * TODO add when this method is called in Evolution.nextGen sequence */
-    public NN getGenomeClone(){return (NN) genome.clone();}
+    /** Returns a clone of this Agent's Genome, can be used for rendering
+     * in {@link Renderer}, backpropagation evaluation in {@link NN#learn}, or
+     * many more in the {@link NN} class.
+     * @throws NullPointerException if this Agent doesn't have a Genome */
+    public NN getGenomeClone() {
+        if (!hasGenome()) throw new NullPointerException("Agent " + this + " has empty Genome");
+        return (NN) genome.clone();
+    }
 
-    /** Removes the genome of this Agent.
-     * TODO add when this method is called in Evolution.nextGen sequence */
+    /** Removes the genome of this Agent.<br>
+     * Called during {@link Evolution#nextGen()} in {@link Species#cull()} to remove Genomes with bad
+     * performance from the population.
+     * @throws NullPointerException if this Agent doesn't have a Genome */
     protected void removeGenome() {
-        assert hasGenome();
+        if(!hasGenome()) throw new NullPointerException("Agent " + this + " has empty Genome");
         genome = null;
     }
 
     /**
-     * Replaces {@code child} Agent's genome with the crossover result of {@code parent1} and {@code parent2}
-     * @throws RuntimeException if parent 1 or 2 are missing their genome or if child already has a genome
-     * TODO add when this method is called in Evolution.nextGen sequence
+     * Replaces {@code child} Agent's genome with the crossover result of {@code this} and {@code otherParent}.
+     * <br>Called during {@link Evolution#nextGen()} in {@link Species#populateGenome} to repopulate Agents with
+     * well-performing Genomes after bad-performing Genomes are removed from the population in {@link Species#cull()}.
+     * @throws NullPointerException if either parent are missing their genome.
+     * @throws RuntimeException if child already has a genome.
      */
     protected void crossover(Agent otherParent, Agent child) {
-        if (!this.hasGenome() || !otherParent.hasGenome() || child.hasGenome())
-            throw new RuntimeException("Genome Exception");
+        if (!this.hasGenome())
+            throw new NullPointerException("Parent Agent " + this + " has empty Genome");
+        else if(!otherParent.hasGenome())
+            throw new NullPointerException("Parent Agent " + otherParent + " has empty Genome");
+        else if(child.hasGenome())
+            throw new RuntimeException("Child Agent " + child + " already has Genome");
         child.genome = NN.crossover(this.genome, otherParent.genome, this.score, otherParent.score);
     }
 
@@ -70,20 +86,24 @@ public class Agent implements WeightedRandom {
         return genome != null;
     }
 
-    /** Mutates the genome of this Agent.
-     * TODO add when this method is called in Evolution.nextGen sequence */
+    /** Mutates the genome of this Agent.<br>
+     * Called in {@link Evolution#nextGen()} after {@link Species#populateGenome} to mutate
+     * all existing Genomes in all Agents.
+     * @throws RuntimeException when either Agent is missing a genome.
+     */
     protected void mutate() {
+        if(!hasGenome()) throw new NullPointerException("Agent " + this + " has empty Genome");
         genome.mutate();
     }
 
     /**
-     * Compares the genome of both Agents
-     * @return the value of the comparison
-     * @throws RuntimeException when either Agent is missing a genome
+     * Compares the genome of both Agents.
+     * @return the value of the comparison.
+     * @throws RuntimeException when either Agent is missing a genome.
      */
     protected double compare(Agent newAgent) {
         if (!hasGenome() || !newAgent.hasGenome()) throw new RuntimeException("Genome Exception");
-        return NN.compare(genome,newAgent.genome);
+        return NN.compare(genome, newAgent.genome);
     }
 
     @Override

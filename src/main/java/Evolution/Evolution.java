@@ -3,6 +3,7 @@ package Evolution;
 import Genome.Activation;
 import Genome.Cost;
 import Genome.Optimizer;
+import Genome.NN;
 
 import java.util.ArrayList;
 import java.util.function.Function;
@@ -10,13 +11,14 @@ import java.util.function.Function;
 /** TODO */
 public class Evolution {
 
-    /** TODO */
+    /** The collection of {@linkplain Species} used in the NEAT algorithm. */
     private final ArrayList<Species> species = new ArrayList<>();
 
-    /** TODO */
+    /** The collection of {@linkplain Agent} classes, whose Genome is selected, trained, and
+     * improved according to the NEAT algorithm. */
     public final Agent[] agents;
 
-    /** TODO */
+    /** The Constants class for all subsequent dependent classes like {@linkplain NN} and {@linkplain Species}. */
     public Constants Constants;
 
     private Evolution(Constants Constants, Function<Integer, ? extends Agent> agentConstructor) {
@@ -57,7 +59,7 @@ public class Evolution {
             if (!found) species.add(new Species(agent, Constants));
         }
 
-        //update stagnant count, then cull
+        //update stagnant count and then cull
         for (Species s : species) {
             s.updateStag();
             s.cull();
@@ -80,13 +82,9 @@ public class Evolution {
             }
         }
 
-        //mutate
+        //mutate Genome and reset score
         for (Agent agent : agents) {
             agent.mutate();
-        }
-
-        //reset
-        for (Agent agent : agents) {
             agent.reset();
         }
     }

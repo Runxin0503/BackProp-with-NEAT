@@ -3,7 +3,7 @@ package Genome;
 import java.util.List;
 
 /** TODO */
-class edge extends Gene {
+final class edge extends Gene {
 
     /** The weight of this edge */
     double weight;
@@ -74,18 +74,18 @@ class edge extends Gene {
         return true;
     }
 
-    /** TODO */
-    public edge clone(List<node> nodes,Optimizer optimizer) {
+    /** Returns an identical edge object except {@linkplain #prevIndex} and {@linkplain #nextIndex} are uninitialized. */
+    edge clone(List<node> nodes, Optimizer optimizer) {
         return new edge(innovationID, weight, enabled, nodes.get(prevIndex).innovationID, nodes.get(nextIndex).innovationID,optimizer);
     }
 
-    /** TODO */
     @Override
     public boolean equals(Object obj) {
         return obj instanceof edge && ((edge) obj).innovationID == innovationID;
     }
 
-    /** TODO */
+    /** Returns true if {@code other} is identical in every instance field.
+     * <br>Use this method instead of {@link #equals(Object)} to compare instance variables beyond InnovationID. */
     boolean identical(edge other) {
         return other.innovationID == innovationID && other.weight == weight && other.enabled == enabled &&
                 other.prevIndex == prevIndex && other.nextIndex == nextIndex &&

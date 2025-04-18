@@ -6,11 +6,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /** A class containing mappings between node and synapses using their InnovationIDs. */
-public class Innovation {
-    /*
-     * Must contain:
-     * - A HashMap mapping synapses to pairs of nodes (creating a new synapse from two existing nodes)
-     */
+public final class Innovation {
 
     /** Used to obtain the innovationID of the two nodes of any given synapse innovationID */
     private final HashMap<intPairs, Integer> nodePairsToEdge = new HashMap<>();
@@ -20,16 +16,14 @@ public class Innovation {
 
     private int splitNodeInnovation = 0;
 
-    //todo created for testing purposes
+    /** created for testing purposes. */
     void reset(){
         nodePairsToEdge.clear();
         edgeToSplitNode.clear();
         splitNodeInnovation = 0;
     }
 
-    /**
-     * Returns the Innovation ID of the edge connecting {@code node1IID} and {@code node2IID}
-     */
+    /** Returns the Innovation ID of the edge connecting {@code node1IID} and {@code node2IID}. */
     int getEdgeInnovationID(int node1IID, int node2IID) {
         intPairs pair = new intPairs(node1IID, node2IID);
         Integer edgeIID = nodePairsToEdge.get(pair);
@@ -39,7 +33,7 @@ public class Innovation {
         return nodePairsToEdge.size() - 1;
     }
 
-    /** TODO */
+    /** Returns the Innovation ID of the node after splitting the edge with Innovation ID of {@code edgeIID}. */
     int getSplitNodeInnovationID(int edgeIID,List<node> nodes) {
         edgeToSplitNode.putIfAbsent(edgeIID, new ArrayList<>());
         for (int i : edgeToSplitNode.get(edgeIID)) {
@@ -47,8 +41,8 @@ public class Innovation {
                 return i;
             }
         }
-        edgeToSplitNode.get(edgeIID).add(splitNodeInnovation++);
-        return splitNodeInnovation;
+        edgeToSplitNode.get(edgeIID).add(splitNodeInnovation);
+        return ++splitNodeInnovation;
     }
 
     /** Re-initializes all hidden nodes to its appropriate values */
@@ -208,28 +202,23 @@ public class Innovation {
     private static class intPairs {
         private final long combined;
 
-        /** TODO */
         private intPairs(int num1, int num2) {
             this.combined = ((long) num1 << 32) | (num2 & 0xFFFFFFFFL);
         }
 
-        /** TODO */
         private int first() {
             return (int) (combined >> 32);
         }
 
-        /** TODO */
         private int second() {
             return (int) combined;
         }
 
-        /** TODO */
         @Override
         public int hashCode() {
             return Long.hashCode(combined);
         }
 
-        /** TODO */
         @Override
         public boolean equals(Object obj) {
             return obj instanceof intPairs && combined == ((intPairs) obj).combined;

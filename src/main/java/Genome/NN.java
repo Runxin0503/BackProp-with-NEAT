@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /** Neural Network that uses topological sort to minimize computational time and increase memory efficiency */
-public class NN {
+public final class NN {
 
     /**
      * Stores a list of edges.
@@ -26,7 +26,7 @@ public class NN {
      */
     final ArrayList<node> nodes;
 
-    /** TODO */
+    /** The Constants object for the {@linkplain Evolution} class that created this class instance. */
     final Constants Constants;
 
     /** The amount of times this Neural Network has been trained */
@@ -44,7 +44,8 @@ public class NN {
         this.Constants = Constants;
     }
 
-    /** TODO write documentation, expose this to outside */
+    /** Builds a Default Neural Network object ({@linkplain NN}) according to {@code Constants}
+     * consisting of just input/output nodes with random bias value, no hidden nodes, and no edges. */
     public static NN getDefaultNeuralNet(Constants Constants) {
         ArrayList<node> nodes = new ArrayList<>();
 

@@ -1,7 +1,7 @@
 package Genome;
 
 /** Package-private Static class that mutates the genome of any given {@link NN} */
-class Mutation {
+final class Mutation {
 
     /** Chooses a random synapse (if there is one) to shift its weight by a random amount */
     static void shiftWeights(NN nn) {

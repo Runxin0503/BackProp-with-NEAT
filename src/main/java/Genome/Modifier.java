@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /** Package-private Static class that adds synapses and nodes to any given {@link NN} */
-class Modifier {
+final class Modifier {
 
     /**
      * Adds an edge connecting the nodes at index {@code i1} and {@code i2}

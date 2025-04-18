@@ -65,18 +65,18 @@ abstract class Gene {
     /** Adds {@code deltaValue} to the current value of this Gene, used for back-propagation to tune Gene values */
     abstract void addValue(double deltaValue);
 
-    /** returns the innovation ID of this gene */
+    /** Returns the innovation ID of this Gene. */
     int getInnovationID() {
         return innovationID;
     }
 
-    /** TODO */
+    /** Standard {@link Object#hashCode()} that uses this Gene's InnovationID as a hash code. */
     @Override
     public int hashCode() {
         return getInnovationID();
     }
 
-    /** TODO */
+    /** Compares InnovationIDs and class instance in Genes. Used in Hash-tables and Hashmaps for object comparison. */
     @Override
     public abstract boolean equals(Object obj);
 }

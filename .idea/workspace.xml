@@ -8,19 +8,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Species.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Species.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Gene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/edge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FixedNetworkBackpropagationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/FixedNetworkBackpropagationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ForwardCalculationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/ForwardCalculationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MutationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/MutationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/speedTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/speedTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,16 +197,16 @@
   </component>
   <component name="RunManager" selected="JUnit.FixedNetworkBackpropagationTest.testBackPropagateANDNetworkRMSProp">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <module name="BackProp with NEAT" />
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="backprop-with-neat" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <option name="ALTERNATIVE_JRE_PATH" value="21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <module name="backprop-with-neat" />
+      <module name="BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -560,6 +556,7 @@
       <workItem from="1744775379808" duration="56000" />
       <workItem from="1744833931328" duration="7000" />
       <workItem from="1744945789460" duration="3296000" />
+      <workItem from="1744987325691" duration="6520000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -595,62 +592,62 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>401</line>
+          <line>400</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/Modifier.java</url>
-          <line>69</line>
+          <line>68</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>416</line>
+          <line>415</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>412</line>
+          <line>411</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>408</line>
+          <line>407</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>404</line>
+          <line>403</line>
           <option name="timeStamp" value="90" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>397</line>
+          <line>396</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>393</line>
+          <line>392</line>
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>421</line>
+          <line>420</line>
           <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>425</line>
+          <line>424</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>429</line>
+          <line>428</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Genome/NN.java</url>
-          <line>436</line>
+          <line>435</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

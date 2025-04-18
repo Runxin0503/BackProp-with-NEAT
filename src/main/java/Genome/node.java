@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** The Genome representation of a node */
-class node extends Gene {
+final class node extends Gene {
 
     /** The Activation Function of this neuron */
     private Activation activationFunction;
@@ -77,7 +77,7 @@ class node extends Gene {
         incomingConnections.add(e);
     }
 
-    /** TODO */
+    /** Returns the Activation Function of this node. */
     Activation getActivationFunction() {
         return activationFunction;
     }
@@ -87,13 +87,14 @@ class node extends Gene {
         this.bias += Constants.mutationBiasShiftStrength * (Math.random() * 2 - 1);
     }
 
-    /** TODO */
+    /** Randomly changes this node's Activation Function. */
     void changeAF() {
         this.activationFunction = Activation.values()[(int) (Math.random() * Activation.values().length)];
     }
 
-    /** TODO */
-    public node clone(Optimizer optimizer) {
+    /** Returns an identical node object except {@linkplain #incomingConnections} and
+     * {@linkplain #outgoingConnections} are empty. */
+    node clone(Optimizer optimizer) {
         return new node(innovationID, activationFunction, bias, optimizer);
     }
 
@@ -102,7 +103,8 @@ class node extends Gene {
         return obj instanceof node && ((node) obj).innovationID == innovationID;
     }
 
-    /** TODO */
+    /** Returns true if {@code other} is identical in every instance field.
+     * <br>Use this method instead of {@link #equals(Object)} to compare instance variables beyond InnovationID. */
     boolean identical(node other) {
         return other.innovationID == innovationID && other.activationFunction == activationFunction &&
                 other.activated == activated && other.x == x && other.y == y &&
