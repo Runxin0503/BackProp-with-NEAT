@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * Used in a part of the NEAT algorithm to determine if a genome is successful or not based on its species
  * <br>Randomly selects a representative from its population every generation to use as comparison during
  * species identification.
- * TODO Make this Override-able in Evolution.
  */
 public class Species implements WeightedRandom {
     /** The representative of this species. Used during species identification and randomly chosen every new generation */

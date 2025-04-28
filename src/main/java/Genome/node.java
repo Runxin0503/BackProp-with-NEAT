@@ -14,18 +14,11 @@ final class node extends Gene {
     /** The bias value of this neuron */
     double bias;
 
-    /**
-     * True if neuron's output is > 0, false otherwise.
-     * <br>Used in visualizing individual neuron firing
-     * TODO actually update this
-     */
-    private boolean activated;
-
     /** A list of local indices of incoming/outgoing edges to this node */
     private final List<edge> incomingConnections = new ArrayList<>(),
             outgoingConnections = new ArrayList<>();
 
-    /** TODO */
+    /** X, Y coordinates for visualization */
     double x, y;
 
     node(int innovationID, Activation activationFunction, double bias, Optimizer optimizer) {
@@ -33,14 +26,8 @@ final class node extends Gene {
         this.innovationID = innovationID;
         this.activationFunction = activationFunction;
         this.bias = bias;
-        this.activated = false;
         this.x = 0;
         this.y = 0;
-    }
-
-    /** Returns true if the last output of this neuron is > 0, false otherwise */
-    boolean isActivated() {
-        return activated;
     }
 
     /**

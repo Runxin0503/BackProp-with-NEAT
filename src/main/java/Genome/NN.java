@@ -195,13 +195,18 @@ public final class NN {
             //the node doesn't have an active incoming edge, so ignore that node
             if (Double.isNaN(calculator[i])) continue;
             node n = nodes.get(i);
+            double nodeOutput = n.bias + calculator[i];
+            n.activated = nodeOutput > 0.5;
 
-            calculator[i] = n.getActivationFunction().calculate(n.bias + calculator[i]);
+            calculator[i] = n.getActivationFunction().calculate(nodeOutput);
             for (edge e : n.getOutgoingEdges()) {
                 if (e.isDisabled()) continue;
                 int targetIndex = e.nextIndex;
-                if (Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = e.weight * calculator[i];
-                else calculator[targetIndex] += e.weight * calculator[i];
+                double edgeOutput = e.weight * calculator[i];
+                e.activated = edgeOutput > 0.5;
+
+                if (Double.isNaN(calculator[targetIndex])) calculator[targetIndex] = edgeOutput;
+                else calculator[targetIndex] += edgeOutput;
             }
         }
 

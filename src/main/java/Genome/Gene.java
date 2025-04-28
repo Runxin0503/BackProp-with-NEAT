@@ -14,6 +14,12 @@ abstract class Gene {
     /** The Gradient of this particular Gene. */
     private double gradient = 0;
 
+    /**
+     * True if this gene's output is > 0, false otherwise.
+     * <br>Used in visualizing network activations
+     */
+    boolean activated = false;
+
     /** Clears the Gradient of this particular node */
     void clearGradient() {
         this.gradient = 0;

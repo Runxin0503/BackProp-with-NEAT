@@ -2,13 +2,39 @@ package Evolution;
 
 import java.util.List;
 
-/** TODO */
+
+/**
+ * A functional interface representing an object that can be assigned a score,
+ * allowing it to participate in weighted random selection.
+ * <p>
+ * Classes implementing this interface can be selected proportionally to their score using {@link #getRandom(List)}.
+ * </p>
+ */
 @FunctionalInterface
 interface WeightedRandom {
-    /** TODO */
+    /**
+     * Returns the score associated with this object.
+     * <p>
+     * Higher scores increase the probability of being selected during weighted random sampling.
+     * </p>
+     *
+     * @return the score value
+     */
     double getScore();
 
-    /** TODO */
+    /**
+     * Selects an element from a list based on weighted random sampling.
+     * <p>
+     * Elements with higher {@code getScore()} values are more likely to be selected.
+     * If all scores are zero, an element is chosen uniformly at random.
+     * </p>
+     *
+     * @param list the list of candidates to sample from
+     * @param <T> a type that implements {@link WeightedRandom}
+     * @return a randomly selected element based on the weights
+     * @throws IllegalArgumentException if the list is empty
+     * @throws RuntimeException if an unexpected error occurs during sampling
+     */
     static <T extends WeightedRandom> T getRandom(List<T> list) {
         if (list.isEmpty()) throw new IllegalArgumentException("List is empty");
         double totalValue = 0;

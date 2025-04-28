@@ -2,7 +2,13 @@ package Genome;
 
 import java.util.List;
 
-/** TODO */
+/**
+ * Represents a weighted connection (synapse) between two nodes in a neural network genome.
+ * <p>
+ * Each edge has a weight, can be enabled or disabled, and tracks the innovation IDs of the connected nodes
+ * to maintain historical information for crossover operations in NEAT (NeuroEvolution of Augmenting Topologies).
+ * </p>
+ */
 final class edge extends Gene {
 
     /** The weight of this edge */

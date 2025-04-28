@@ -62,38 +62,47 @@ public class Renderer extends Application implements Initializable {
     @FXML
     private AnchorPane canvasScroller;
 
-    /** TODO */
+    /** Transformation applied to the canvas to handle zooming and panning. */
     private Affine canvasTransform;
 
-    /** TODO */
+    /** The evolutionary algorithm instance managing agents. */
     private Evolution agentFactory;
-    /** TODO */
-    private Agent agent;
-    /** TODO */
+
+    /** The neural network genome associated with the agent. */
     private NN agentGenome;
 
-    /** TODO */
+    /** Default radius of nodes drawn on the canvas. */
     private static final double radius = 10;
 
-    /** TODO */
+    /** Padding around the canvas drawing area. */
     private static final double padding = 5 + radius;
 
-    /** TODO */
+    /** Maximum frames per second for redrawing the canvas. */
     private static final double MAX_FPS = 120;
 
-    /** TODO */
+    /** Minimum zoom level allowed for the canvas. */
     private static final double MIN_ZOOM = 0;
 
-    /** TODO */
+    /** Maximum zoom level allowed for the canvas. */
     private static final double MAX_ZOOM = 10;
 
-    /** TODO */
+    /** Flag indicating whether the canvas needs to be redrawn. */
     private static boolean redrawCanvas;
 
+    /**
+     * JavaFX entry point. Loads the visualizer interface from FXML and displays the main window.
+     *
+     * @param args command-line arguments (ignored)
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Initializes and displays the main JavaFX stage.
+     *
+     * @param stage the primary stage
+     */
     @Override
     public void start(final Stage stage) {
         try {
@@ -122,12 +131,22 @@ public class Renderer extends Application implements Initializable {
         }
     }
 
+    /**
+     * Called when the FXML interface has been loaded. Sets up button event handlers, zooming, panning, and starts canvas updates.
+     *
+     * @param url not used
+     * @param resourceBundle not used
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        agentFactory = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
-                .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
-        agent = agentFactory.agents[0];
+        try {
+            agentFactory = new EvolutionBuilder().setInputNum(2).setOutputNum(2)
+                    .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
+                    .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
+        } catch (EvolutionBuilder.MissingInformation e) {
+            throw new RuntimeException(e);
+        }
+        /** The single agent used for visualization and mutation. */
         agentGenome = NN.getDefaultNeuralNet(agentFactory.Constants);
         System.out.println(agentGenome);
 
@@ -173,6 +192,7 @@ public class Renderer extends Application implements Initializable {
             for (int i = 0; i < input.length; i++) input[i] = Math.random() * 20 - 10;
             System.out.println("Input: " + Arrays.toString(input));
             System.out.println("Output: " + Arrays.toString(agentGenome.calculateWeightedOutput(input)));
+            redrawCanvas = true;
         });
 
         canvasTransform = new Affine();
@@ -236,7 +256,10 @@ public class Renderer extends Application implements Initializable {
         updateCanvasPeriodically.play();
     }
 
-    /** TODO */
+
+    /**
+     * Redraws the canvas, rendering the nodes and edges of the neural network genome with the current zoom and pan applied.
+     */
     private void drawCanvas() {
         assert agentGenome.classInv();
 
@@ -288,7 +311,7 @@ public class Renderer extends Application implements Initializable {
                 node nextNode = agentGenome.nodes.get(e.nextIndex);
                 double nextX = nextNode.x * width + padding, nextY = nextNode.y * height + padding;
                 if (canvasCameraBoundingBox.intersects(x, Math.min(y, nextY), nextX - x, Math.abs(y - nextY))) {
-                    gc.setStroke(Color.GRAY);
+                    gc.setStroke(e.activated ? Color.GREEN : Color.RED);
                     gc.strokeLine(x, y, nextX, nextY);
                     double clampedX,clampedY,clampedNextX,clampedNextY;
                     //y = mx+b
@@ -320,7 +343,7 @@ public class Renderer extends Application implements Initializable {
                 }
             }
             if (canvasCameraBoundingBox.intersects(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2)) {
-                gc.setFill(Color.GRAY);
+                gc.setFill(n.activated ? Color.GREEN : Color.RED);
                 gc.fillOval(x - adjustedRadius, y - adjustedRadius, adjustedRadius * 2, adjustedRadius * 2);
                 gc.setFill(Color.BLACK);
                 gc.fillText(n.getActivationFunction() + "", x - adjustedRadius, y - adjustedRadius * 1.2);
