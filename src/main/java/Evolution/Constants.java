@@ -12,17 +12,27 @@ import java.util.function.Supplier;
  * is modified to fit the client's needs during the construction process.
  */
 public class Constants {
-    //TODO add a constructor for this class with package-private access and change vars like inputNum to be final
-    int inputNum = -1, outputNum = -1;
-    int numSimulated = -1;
-    Activation.arrays outputAF = null;
+    private final int inputNum, outputNum;
+    final int numSimulated;
+    private final Activation.arrays outputAF;
 
-    Activation defaultHiddenAF = Activation.none;
-    Supplier<Double> defaultValueInitializer;
-    Cost CostFunction = null;
-    Optimizer optimizer = Optimizer.ADAM;
+    private final Activation defaultHiddenAF;
+    private final Supplier<Double> defaultValueInitializer;
+    private final Cost CostFunction;
+    private final Optimizer optimizer;
 
     private final Innovation Innovation = new Innovation();
+
+    Constants(int inputNum, int outputNum, int numSimulated, Activation defaultHiddenAF, Activation.arrays outputAF, Cost CostFunction, Optimizer Optimizer) {
+        this.inputNum = inputNum;
+        this.outputNum = outputNum;
+        this.numSimulated = numSimulated;
+        this.defaultHiddenAF = defaultHiddenAF;
+        this.outputAF = outputAF;
+        this.CostFunction = CostFunction;
+        this.optimizer = Optimizer;
+        defaultValueInitializer = Activation.getInitializer(defaultHiddenAF, inputNum, outputNum);
+    }
 
     /** TODO */
     public double weightedExcess = 1;

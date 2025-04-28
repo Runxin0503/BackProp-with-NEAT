@@ -9,14 +9,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Species.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Species.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Gene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Innovation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Modifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Mutation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/node.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -557,6 +549,8 @@
       <workItem from="1744833931328" duration="7000" />
       <workItem from="1744945789460" duration="3296000" />
       <workItem from="1744987325691" duration="6520000" />
+      <workItem from="1745006494426" duration="2855000" />
+      <workItem from="1745876333030" duration="525000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

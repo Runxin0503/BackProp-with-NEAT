@@ -2,13 +2,25 @@ package Evolution;
 
 import Genome.Activation;
 import Genome.Cost;
-import Genome.Optimizer;
 import Genome.NN;
+import Genome.Optimizer;
 
 import java.util.ArrayList;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
-/** TODO */
+/**
+ * The core class implementing the NEAT (NeuroEvolution of Augmenting Topologies) algorithm.
+ * <p>
+ * {@code Evolution} manages a population of {@link Agent}s, grouped by {@link Species}, and evolves their
+ * neural network genomes using selection, crossover, mutation, and speciation strategies.
+ * </p>
+ *
+ * <p>Call {@link #nextGen()} after each generation is evaluated to evolve the population.</p>
+ *
+ * @see Agent
+ * @see Species
+ * @see EvolutionBuilder
+ */
 public class Evolution {
 
     /** The collection of {@linkplain Species} used in the NEAT algorithm. */
@@ -21,14 +33,21 @@ public class Evolution {
     /** The Constants class for all subsequent dependent classes like {@linkplain NN} and {@linkplain Species}. */
     public Constants Constants;
 
-    private Evolution(Constants Constants, Function<Integer, ? extends Agent> agentConstructor) {
+    /** A custom Species constructor function used to create subclasses of the {@linkplain Species} class. */
+    private final BiFunction<Agent, Constants, Species> speciesConstructor;
+
+    private Evolution(Constants Constants,
+                      BiFunction<Integer, Constants, Agent> agentConstructor,
+                      BiFunction<Agent, Constants, Species> speciesConstructor, int initialMutation) {
         this.Constants = Constants;
-        Agent first = agentConstructor.apply(0);
+        this.speciesConstructor = speciesConstructor;
+
+        Agent first = agentConstructor.apply(initialMutation, Constants);
         agents = new Agent[Constants.numSimulated];
         agents[0] = first;
-        species.add(new Species(first, Constants));
+        species.add(speciesConstructor.apply(first, Constants));
         for (int i = 1; i < Constants.numSimulated; i++) {
-            Agent temp = agentConstructor.apply(i);
+            Agent temp = agentConstructor.apply(initialMutation, Constants);
             species.getFirst().add(temp);
             agents[i] = temp;
         }
@@ -56,7 +75,7 @@ public class Evolution {
                     break;
                 }
             }
-            if (!found) species.add(new Species(agent, Constants));
+            if (!found) species.add(speciesConstructor.apply(agent, Constants));
         }
 
         //update stagnant count and then cull
@@ -93,74 +112,146 @@ public class Evolution {
      * The builder class for {@link Evolution}, a factory that produces, trains, and applies the NEAT genetic algorithm on neural network agents.
      */
     public static class EvolutionBuilder {
-        private final Constants Constants = new Constants();
+        private int numSimulated = -1;
+        private int inputNum = -1;
+        private int outputNum = -1;
+        private Activation.arrays outputAF = null;
+        private Activation defaultHiddenAF = Activation.none;
+        private Cost CostFunction = null;
+        private Optimizer optimizer = Optimizer.ADAM;
         private int initialMutation = 10;
-        private Function<Integer, Agent> agentConstructor = i -> new Agent(Constants, initialMutation);
+        private BiFunction<Integer, Constants, Agent> agentConstructor = (initialMutation, Constants) -> new Agent(Constants, initialMutation);
+        private BiFunction<Agent, Constants, Species> speciesConstructor = (representative, Constants) -> new Species(representative, Constants);
 
-        /** TODO */
+        /**
+         * Sets the number of agents to simulate per generation.
+         *
+         * @param numSimulated number of agents in the population
+         * @return the current builder instance
+         */
         public EvolutionBuilder setNumSimulated(int numSimulated) {
-            Constants.numSimulated = numSimulated;
+            this.numSimulated = numSimulated;
             return this;
         }
 
-        /** TODO */
+        /**
+         * Sets the number of input nodes for each agent's neural network.
+         *
+         * @param inputNum number of input neurons
+         * @return the current builder instance
+         */
         public EvolutionBuilder setInputNum(int inputNum) {
-            Constants.inputNum = inputNum;
+            this.inputNum = inputNum;
             return this;
         }
 
-        /** TODO */
+        /**
+         * Sets the number of output nodes for each agent's neural network.
+         *
+         * @param outputNum number of output neurons
+         * @return the current builder instance
+         */
         public EvolutionBuilder setOutputNum(int outputNum) {
-            Constants.outputNum = outputNum;
+            this.outputNum = outputNum;
             return this;
         }
 
-        /** TODO */
+        /**
+         * Sets how many times each agent's genome is initially mutated upon creation.
+         *
+         * @param initialMutation number of initial mutation calls
+         * @return the current builder instance
+         */
         public EvolutionBuilder setInitialMutation(int initialMutation) {
             this.initialMutation = initialMutation;
             return this;
         }
 
-        /** TODO */
+        /**
+         * Sets the activation function used at the output layer of the neural networks.
+         *
+         * @param outputAF activation function for the output layer
+         * @return the current builder instance
+         */
         public EvolutionBuilder setOutputAF(Activation.arrays outputAF) {
-            Constants.outputAF = outputAF;
+            this.outputAF = outputAF;
             return this;
         }
 
-        /** TODO */
+        /**
+         * Sets the default activation function used in hidden layers of the neural networks.
+         *
+         * @param defaultHiddenAF the default activation function
+         * @return the current builder instance
+         */
         public EvolutionBuilder setDefaultHiddenAF(Activation defaultHiddenAF) {
-            Constants.defaultHiddenAF = defaultHiddenAF;
+            this.defaultHiddenAF = defaultHiddenAF;
             return this;
         }
 
-        /** TODO */
+        /**
+         * Sets the cost/loss function used to evaluate neural network performance.
+         *
+         * @param CostFunction the cost function
+         * @return the current builder instance
+         */
         public EvolutionBuilder setCostFunction(Cost CostFunction) {
-            Constants.CostFunction = CostFunction;
+            this.CostFunction = CostFunction;
             return this;
         }
 
-        /** TODO */
-        public EvolutionBuilder setAgentConstructor(Function<Integer, Agent> agentConstructor) {
+        /**
+         * Sets a custom agent constructor function.
+         * <p>Useful for supplying subclasses or injecting behavior into agent creation.</p>
+         *
+         * @param agentConstructor a function taking an integer index and returning an Agent
+         * @return the current builder instance
+         */
+        public EvolutionBuilder setAgentConstructor(BiFunction<Integer, Constants, Agent> agentConstructor) {
             this.agentConstructor = agentConstructor;
             return this;
         }
 
-        /** TODO */
-        public EvolutionBuilder setOptimizer(Optimizer optimizer) {
-            this.Constants.optimizer = optimizer;
+        /**
+         * Sets a custom Species constructor function.
+         * <p>Useful for supplying subclasses or injecting behavior into Species creation.</p>
+         *
+         * @param speciesConstructor a supplier that supplies Species instance classes
+         * @return the current builder instance
+         */
+        public EvolutionBuilder setSpeciesConstructor(BiFunction<Agent, Constants, Species> speciesConstructor) {
+            this.speciesConstructor = speciesConstructor;
             return this;
         }
 
-        /** TODO */
-        public Evolution build() throws MissingInformation {
-            if (Constants.inputNum == -1 || Constants.outputNum == -1 || Constants.numSimulated == -1 || Constants.outputAF == null || Constants.CostFunction == null)
-                throw new MissingInformation();
-            Constants.defaultValueInitializer = Activation.getInitializer(Constants.defaultHiddenAF, Constants.inputNum, Constants.outputNum);
-            return new Evolution(Constants, agentConstructor);
+        /**
+         * Sets the optimizer used during backpropagation learning (if applicable).
+         *
+         * @param optimizer the optimizer to use
+         * @return the current builder instance
+         */
+        public EvolutionBuilder setOptimizer(Optimizer optimizer) {
+            this.optimizer = optimizer;
+            return this;
         }
 
-        /** TODO */
-        public static class MissingInformation extends RuntimeException {
+        /**
+         * Builds the {@link Evolution} object after validating that all required parameters are present.
+         *
+         * @return a fully constructed {@link Evolution} instance
+         * @throws MissingInformation if any required configuration field is missing
+         */
+        public Evolution build() throws MissingInformation {
+            if (inputNum == -1 || outputNum == -1 || numSimulated == -1 || outputAF == null || CostFunction == null)
+                throw new MissingInformation();
+            Constants Constants = new Constants(inputNum, outputNum, numSimulated, defaultHiddenAF, outputAF, CostFunction, optimizer);
+            return new Evolution(Constants, agentConstructor, speciesConstructor, initialMutation);
+        }
+
+        /**
+         * Exception thrown when required configuration fields are missing during {@link #build()}.
+         */
+        public static class MissingInformation extends Exception {
             @Override
             public String getMessage() {
                 return "Missing Resources in EvolutionBuilder class";

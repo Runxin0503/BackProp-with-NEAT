@@ -3,7 +3,20 @@ package Evolution;
 import Genome.NN;
 import Genome.Renderer;
 
-/** TODO */
+/**
+ * Represents an individual in the NEAT (NeuroEvolution of Augmenting Topologies) algorithm population.
+ * <p>
+ * Each {@code Agent} contains a neural network genome, which it evolves through mutation and crossover operations.
+ * The agent's performance is evaluated using a {@code score}, which is used for selection in the evolutionary process.
+ * </p>
+ *
+ * <p>Agents are managed by the {@link Evolution} class and grouped in {@link Species} for speciation-based evolution.</p>
+ *
+ * @see NN
+ * @see Renderer
+ * @see Evolution
+ * @see Species
+ */
 public class Agent implements WeightedRandom {
 
     /**
