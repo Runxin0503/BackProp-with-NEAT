@@ -11,7 +11,7 @@ import java.util.List;
  * </p>
  */
 @FunctionalInterface
-interface WeightedRandom {
+public interface WeightedRandom {
     /**
      * Returns the score associated with this object.
      * <p>

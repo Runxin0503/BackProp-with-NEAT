@@ -1,6 +1,5 @@
 package Genome;
 
-import Evolution.Agent;
 import Evolution.Evolution;
 import Evolution.Evolution.EvolutionBuilder;
 import javafx.animation.KeyFrame;
@@ -30,6 +29,10 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+/**
+ * Class responsible for rendering a neural network genome using JavaFX.
+ * It manages zoom, pan, and mutation of the visualized genome.
+ */
 public class Renderer extends Application implements Initializable {
 
     @FXML

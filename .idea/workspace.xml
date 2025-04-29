@@ -7,31 +7,9 @@
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Species.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Species.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/WeightedRandom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/WeightedRandom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Gene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/backprop-with-neat-1.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/original-backprop-with-neat-1.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/BackPropTrainingTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/ForwardBackwardTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/IrisDatasetTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/MutationTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-BackPropTrainingTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-ForwardBackwardTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-IrisDatasetTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-MutationTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/BackPropTrainingTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Genome/FixedNetworkBackpropagationTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Genome/ForwardCalculationTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Genome/MutationTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Genome/speedTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/IrisDatasetTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/iris.data" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -574,7 +552,7 @@
       <workItem from="1744945789460" duration="3296000" />
       <workItem from="1744987325691" duration="6520000" />
       <workItem from="1745006494426" duration="2855000" />
-      <workItem from="1745876333030" duration="4649000" />
+      <workItem from="1745876333030" duration="7558000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

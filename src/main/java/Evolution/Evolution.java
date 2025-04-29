@@ -43,10 +43,10 @@ public class Evolution {
         this.speciesConstructor = speciesConstructor;
 
         Agent first = agentConstructor.apply(initialMutation, Constants);
-        agents = new Agent[Constants.numSimulated];
+        agents = new Agent[Constants.getNumSimulated()];
         agents[0] = first;
         species.add(speciesConstructor.apply(first, Constants));
-        for (int i = 1; i < Constants.numSimulated; i++) {
+        for (int i = 1; i < Constants.getNumSimulated(); i++) {
             Agent temp = agentConstructor.apply(initialMutation, Constants);
             species.getFirst().add(temp);
             agents[i] = temp;

@@ -13,7 +13,7 @@ import java.util.function.Supplier;
  */
 public class Constants {
     private final int inputNum, outputNum;
-    final int numSimulated;
+    private final int numSimulated;
     private final Activation.arrays outputAF;
 
     private final Activation defaultHiddenAF;
@@ -122,6 +122,10 @@ public class Constants {
 
     public int getOutputNum() {
         return outputNum;
+    }
+
+    public int getNumSimulated() {
+        return numSimulated;
     }
 
     public Activation getDefaultHiddenAF() {
