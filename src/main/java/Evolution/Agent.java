@@ -23,7 +23,7 @@ public class Agent implements WeightedRandom {
      * The genome of this Agent
      * <br> Can be null if this Agent's genome is currently being repurposed by a better-performing genome
      */
-    private NN genome;
+    protected NN genome;
 
     /**
      * The score of this Agent.
@@ -66,6 +66,13 @@ public class Agent implements WeightedRandom {
     public NN getGenomeClone() {
         if (!hasGenome()) throw new NullPointerException("Agent " + this + " has empty Genome");
         return (NN) genome.clone();
+    }
+
+    /**
+     * Calculates the weighted output of the values using the Neural Network currently in this Agent
+     */
+    public double[] calculateOutput(double[] input) {
+        return genome.calculateWeightedOutput(input);
     }
 
     /** Removes the genome of this Agent.<br>
