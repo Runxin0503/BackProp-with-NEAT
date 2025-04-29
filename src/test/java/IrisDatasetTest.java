@@ -41,7 +41,7 @@ public class IrisDatasetTest {
     }
 
     @Test
-    void testDataset() {
+    void testDataset() throws Evolution.EvolutionBuilder.MissingInformation {
         Evolution agentFactory = new EvolutionBuilder()
                 .setInputNum(4).setOutputNum(3)
                 .setOutputAF(Activation.arrays.softmax).setNumSimulated(50)

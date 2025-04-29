@@ -17,9 +17,14 @@ public class MutationTest {
     private static final Constants Constants;
 
     static {
-        Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(4).setOutputNum(3)
-                .setDefaultHiddenAF(Activation.reLU).setOutputAF(Activation.arrays.softmax)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
+        Evolution agentFactory;
+        try {
+            agentFactory = new Evolution.EvolutionBuilder().setInputNum(4).setOutputNum(3)
+                    .setDefaultHiddenAF(Activation.reLU).setOutputAF(Activation.arrays.softmax)
+                    .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
+        } catch (Evolution.EvolutionBuilder.MissingInformation e) {
+            throw new RuntimeException(e);
+        }
         Constants = agentFactory.Constants;
     }
 

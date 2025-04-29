@@ -17,9 +17,14 @@ public class ForwardCalculationTest {
     private static final NN defaultNN;
 
     static {
-        Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(4).setOutputNum(3)
-                .setDefaultHiddenAF(Activation.none).setOutputAF(Activation.arrays.none)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build();
+        Evolution agentFactory = null;
+        try {
+            agentFactory = new EvolutionBuilder().setInputNum(4).setOutputNum(3)
+                    .setDefaultHiddenAF(Activation.none).setOutputAF(Activation.arrays.none)
+                    .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build();
+        } catch (EvolutionBuilder.MissingInformation e) {
+            throw new RuntimeException(e);
+        }
         Constants = agentFactory.Constants;
         defaultNN = NN.getDefaultNeuralNet(Constants);
         defaultNN.nodes.forEach(n -> n.bias = 0);
@@ -64,7 +69,7 @@ public class ForwardCalculationTest {
     }
 
     @Test
-    void calculateTest3() {
+    void calculateTest3() throws Evolution.EvolutionBuilder.MissingInformation {
         Constants Constants = new EvolutionBuilder().setInputNum(4).setOutputNum(3)
                 .setDefaultHiddenAF(Activation.none).setOutputAF(Activation.arrays.sigmoid)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build().Constants;

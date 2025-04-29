@@ -13,7 +13,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: When input is 0, predict 1. When input is 1, predict 0 */
     @Test
-    void trainNOTNeuralNetwork() {
+    void trainNOTNeuralNetwork() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(1).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.reLU).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
@@ -47,7 +47,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: AND. When input is both 1, predict 1, otherwise predict 0 */
     @Test
-    void trainANDNeuralNetwork() {
+    void trainANDNeuralNetwork() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
@@ -87,7 +87,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: OR. When either input is 1, predict 1, otherwise predict 0 */
     @Test
-    void trainORNeuralNetwork() {
+    void trainORNeuralNetwork() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
@@ -125,7 +125,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: XOR. When both inputs are 1,1 or 0,0 predict 0, otherwise predict 1 */
     @Test
-    void trainXORNeuralNetwork() {
+    void trainXORNeuralNetwork() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.tanh).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
@@ -164,7 +164,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: When input is 0, predict 1. When input is 1, predict 0 */
     @Test
-    void trainNOTNeuralNetworkMiniBatch() {
+    void trainNOTNeuralNetworkMiniBatch() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(1).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.reLU).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
@@ -197,7 +197,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: AND. When input is both 1, predict 1, otherwise predict 0 */
     @Test
-    void trainANDNeuralNetworkMiniBatch() {
+    void trainANDNeuralNetworkMiniBatch() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(100).build();
@@ -236,7 +236,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: OR. When either input is 1, predict 1, otherwise predict 0 */
     @Test
-    void trainORNeuralNetworkMiniBatch() {
+    void trainORNeuralNetworkMiniBatch() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(75).build();
@@ -274,7 +274,7 @@ public class BackPropTrainingTest {
 
     /** Test Procedure: XOR. When both inputs are 1,1 or 0,0 predict 0, otherwise predict 1 */
     @Test
-    void trainXORNeuralNetworkMiniBatch() {
+    void trainXORNeuralNetworkMiniBatch() throws Evolution.EvolutionBuilder.MissingInformation {
         final Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2)
                 .setDefaultHiddenAF(Activation.tanh).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(50).build();

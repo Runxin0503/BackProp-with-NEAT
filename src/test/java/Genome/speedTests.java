@@ -11,9 +11,14 @@ public class speedTests {
     private static final Constants Constants;
 
     static {
-        Evolution agentFactory = new Evolution.EvolutionBuilder().setInputNum(10).setOutputNum(10)
-                .setDefaultHiddenAF(Activation.none).setOutputAF(Activation.arrays.none)
-                .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
+        Evolution agentFactory = null;
+        try {
+            agentFactory = new Evolution.EvolutionBuilder().setInputNum(10).setOutputNum(10)
+                    .setDefaultHiddenAF(Activation.none).setOutputAF(Activation.arrays.none)
+                    .setCostFunction(Cost.crossEntropy).setNumSimulated(1).build();
+        } catch (Evolution.EvolutionBuilder.MissingInformation e) {
+            throw new RuntimeException(e);
+        }
         Constants = agentFactory.Constants;
     }
 

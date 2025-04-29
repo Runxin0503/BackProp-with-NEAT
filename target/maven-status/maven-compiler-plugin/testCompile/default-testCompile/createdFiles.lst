@@ -1,0 +1,6 @@
+Genome\ForwardCalculationTest.class
+BackPropTrainingTest.class
+Genome\MutationTest.class
+Genome\FixedNetworkBackpropagationTest.class
+Genome\speedTests.class
+IrisDatasetTest.class

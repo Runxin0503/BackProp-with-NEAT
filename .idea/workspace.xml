@@ -6,10 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Evolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/WeightedRandom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/WeightedRandom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BackPropTrainingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BackPropTrainingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/FixedNetworkBackpropagationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/FixedNetworkBackpropagationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/ForwardCalculationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/ForwardCalculationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/MutationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/MutationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/speedTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/speedTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Evolution/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Evolution/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Evolution/Evolution.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Evolution/Evolution.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Evolution/WeightedRandom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Evolution/WeightedRandom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Genome/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Genome/Renderer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -552,7 +560,7 @@
       <workItem from="1744945789460" duration="3296000" />
       <workItem from="1744987325691" duration="6520000" />
       <workItem from="1745006494426" duration="2855000" />
-      <workItem from="1745876333030" duration="7558000" />
+      <workItem from="1745876333030" duration="9932000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

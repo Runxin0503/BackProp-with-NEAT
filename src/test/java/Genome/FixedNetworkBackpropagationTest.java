@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class FixedNetworkBackpropagationTest {
 
     @RepeatedTest(1000)
-    void testBackPropagateANDNetworkSGD() {
+    void testBackPropagateANDNetworkSGD() throws Evolution.EvolutionBuilder.MissingInformation {
         Constants Constants = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2).setOptimizer(Optimizer.SGD)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build().Constants;
@@ -48,7 +48,7 @@ public class FixedNetworkBackpropagationTest {
     }
 
     @RepeatedTest(1000)
-    void testBackPropagateANDNetworkSGDMomentum() {
+    void testBackPropagateANDNetworkSGDMomentum() throws Evolution.EvolutionBuilder.MissingInformation {
         Constants Constants = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2).setOptimizer(Optimizer.SGD_MOMENTUM)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build().Constants;
@@ -86,7 +86,7 @@ public class FixedNetworkBackpropagationTest {
     }
 
     @RepeatedTest(1000)
-    void testBackPropagateANDNetworkRMSProp() {
+    void testBackPropagateANDNetworkRMSProp() throws Evolution.EvolutionBuilder.MissingInformation {
         Constants Constants = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2).setOptimizer(Optimizer.RMS_PROP)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build().Constants;
@@ -124,7 +124,7 @@ public class FixedNetworkBackpropagationTest {
     }
 
     @RepeatedTest(1000)
-    void testBackPropagateANDNetworkADAM() {
+    void testBackPropagateANDNetworkADAM() throws Evolution.EvolutionBuilder.MissingInformation {
         Constants Constants = new Evolution.EvolutionBuilder().setInputNum(2).setOutputNum(2).setOptimizer(Optimizer.ADAM)
                 .setDefaultHiddenAF(Activation.sigmoid).setOutputAF(Activation.arrays.softmax)
                 .setCostFunction(Cost.crossEntropy).setNumSimulated(1).setInitialMutation(0).build().Constants;
