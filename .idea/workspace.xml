@@ -6,18 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/BackPropTrainingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BackPropTrainingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/FixedNetworkBackpropagationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/FixedNetworkBackpropagationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/ForwardCalculationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/ForwardCalculationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/MutationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/MutationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Genome/speedTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Genome/speedTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/IrisDatasetTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Evolution/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Evolution/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Evolution/Evolution.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Evolution/Evolution.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Evolution/WeightedRandom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Evolution/WeightedRandom.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Genome/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Genome/Renderer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,9 +186,7 @@
   </component>
   <component name="RunManager" selected="Application.Renderer">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <option name="ALTERNATIVE_JRE_PATH" value="21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <module name="backprop-with-neat" />
+      <module name="BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -221,7 +207,9 @@
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <module name="BackProp with NEAT" />
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="backprop-with-neat" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -561,6 +549,7 @@
       <workItem from="1744987325691" duration="6520000" />
       <workItem from="1745006494426" duration="2855000" />
       <workItem from="1745876333030" duration="9932000" />
+      <workItem from="1745896916932" duration="116000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

@@ -191,7 +191,8 @@ public class Evolution {
 
         /**
          * Sets the cost/loss function used to evaluate neural network performance.
-         *
+         * <br>This set function can be ignored. Defaults to {@code null} and disables
+         * {@linkplain NN#calculateCost} and {@linkplain NN#learn}.
          * @param CostFunction the cost function
          * @return the current builder instance
          */
@@ -242,7 +243,7 @@ public class Evolution {
          * @throws MissingInformation if any required configuration field is missing
          */
         public Evolution build() throws MissingInformation {
-            if (inputNum == -1 || outputNum == -1 || numSimulated == -1 || outputAF == null || CostFunction == null)
+            if (inputNum == -1 || outputNum == -1 || numSimulated == -1 || outputAF == null)
                 throw new MissingInformation();
             Constants Constants = new Constants(inputNum, outputNum, numSimulated, defaultHiddenAF, outputAF, CostFunction, optimizer);
             return new Evolution(Constants, agentConstructor, speciesConstructor, initialMutation);

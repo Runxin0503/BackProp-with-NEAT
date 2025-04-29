@@ -220,6 +220,7 @@ public final class NN {
 
     /** Returns the loss of this Neural Network, or how far the expected output differs from the actual output. */
     public double calculateCost(double[] input, double[] expectedOutputs) {
+        if(Constants.getCostFunction() == null) throw new IllegalArgumentException("Cost Function wasn't initialized.");
         double[] output = calculateWeightedOutput(input);
         double sum = 0;
 
@@ -332,6 +333,8 @@ public final class NN {
      */
     public static void learn(NN NN, double learningRate, double momentum, double beta, double epsilon, double[][] testCaseInputs, double[][] testCaseOutputs) {
         assert testCaseInputs.length == testCaseOutputs.length;
+        if(NN.Constants.getCostFunction() == null) throw new IllegalArgumentException("Cost Function wasn't initialized.");
+
         for (int i = 0; i < testCaseInputs.length; ++i)
             assert testCaseInputs[i].length == NN.Constants.getInputNum() && testCaseOutputs[i].length == NN.Constants.getOutputNum();
 
