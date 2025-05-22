@@ -372,7 +372,7 @@ public final class NN {
         if (Math.random() < Constants.mutationSynapseProbability) Mutation.mutateSynapse(this);
         if (Math.random() < Constants.mutationChangeAFProbability) Mutation.changeAF(this);
     }
-    
+
     /** Returns the complexity score (sum of nodes and synapses) of this Neural Network */
     public int getComplexity() {
         return genome.size() + nodes.size();
