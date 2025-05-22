@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Evolution/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/backprop-with-neat-1.1.0-shaded.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/backprop-with-neat-1.1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Evolution/Agent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Evolution/Agent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/original-backprop-with-neat-1.1.0.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -554,7 +558,9 @@
       <workItem from="1745896916932" duration="116000" />
       <workItem from="1745898070019" duration="728000" />
       <workItem from="1745899321861" duration="384000" />
-      <workItem from="1745900513621" duration="259000" />
+      <workItem from="1745900513621" duration="594000" />
+      <workItem from="1747621494761" duration="12000" />
+      <workItem from="1747942239887" duration="27000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

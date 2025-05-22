@@ -250,6 +250,15 @@ public class Evolution {
         }
 
         /**
+         * Builds the {@link Evolution} object with the provided {@code Constants} class.
+         *
+         * @return a fully constructed {@link Evolution} instance
+         */
+        public Evolution buildWithConstants(Constants Constants) {
+            return new Evolution(Constants, agentConstructor, speciesConstructor, initialMutation);
+        }
+
+        /**
          * Exception thrown when required configuration fields are missing during {@link #build()}.
          */
         public static class MissingInformation extends Exception {

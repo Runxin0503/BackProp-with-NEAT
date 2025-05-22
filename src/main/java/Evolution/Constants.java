@@ -23,7 +23,7 @@ public class Constants {
 
     private final Innovation Innovation = new Innovation();
 
-    Constants(int inputNum, int outputNum, int numSimulated, Activation defaultHiddenAF, Activation.arrays outputAF, Cost CostFunction, Optimizer Optimizer) {
+    public Constants(int inputNum, int outputNum, int numSimulated, Activation defaultHiddenAF, Activation.arrays outputAF, Cost CostFunction, Optimizer Optimizer) {
         this.inputNum = inputNum;
         this.outputNum = outputNum;
         this.numSimulated = numSimulated;
