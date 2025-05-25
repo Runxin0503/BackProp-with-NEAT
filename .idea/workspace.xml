@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="423b615a-9cb6-46cd-8ba9-e75692f9e84e" name="Changes" comment="test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Genome/NN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Genome/NN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/backprop-with-neat-1.3.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/backprop-with-neat-1.3.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/original-backprop-with-neat-1.3.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-backprop-with-neat-1.3.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/BackPropTrainingTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/BackPropTrainingTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/Genome.ForwardCalculationTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/Genome.ForwardCalculationTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/Genome.MutationTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/Genome.MutationTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/IrisDatasetTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/IrisDatasetTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,9 +186,7 @@
   </component>
   <component name="RunManager" selected="Application.Renderer">
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <option name="ALTERNATIVE_JRE_PATH" value="21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <module name="backprop-with-neat" />
+      <module name="BackProp with NEAT" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -219,7 +207,9 @@
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" singleton="false">
-      <module name="BackProp with NEAT" />
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="backprop-with-neat" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -569,6 +559,7 @@
       <workItem from="1747944001520" duration="427000" />
       <workItem from="1747944450109" duration="397000" />
       <workItem from="1747944958411" duration="829000" />
+      <workItem from="1748194676336" duration="1033000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
